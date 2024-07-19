@@ -12,9 +12,7 @@
   "author": "Irina Shersheyeva",
   "license": "ISC",
   "dependencies": {
-    "@hexlet/chat-server": "^2.0.3"
-  },
-  "devDependencies": {
+    "@hexlet/chat-server": "^2.0.3",
     "react-scripts": "^5.0.1"
   }
 }
