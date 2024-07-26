@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/hikarinakano/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/hikarinakano/frontend-project-12/actions)",
   "main": "index.js",
+  "workspaces": ["frontend"],
   "scripts": {
     "build": "grep react-scripts && npm run build --prefix frontend",
     "start": "start-server -s ./frontend/build",
