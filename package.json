@@ -15,6 +15,9 @@
     "@hexlet/chat-server": "^2.0.3",
     "react-scripts": "^5.0.1"
   },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hikarinakano/frontend-project-12.git#main"
