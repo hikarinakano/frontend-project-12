@@ -1,10 +1,10 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "",
+  "description": "[![Actions Status](https://github.com/hikarinakano/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/hikarinakano/frontend-project-12/actions)",
   "main": "index.js",
   "scripts": {
-  "build": "grep react-scripts && npm run build --prefix frontend",
+    "build": "grep react-scripts && npm run build --prefix frontend",
     "start": "start-server -s ./frontend/build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "cd frontend && npm ci"
@@ -14,5 +14,13 @@
   "dependencies": {
     "@hexlet/chat-server": "^2.0.3",
     "react-scripts": "^5.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hikarinakano/frontend-project-12.git#main"
+  },
+  "bugs": {
+    "url": "https://github.com/hikarinakano/frontend-project-12/issues"
+  },
+  "homepage": "https://github.com/hikarinakano/frontend-project-12/tree/main#readme"
 }
