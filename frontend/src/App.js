@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { PageOne, PageTwo } from './Components/Pages';
+import { PageOne } from './Components/Pages';
 import { NotFound } from './Components/NotFound';
 import { Form } from './Components/Form';
-
 const App = () => {
   return (
     <BrowserRouter>
