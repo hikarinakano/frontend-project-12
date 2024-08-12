@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/hikarinakano/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/hikarinakano/frontend-project-12/actions)",
   "main": "index.js",
-  "workspaces": ["frontend"],
+  "workspaces": [
+    "frontend"
+  ],
   "scripts": {
     "build": "npm run build --prefix frontend",
     "start": "start-server -s ./frontend/build",
@@ -13,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@hexlet/chat-server": "^2.0.3",
+    "react-router-dom": "^6.26.0",
     "react-scripts": "^5.0.1"
   },
   "devDependencies": {
