@@ -14,9 +14,7 @@
   "author": "Irina Shersheyeva",
   "license": "ISC",
   "dependencies": {
-    "@hexlet/chat-server": "^2.0.3",
-    "react-router-dom": "^6.26.0",
-    "react-scripts": "^5.0.1"
+    "@hexlet/chat-server": "^2.0.3"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.0.0"
