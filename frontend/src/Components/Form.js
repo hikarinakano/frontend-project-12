@@ -30,6 +30,7 @@ const LoginPage = () => {
           localStorage.setItem('userId', JSON.stringify(res.data));
           auth.logIn();
           const { from } = location.state;
+          console.log(location.state)
           navigate(from);
         } catch (err) {
           formik.setSubmitting(false);
