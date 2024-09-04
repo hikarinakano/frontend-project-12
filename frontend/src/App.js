@@ -8,9 +8,10 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { Button, Navbar, Nav } from 'react-bootstrap';
-import LoginPage  from './Components/Form';
-import { NotFound } from './Components/NotFound.js';
-import PrivatePage from './Components/PrivateChat';
+import LoginPage  from './components/Form.js';
+import { NotFound } from './components/NotFound.js';
+import PublicPage from './components/PublicPage.js';
+import PrivatePage from './components/PrivateChat.js';
 import AuthContext from './contexts/index.jsx';
 import useAuth from './hooks/index.jsx';
 
@@ -50,27 +51,37 @@ const AuthButton = () => {
 };
 
 const App = () => {
-  return (<AuthProvider>
-  <Router>
-    <div className="container p-3">
-      <h1 className="text-center mt-5 mb-4">Welcome to the secret chat!</h1>
-      <Routes>
-        <Route path="/" element={null} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/error" element={<NotFound />} />
-        {/* <Route
-          path="/private"
-          element={(
-            <PrivateRoute>
-              <PrivatePage />
-            </PrivateRoute>
-          )}
-        /> */}
-      </Routes>
-    </div>
+   return (<AuthProvider>
+    <Router>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand as={Link} to="/">Secret Place</Navbar.Brand>
+        <Nav className="mr-auto">
+          <Nav.Link as={Link} to="/public">Public page</Nav.Link>
+          <Nav.Link as={Link} to="/private">Private page</Nav.Link>
+        </Nav>
+        <AuthButton />
+      </Navbar>
 
-  </Router>
-</AuthProvider>)
+      <div className="container p-3">
+        <h1 className="text-center mt-5 mb-4">Welcome to the secret place!</h1>
+        <Routes>
+          <Route path="/" element={<LoginPage/>} />
+          <Route path="/error" element={<NotFound/>} />
+          <Route path="/public" element={<PublicPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/private"
+            element={(
+              <PrivateRoute>
+                <PrivatePage />
+              </PrivateRoute>
+            )}
+          />
+        </Routes>
+      </div>
+
+    </Router>
+  </AuthProvider>)
 }
 
 export default App;
