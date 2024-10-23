@@ -8,7 +8,6 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-
 import LoginPage from './components/LoginPage.js';
 import PrivatePage from './components/PrivatePage.js'
 import AuthContext from './contexts/auth-context.js';
