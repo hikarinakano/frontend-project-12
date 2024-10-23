@@ -20,9 +20,7 @@ const PrivatePage = () => {
   const [content, setContent] = useState('');
   useEffect(() => {
     const fetchContent = async () => {
-      const { data } = await axios.post(routes.loginPath(), { headers: getAuthHeader() });
-      console.log(data)
-      setContent(data);
+      await axios.post(routes.loginPath(), { headers: getAuthHeader() });
     };
 
     fetchContent();
