@@ -7,13 +7,13 @@ import {
   Navigate,
   useLocation,
 } from 'react-router-dom';
-import { Button, Navbar, Nav } from 'react-bootstrap';
-import LoginPage  from './components/Form.js';
-import { NotFound } from './components/NotFound.js';
-import PublicPage from './components/PublicPage.js';
-import PrivatePage from './components/PrivateChat.js';
-import AuthContext from './contexts/index.jsx';
-import useAuth from './hooks/index.jsx';
+import { Button } from 'react-bootstrap';
+
+import LoginPage from './components/LoginPage.js';
+import PrivatePage from './components/PrivatePage.js'
+import AuthContext from './contexts/auth-context.js';
+import NotFoundPage from './components/NotFoundPage.js'
+import useAuth from './hooks/index.js';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -30,6 +30,7 @@ const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
   const location = useLocation();
@@ -50,27 +51,17 @@ const AuthButton = () => {
   );
 };
 
-const App = () => {
-   return (<AuthProvider>
+const App = () => (
+  <AuthProvider>
     <Router>
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand as={Link} to="/">Secret Place</Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/public">Public page</Nav.Link>
-          <Nav.Link as={Link} to="/private">Private page</Nav.Link>
-        </Nav>
-        <AuthButton />
-      </Navbar>
-
       <div className="container p-3">
         <h1 className="text-center mt-5 mb-4">Welcome to the secret place!</h1>
         <Routes>
-          <Route path="/" element={<LoginPage/>} />
-          <Route path="/error" element={<NotFound/>} />
-          <Route path="/public" element={<PublicPage />} />
+          <Route path="/404" element={<NotFoundPage/>}/>
+          <Route path="/main" element={null} />
           <Route path="/login" element={<LoginPage />} />
           <Route
-            path="/private"
+            path="/"
             element={(
               <PrivateRoute>
                 <PrivatePage />
@@ -81,7 +72,7 @@ const App = () => {
       </div>
 
     </Router>
-  </AuthProvider>)
-}
+  </AuthProvider>
+);
 
 export default App;
