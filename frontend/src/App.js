@@ -7,7 +7,7 @@ import {
   Navigate,
   useLocation,
 } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Navbar, Card } from 'react-bootstrap';
 import LoginPage from './components/LoginPage.js';
 import PrivatePage from './components/PrivatePage.js'
 import AuthContext from './contexts/auth-context.js';
@@ -41,23 +41,22 @@ const PrivateRoute = ({ children }) => {
 
 const AuthButton = () => {
   const auth = useAuth();
-  const location = useLocation();
-
   return (
     auth.loggedIn
-      ? <Button onClick={auth.logOut}>Log out</Button>
-      : <Button as={Link} to="/login" state={{ from: location }}>Log in</Button>
+      ? <Button className="ml-auto" onClick={auth.logOut}>Log out</Button>
+      : ''
   );
 };
 
 const App = () => (
   <AuthProvider>
+    <Navbar>
+      <AuthButton/>
+    </Navbar>
     <Router>
       <div className="container p-3">
-        <h1 className="text-center mt-5 mb-4">Welcome to the secret place!</h1>
         <Routes>
-          <Route path="/404" element={<NotFoundPage/>}/>
-          <Route path="/main" element={null} />
+          <Route path="*" element={<NotFoundPage/>}/>
           <Route path="/login" element={<LoginPage />} />
           <Route
             path="/"
@@ -67,9 +66,9 @@ const App = () => (
               </PrivateRoute>
             )}
           />
+            <Route path="/signup" element={<LoginPage/>}/>
         </Routes>
       </div>
-
     </Router>
   </AuthProvider>
 );
