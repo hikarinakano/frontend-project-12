@@ -3,11 +3,10 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
   Navigate,
   useLocation,
 } from 'react-router-dom';
-import { Button, Navbar, Card } from 'react-bootstrap';
+import { Button, Navbar } from 'react-bootstrap';
 import LoginPage from './components/LoginPage.js';
 import PrivatePage from './components/PrivatePage.js'
 import AuthContext from './contexts/auth-context.js';

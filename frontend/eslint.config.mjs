@@ -9,23 +9,21 @@ export default [
   pluginJs.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
-    plugins:
-    {
-      react: pluginReact,
-      settings: {
-        react: {
-          version: "detect",
-          defaultVersion: "",
-        }
+    plugins: {
+      react: pluginReact
+    },
+    settings: {
+      react: {
+        version: "detect",
       }
-
     }
   },
   { ignores: ["/node_modules/", "dist", "build"] },
   {
     rules: {
       "react/jsx-uses-react": "off",
-      "react/react-in-jsx-scope": "off"
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
     },
   }
 ];
