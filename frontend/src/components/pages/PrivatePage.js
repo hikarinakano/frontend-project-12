@@ -1,10 +1,6 @@
-// @ts-check
-
+// import React from "react";
 // import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-
 // // import routes from '../routes.js';
-
 // // const getAuthHeader = () => {
 // //   const userId = JSON.parse(localStorage.getItem('userId') ?? '{}');
 // //   if (userId && userId.token) {
@@ -15,12 +11,12 @@ import React, { useEffect, useState } from 'react';
 // // };
 
 const PrivatePage =  () => {
-  const fetchContent = async () => {
+  // const fetchContent = async () => {
     // const channels = await axios.get(routes.channelsPath(), {headers: getAuthHeader()});
     // const messages = await axios.post(routes.messagesPath(), {message: 'hello'}, {headers: getAuthHeader()});
     // the question of connecting channels and messages is still open how. The structure of the slices and the server responses will be different
-  }
-  fetchContent();
+  // }
+  // fetchContent();
   // useEffect(() => {
   //   const fetchContent = async () => {
   //     console.log(getAuthHeader())

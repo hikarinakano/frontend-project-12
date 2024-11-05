@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
         }));
         setLoggedIn(true);
       } catch(e) {
-        console.error('Failed to parse auth data')
+        console.error('Failed to parse auth data', e)
       }
     }
   }, [dispatch]);

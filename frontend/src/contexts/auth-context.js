@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 
 const AuthContext = React.createContext({
   loggedIn: false,
-  logIn: (authData) => {},
+  logIn: (_authData) => {},
   logOut: () => {},
 });
 
