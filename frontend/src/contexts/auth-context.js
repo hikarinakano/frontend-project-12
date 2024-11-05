@@ -2,7 +2,7 @@ import React from 'react';
 
 const AuthContext = React.createContext({
   loggedIn: false,
-  logIn: () => {},
+  logIn: (authData) => {},
   logOut: () => {},
 });
 
