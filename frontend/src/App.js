@@ -67,13 +67,6 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
   const { token } = useSelector((state) => state.auth);
   const storedAuth = localStorage.getItem('userId');
-
-  console.log('PrivateRoute check:', {
-    authLoggedIn: auth.loggedIn,
-    reduxToken: token,
-    storedAuth: storedAuth,
-    parsedAuth: storedAuth ? JSON.parse(storedAuth) : null
-  });
   const isAuthenticated = auth.loggedIn || token || storedAuth;
   return (
     isAuthenticated ? children : <Navigate to="/login" state={{ from: location }} />
