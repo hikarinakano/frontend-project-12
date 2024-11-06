@@ -6,9 +6,10 @@ import {
   Navigate,
   useLocation,
 } from 'react-router-dom';
-import { Button, Navbar } from 'react-bootstrap';
+import { Button, Navbar, Container } from 'react-bootstrap';
 import LoginPage from './components/pages/LoginPage.js';
-import PrivatePage from './components/pages/PrivatePage.js'
+import PrivatePage from './components/pages/PrivatePage.js';
+import SignupPage from './components/pages/SignupPage.js';
 import AuthContext from './contexts/auth-context.js';
 import NotFoundPage from './components/pages/NotFoundPage.js'
 import useAuth from './hooks/index.js';
@@ -82,23 +83,28 @@ const AuthButton = () => {
   const auth = useAuth();
   return (
     auth.loggedIn
-      ? <Button className="ml-auto" onClick={auth.logOut}>Log out</Button>
+      ? <Button variant="primary" onClick={auth.logOut}>Log out</Button>
       : ''
   );
 };
-console.log(window.localStorage)
 
 const App = () => (
   <Provider store={store}>
     <AuthProvider>
-      <Navbar>
-        <AuthButton />
+      <Navbar bg="white" expand="lg" className="shadow-sm">
+        <Container>
+          <Navbar.Brand>Hexlet Chat</Navbar.Brand>
+          <div className="ms-auto">
+            <AuthButton />
+          </div>
+        </Container>
       </Navbar>
       <Router>
         <div className="container p-3">
           <Routes>
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage/>} />
             <Route
               path="/"
               element={(
