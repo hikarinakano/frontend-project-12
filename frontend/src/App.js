@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setAuthInfo, clearAuthInfo } from '../src/store/slices/authSlice.js'
 import store from '../src/store/index.js';
 import { Provider } from 'react-redux';
+import './styles/main.css';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
