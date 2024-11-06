@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useRef, useEffect } from 'react';
 
+// fix the scrolling of the chat instead of the whole page
 const Channel = ({ channelId }) => {
   const { username } = useSelector((state) => state.auth);
   const { data: messages, isLoading } = useGetMessagesQuery();
