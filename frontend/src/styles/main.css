@@ -1,0 +1,66 @@
+/* Chat container */
+.messages-container {
+  height: calc(100vh - 160px);
+}
+
+/* Message styling */
+.message-bubble {
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+/* Channel list styling */
+.nav-pills .nav-link {
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #1d1c1d;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-pills .nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.nav-pills .nav-link.active {
+  background-color: #1164A3;
+  color: white;
+}
+
+/* Scrollbar styling */
+.overflow-auto::-webkit-scrollbar {
+  width: 8px;
+}
+
+.overflow-auto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Channel buttons */
+.channel-button {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.channel-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.channel-button.active {
+  background-color: #1164A3;
+  color: white;
+}
