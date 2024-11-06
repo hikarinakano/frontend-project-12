@@ -39,8 +39,8 @@ export const messagesApi = createApi({
 
           await cacheEntryRemoved;
           socket.off('newMessage');
-        } catch {
-          // Handle error
+        } catch(e) {
+          console.error("Error fetching messages");
         }
       },
     }),
