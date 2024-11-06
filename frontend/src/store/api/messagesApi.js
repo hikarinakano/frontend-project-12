@@ -23,17 +23,16 @@ export const messagesApi = createApi({
   }),
   endpoints: (builder) => ({
     getMessages: builder.query({
-      query: (channelId) => ({
-        url: routes.messagesPath(),
-        params: { channelId }  // Add channelId as a query parameter
-      }),
+      query: () => routes.messagesPath(),
+      providesTags: ['Messages'],
     }),
     addMessage: builder.mutation({
       query: (messageData) => ({
         url: routes.messagesPath(),
         method: 'POST',
-        body: messageData,  // { body: 'message text', channelId: 1, username: 'user' }
+        body: messageData,
       }),
+      invalidatesTags: ['Messages'],
     }),
   }),
 });
