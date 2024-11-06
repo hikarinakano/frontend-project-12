@@ -64,11 +64,10 @@ const Channel = ({ channelId }) => {
               className={`mb-2 ${message.username === username ? 'text-end' : ''}`}
             >
               <div
-                className={`d-inline-block px-3 py-2 rounded-3 ${
-                  message.username === username
+                className={`d-inline-block px-3 py-2 rounded-3 ${message.username === username
                     ? 'bg-primary text-white'
                     : 'bg-white shadow-sm'
-                }`}
+                  }`}
               >
                 <div className="small text-opacity-75 mb-1">
                   {message.username === username ? 'You' : message.username}
