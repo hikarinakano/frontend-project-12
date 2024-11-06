@@ -40,7 +40,7 @@ export const messagesApi = createApi({
           await cacheEntryRemoved;
           socket.off('newMessage');
         } catch(e) {
-          console.error("Error fetching messages");
+          console.error("Error fetching messages", e.message);
         }
       },
     }),
