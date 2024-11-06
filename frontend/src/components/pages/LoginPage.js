@@ -1,9 +1,8 @@
-
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
-import { Button, Form } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Button, Form, Card } from 'react-bootstrap';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import useAuth from '../../hooks/index.js';
 import routes from '../../routes.js';
 
@@ -47,43 +46,63 @@ const LoginPage = () => {
   });
 
   return (
-    <div className="container-fluid">
-      <div className="row justify-content-center pt-5">
-        <div className="col-sm-4">
-          <Form onSubmit={formik.handleSubmit} className="p-3">
-            <fieldset>
-              <Form.Group>
-                <Form.Label htmlFor="username">Username</Form.Label>
-                <Form.Control
-                  onChange={formik.handleChange}
-                  value={formik.values.username}
-                  placeholder="username"
-                  name="username"
-                  id="username"
-                  autoComplete="username"
-                  isInvalid={authFailed}
-                  required
-                  ref={inputRef}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label htmlFor="password">Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  onChange={formik.handleChange}
-                  value={formik.values.password}
-                  placeholder="password"
-                  name="password"
-                  id="password"
-                  autoComplete="current-password"
-                  isInvalid={authFailed}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
-              </Form.Group>
-              <Button type="submit" variant="outline-primary">Submit</Button>
-            </fieldset>
-          </Form>
+    <div className="container-fluid h-100">
+      <div className="row justify-content-center align-items-center h-100">
+        <div className="col-12 col-md-8 col-xxl-6">
+          <Card className="shadow-sm">
+            <Card.Body className="p-5">
+              <Form onSubmit={formik.handleSubmit} className="p-3">
+                <h1 className="text-center mb-4">Login</h1>
+                <fieldset>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="username">Username</Form.Label>
+                    <Form.Control
+                      onChange={formik.handleChange}
+                      value={formik.values.username}
+                      placeholder="username"
+                      name="username"
+                      id="username"
+                      autoComplete="username"
+                      isInvalid={authFailed}
+                      required
+                      ref={inputRef}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-4">
+                    <Form.Label htmlFor="password">Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      onChange={formik.handleChange}
+                      value={formik.values.password}
+                      placeholder="password"
+                      name="password"
+                      id="password"
+                      autoComplete="current-password"
+                      isInvalid={authFailed}
+                      required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Неверные имя пользователя или пароль
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Button 
+                    type="submit" 
+                    variant="outline-primary" 
+                    className="w-100 mb-3"
+                    disabled={formik.isSubmitting}
+                  >
+                    Submit
+                  </Button>
+                </fieldset>
+              </Form>
+            </Card.Body>
+            <Card.Footer className="p-4">
+              <div className="text-center">
+                <span>Don&apos;t have an account? </span>
+                <Link to="/signup">Sign up</Link>
+              </div>
+            </Card.Footer>
+          </Card>
         </div>
       </div>
     </div>
