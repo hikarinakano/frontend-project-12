@@ -6,11 +6,8 @@ export const channelsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
     prepareHeaders: (headers, { getState }) => {
-      // Try getting token from Redux state first
       const { token } = getState().auth;
-      
       if (!token) {
-        // If no token in Redux, try localStorage
         const stored = localStorage.getItem('userId');
         if (stored) {
           const parsedAuth = JSON.parse(stored);
