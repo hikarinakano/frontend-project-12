@@ -1,6 +1,6 @@
-// i need to fetch all the messages for this user
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import routes from '../../routes';
+import socket from '../../services/socket';
 
 export const messagesApi = createApi({
   reducerPath: 'messages',
@@ -24,7 +24,25 @@ export const messagesApi = createApi({
   endpoints: (builder) => ({
     getMessages: builder.query({
       query: () => routes.messagesPath(),
-      providesTags: ['Messages'],
+      async onCacheEntryAdded(
+        arg,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+      ) {
+        try {
+          await cacheDataLoaded;
+
+          socket.on('newMessage', (message) => {
+            updateCachedData((draft) => {
+              draft.push(message);
+            });
+          });
+
+          await cacheEntryRemoved;
+          socket.off('newMessage');
+        } catch {
+          // Handle error
+        }
+      },
     }),
     addMessage: builder.mutation({
       query: (messageData) => ({
@@ -32,7 +50,6 @@ export const messagesApi = createApi({
         method: 'POST',
         body: messageData,
       }),
-      invalidatesTags: ['Messages'],
     }),
   }),
 });
