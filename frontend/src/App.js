@@ -1,86 +1,16 @@
-import { useEffect, useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from 'react-router-dom';
-import { Button, Navbar, Container } from 'react-bootstrap';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Navbar, Container } from 'react-bootstrap';
 import LoginPage from './components/pages/LoginPage.js';
 import PrivatePage from './components/pages/PrivatePage.js';
 import SignupPage from './components/pages/SignupPage.js';
-import AuthContext from './contexts/auth-context.js';
+import PrivateRoute from './components/authorization/PrivateRoute.js';
+import AuthProvider from './components/authorization/AuthProvider.js';
 import NotFoundPage from './components/pages/NotFoundPage.js'
-import useAuth from './hooks/index.js';
-import { useSelector, useDispatch } from 'react-redux';
-import { setAuthInfo, clearAuthInfo } from '../src/store/slices/authSlice.js'
+import LogOutButton from './components/authorization/AuthButton.js';
 import store from '../src/store/index.js';
 import { Provider } from 'react-redux';
 import './styles/main.css';
-
-const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const storedAuth = localStorage.getItem('userId');
-    if (storedAuth) {
-      try {
-        const parsedAuth = JSON.parse(storedAuth);
-        dispatch(setAuthInfo({
-          username: parsedAuth.username,
-          token: parsedAuth.token
-        }));
-        setLoggedIn(true);
-      } catch(e) {
-        console.error('Failed to parse auth data', e)
-      }
-    }
-  }, [dispatch]);
-
-  const logIn = (authData) => {
-    setLoggedIn(true);
-    const authToStore = {
-      username: authData.username,
-      token: authData.token
-    };
-    localStorage.setItem('userId', JSON.stringify(authToStore));
-    dispatch(setAuthInfo(authToStore));
-  };
-
-  const logOut = () => {
-    localStorage.removeItem('userId');
-    dispatch(clearAuthInfo());
-    setLoggedIn(false);
-  };
-
-  return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-const PrivateRoute = ({ children }) => {
-  const auth = useAuth();
-  const location = useLocation();
-  const { token } = useSelector((state) => state.auth);
-  const storedAuth = localStorage.getItem('userId');
-  const isAuthenticated = auth.loggedIn || token || storedAuth;
-  return (
-    isAuthenticated ? children : <Navigate to="/login" state={{ from: location }} />
-  );
-};
-
-const AuthButton = () => {
-  const auth = useAuth();
-  return (
-    auth.loggedIn
-      ? <Button variant="primary" onClick={auth.logOut}>Log out</Button>
-      : ''
-  );
-};
 
 const App = () => (
   <Provider store={store}>
@@ -89,7 +19,7 @@ const App = () => (
         <Container>
           <Navbar.Brand>Hexlet Chat</Navbar.Brand>
           <div className="ms-auto">
-            <AuthButton />
+            <LogOutButton />
           </div>
         </Container>
       </Navbar>
