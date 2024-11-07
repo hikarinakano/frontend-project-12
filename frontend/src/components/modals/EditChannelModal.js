@@ -3,9 +3,11 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useGetChannelsQuery, useEditChannelMutation } from '../../store/api/channelsApi';
 
-const EditChannelModal = ({ show, onHide, onChannelEdit }) => {
+const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
   const { data: channels = [] } = useGetChannelsQuery();
   const [editChannel] = useEditChannelMutation();
+
+  const currentChannel = channels.find(channel => channel.id === channelId);
 
   const validationSchema = yup.object().shape({
     name: yup
@@ -20,17 +22,18 @@ const EditChannelModal = ({ show, onHide, onChannelEdit }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: '',
+      name: currentChannel? currentChannel.name : '',
     },
+    enableReinitialize: true,
     validationSchema,
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: async (values, { resetForm }) => {
       try {
-        const result = await addChannel({ name: values.name }).unwrap();
+        const result = await editChannel({ id: channelId, name: values.name}).unwrap();
         resetForm();
+        onChannelEdit(result);
         onHide();
-        onChannelAdd(result);
       } catch (err) {
         console.error('Failed to add channel:', err);
       }
