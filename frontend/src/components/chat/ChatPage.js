@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
-import Channels from '../Channels';
-import Chat from '../Chat';
+import Channels from './Channels';
+import Chat from './Chat';
 
 const ChatPage = () => {
   const { data: channels, isLoading } = useGetChannelsQuery();
@@ -20,13 +20,13 @@ const ChatPage = () => {
     <div className="container-fluid h-100 p-0">
       <div className="row h-100 g-0">
         <div className="col-3 col-md-2">
-          <Channels 
+          <Channels
             currentChannel={currentChannel}
             onChannelSelect={setCurrentChannel}
           />
         </div>
         <div className="col-9 col-md-10">
-          <Chat currentChannel={currentChannel}/>
+          <Chat currentChannel={currentChannel} />
         </div>
       </div>
     </div>

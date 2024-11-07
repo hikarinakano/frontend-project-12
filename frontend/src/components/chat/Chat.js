@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { useGetMessagesQuery, useAddMessageMutation } from '../store/api/messagesApi';
+import { useGetMessagesQuery, useAddMessageMutation } from '../../store/api/messagesApi';
 
 const Chat = ({ currentChannel }) => {
   const { id, name } = currentChannel;

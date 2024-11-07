@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
-import { useGetChannelsQuery } from '../store/api/channelsApi';
-import AddChannelModal from './modals/AddChannelModal';
-import DeleteChannelModal from './modals/DeleteChannelModal';
+import { useGetChannelsQuery } from '../../store/api/channelsApi';
+import AddChannelModal from '../modals/AddChannelModal';
+import DeleteChannelModal from '../modals/DeleteChannelModal';
 import Channel from './Channel';
 
 const Channels = ({ currentChannel, onChannelSelect }) => {
@@ -48,7 +48,7 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
         </div>
 
         <ul className="nav flex-column nav-pills nav-fill px-2">
-          {Array.isArray(channels) && channels.map((channel) => <Channel channel={channel} currentChannel={currentChannel} onChannelSelect={onChannelSelect} onChannelDelete={handleShowDeleteModal}/>)}
+          {Array.isArray(channels) && channels.map((channel) => <Channel channel={channel} currentChannel={currentChannel} onChannelSelect={onChannelSelect} onChannelDelete={handleShowDeleteModal} />)}
         </ul>
       </div>
 
@@ -61,7 +61,7 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
         show={showDeleteModal}
         onHide={() => setShowDeleteModal(false)}
         channelId={channelToDelete}
-        onChannelDelete = {handleChannelDelete}
+        onChannelDelete={handleChannelDelete}
       />
     </>
   );
