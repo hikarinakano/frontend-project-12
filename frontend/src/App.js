@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar, Container } from 'react-bootstrap';
 import LoginPage from './components/pages/LoginPage.js';
-import ChatPage from './components/pages/ChatPage.js';
+import ChatPage from './components/chat/ChatPage.js';
 import SignupPage from './components/pages/SignupPage.js';
 import PrivateRoute from './components/authorization/PrivateRoute.js';
 import AuthProvider from './components/authorization/AuthProvider.js';
