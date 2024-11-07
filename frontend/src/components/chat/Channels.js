@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Dropdown } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import AddChannelModal from '../modals/AddChannelModal';
 import DeleteChannelModal from '../modals/DeleteChannelModal';
@@ -53,7 +53,7 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
         </div>
 
         <ul className="nav flex-column nav-pills nav-fill px-2">
-          {Array.isArray(channels) && channels.map((channel) => <Channel channel={channel} currentChannel={currentChannel} onChannelSelect={onChannelSelect} onChannelDelete={handleShowDeleteModal} onChannelEdit={handleChannelEdit}/>)}
+          {Array.isArray(channels) && channels.map((channel) => <Channel key={channel.id} channel={channel} currentChannel={currentChannel} onChannelSelect={onChannelSelect} onChannelDelete={handleShowDeleteModal} onChannelEdit={handleChannelEdit}/>)}
         </ul>
       </div>
 
