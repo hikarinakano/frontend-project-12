@@ -3,6 +3,7 @@ import { Button, Dropdown } from 'react-bootstrap';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import AddChannelModal from '../modals/AddChannelModal';
 import DeleteChannelModal from '../modals/DeleteChannelModal';
+import EditChannelModal from '../modals/EditChannelModal';
 import Channel from './Channel';
 
 const Channels = ({ currentChannel, onChannelSelect }) => {
@@ -10,7 +11,8 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [channelToDelete, setChannelToDelete] = useState(null);
-  const { id } = currentChannel;
+  const [channelToEdit, setChannelToEdit] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const handleChannelDelete = (deletedChannelId) => {
     if (deletedChannelId === currentChannel.id) {
@@ -21,15 +23,18 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
     }
   };
   const handleShowDeleteModal = (channelId) => {
-    setChannelToDelete(channelId)
-    setShowDeleteModal(true)
+    setChannelToDelete(channelId);
+    setShowDeleteModal(true);
   }
   const handleAddChannel = (newChannel) => {
     onChannelSelect(newChannel);
     setShowAddModal(false);
   };
 
-  // handleEdit also
+  const handleChannelEdit = (channelId) => {
+    setChannelToEdit(channelId);
+    setShowEditModal(true);
+  }
   return (
     <>
       <div className="channels-container d-flex flex-column h-100">
@@ -48,7 +53,7 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
         </div>
 
         <ul className="nav flex-column nav-pills nav-fill px-2">
-          {Array.isArray(channels) && channels.map((channel) => <Channel channel={channel} currentChannel={currentChannel} onChannelSelect={onChannelSelect} onChannelDelete={handleShowDeleteModal} />)}
+          {Array.isArray(channels) && channels.map((channel) => <Channel channel={channel} currentChannel={currentChannel} onChannelSelect={onChannelSelect} onChannelDelete={handleShowDeleteModal} onChannelEdit={handleChannelEdit}/>)}
         </ul>
       </div>
 
@@ -62,6 +67,12 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
         onHide={() => setShowDeleteModal(false)}
         channelId={channelToDelete}
         onChannelDelete={handleChannelDelete}
+      />
+      <EditChannelModal
+        show={showEditModal}
+        onHide={() => setShowEditModal(false)}
+        channelId={channelToEdit}
+        onChannelEdit={handleChannelEdit}
       />
     </>
   );
