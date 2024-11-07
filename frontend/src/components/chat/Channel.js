@@ -1,6 +1,6 @@
 import { Button, Dropdown } from 'react-bootstrap';
 
-const Channel = ({ channel, currentChannel, onChannelSelect, onChannelDelete }) => {
+const Channel = ({ channel, currentChannel, onChannelSelect, onChannelDelete, onChannelEdit }) => {
   const isDefault = ['general', 'random'].includes(channel.name);
     const channelName = `# ${channel.name}`;
     const { id } = currentChannel;
@@ -24,7 +24,7 @@ const Channel = ({ channel, currentChannel, onChannelSelect, onChannelDelete }) 
               <Dropdown.Item onClick={() => onChannelDelete(channel.id)}>
                 Delete
               </Dropdown.Item>
-              <Dropdown.Item>
+              <Dropdown.Item onClick={() => onChannelEdit(channel.id)}>
                 Edit
               </Dropdown.Item>
             </Dropdown.Menu>
