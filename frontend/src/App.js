@@ -17,7 +17,7 @@ const App = () => (
     <AuthProvider>
       <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
         <Container>
-          <Navbar.Brand>Hexlet Chat</Navbar.Brand>
+          <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
             <LogOutButton />
         </Container>
       </Navbar>
