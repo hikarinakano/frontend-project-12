@@ -1,6 +1,45 @@
 /* Chat container */
-.messages-container {
-  height: calc(100vh - 160px);
+.chat {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.chat-messages {
+  height: calc(100vh - 180px);
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* Message input area */
+.chat-input-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: calc(100% - 250px);
+  background-color: white;
+  border-top: 1px solid #dee2e6;
+  padding: 1rem;
+}
+
+/* Prevent page scroll */
+body {
+  overflow: hidden;
+}
+
+/* Channel styles */
+.channels-container {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.channel-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-toggle::after {
+  display: none;
 }
 
 /* Message styling */
@@ -63,4 +102,9 @@
 .channel-button.active {
   background-color: #1164A3;
   color: white;
+}
+
+/* Ensure messages don't get hidden behind input */
+.chat-messages {
+  padding-bottom: 80px;
 }
