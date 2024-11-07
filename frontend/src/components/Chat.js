@@ -5,7 +5,6 @@ import { useGetMessagesQuery, useAddMessageMutation } from '../store/api/message
 
 const Chat = ({ currentChannel }) => {
   const { id, name } = currentChannel;
-  console.log('current channel is',currentChannel)
   const { username } = useSelector((state) => state.auth);
   const { data: messages = [] } = useGetMessagesQuery();
   const [addMessage] = useAddMessageMutation();
@@ -60,9 +59,8 @@ const Chat = ({ currentChannel }) => {
             key={message.id}
             className={`mb-2 ${message.username === username ? 'text-end' : ''}`}
           >
-            <div className={`message-bubble ${
-              message.username === username ? 'bg-primary text-white' : 'bg-light'
-            }`}>
+            <div className={`message-bubble ${message.username === username ? 'bg-primary text-white' : 'bg-light'
+              }`}>
               <div className="small mb-1 text-bold">
                 {message.username}
               </div>
@@ -74,7 +72,7 @@ const Chat = ({ currentChannel }) => {
       </div>
 
       <div className="mt-auto px-5 py-3">
-        <Form 
+        <Form
           onSubmit={handleSubmit}
           className="py-1 border rounded-2"
         >
