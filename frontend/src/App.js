@@ -12,19 +12,17 @@ import { Provider } from 'react-redux';
 import './styles/main.css';
 
 const App = () => (
-  <div className='d-flex flex-column h-100'>
+  <div className='d-flex flex-column vh-100'>
   <Provider store={store}>
     <AuthProvider>
       <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
         <Container>
           <Navbar.Brand>Hexlet Chat</Navbar.Brand>
-          <div className="ms-auto">
             <LogOutButton />
-          </div>
         </Container>
       </Navbar>
       <Router>
-        <div className="container h-100 my-4 overflow-hidden rounded shadow">
+        <div className="container h-100 my-4 overflow-hidden rounded shadow flex-grow-1">
           <Routes>
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/login" element={<LoginPage />} />
