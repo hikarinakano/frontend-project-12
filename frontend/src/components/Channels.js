@@ -3,6 +3,7 @@ import { Button, Dropdown } from 'react-bootstrap';
 import { useGetChannelsQuery } from '../store/api/channelsApi';
 import AddChannelModal from './modals/AddChannelModal';
 import DeleteChannelModal from './modals/DeleteChannelModal';
+import Channel from './Channel';
 
 const Channels = ({ currentChannel, onChannelSelect }) => {
   const { data: channels = [] } = useGetChannelsQuery();
@@ -29,40 +30,6 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
   };
 
   // handleEdit also
-  const renderChannel = (channel) => {
-    const isDefault = ['general', 'random'].includes(channel.name);
-    const channelName = `# ${channel.name}`;
-
-    return (
-      <li key={channel.id} className="nav-item d-flex mb-2">
-        <Button
-          variant={id === channel.id ? 'primary' : 'light'}
-          className="text-start w-100 text-truncate"
-          onClick={() => onChannelSelect(channel)}
-        >
-          {channelName}
-        </Button>
-
-        {!isDefault && (
-          <Dropdown align="end">
-            <Dropdown.Toggle variant="light" id={`channel-${channel.id}-dropdown`}>
-              <span className="visually-hidden">Channel menu</span>
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => handleShowDeleteModal(channel.id)}>
-                Delete
-              </Dropdown.Item>
-              <Dropdown.Item>
-                Edit
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        )}
-      </li>
-    );
-  };
-
   return (
     <>
       <div className="channels-container d-flex flex-column h-100">
@@ -81,7 +48,7 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
         </div>
 
         <ul className="nav flex-column nav-pills nav-fill px-2">
-          {Array.isArray(channels) && channels.map(renderChannel)}
+          {Array.isArray(channels) && channels.map((channel) => <Channel channel={channel} currentChannel={currentChannel} onChannelSelect={onChannelSelect} onChannelDelete={handleShowDeleteModal}/>)}
         </ul>
       </div>
 
