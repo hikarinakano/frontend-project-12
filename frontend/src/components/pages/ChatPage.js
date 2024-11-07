@@ -6,11 +6,13 @@ import Chat from '../Chat';
 const ChatPage = () => {
   const { data: channels, isLoading } = useGetChannelsQuery();
   const [currentChannel, setCurrentChannel] = useState(null);
+  const [isFirstLoad, setFirstLoad] = useState(true);
 
   useEffect(() => {
-    if (channels && channels.length > 0) {
+    if (channels && isFirstLoad) {
       const generalChannel = channels.find(channel => channel.name === 'general') || channels[0];
       setCurrentChannel(generalChannel);
+      setFirstLoad(false);
     }
   }, [channels]);
   if (isLoading || !currentChannel) return <div>Loading...</div>;
