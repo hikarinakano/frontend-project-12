@@ -3,10 +3,12 @@ import routes from '../../routes';
 
 export const channelsApi = createApi({
   reducerPath: 'channels',
+  tagTypes: ['Channels'],
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
     prepareHeaders: (headers, { getState }) => {
       const { token } = getState().auth;
+      
       if (!token) {
         const stored = localStorage.getItem('userId');
         if (stored) {
@@ -22,8 +24,28 @@ export const channelsApi = createApi({
   endpoints: (builder) => ({
     getChannels: builder.query({
       query: () => routes.channelsPath(),
+      providesTags: ['Channels'],
+    }),
+    addChannel: builder.mutation({
+      query: (data) => ({
+        url: routes.channelsPath(),
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['Channels'],
+    }),
+    deleteChannel: builder.mutation({
+      query: (id) => ({
+        url: `${routes.channelsPath()}/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Channels'],
     }),
   }),
 });
 
-export const { useGetChannelsQuery } = channelsApi;
+export const {
+  useGetChannelsQuery,
+  useAddChannelMutation,
+  useDeleteChannelMutation,
+} = channelsApi;
