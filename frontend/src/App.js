@@ -12,9 +12,10 @@ import { Provider } from 'react-redux';
 import './styles/main.css';
 
 const App = () => (
+  <div className='d-flex flex-column h-100'>
   <Provider store={store}>
     <AuthProvider>
-      <Navbar bg="white" expand="lg" className="shadow-sm">
+      <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
         <Container>
           <Navbar.Brand>Hexlet Chat</Navbar.Brand>
           <div className="ms-auto">
@@ -23,7 +24,7 @@ const App = () => (
         </Container>
       </Navbar>
       <Router>
-        <div className="container p-3">
+        <div className="container h-100 my-4 overflow-hidden rounded shadow">
           <Routes>
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -42,6 +43,7 @@ const App = () => (
       </Router>
     </AuthProvider>
   </Provider>
+  </div>
 );
 
 export default App;
