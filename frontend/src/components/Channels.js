@@ -7,7 +7,7 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
   const { data: channels = [] } = useGetChannelsQuery();
   const [deleteChannel] = useDeleteChannelMutation();
   const [showAddModal, setShowAddModal] = useState(false);
-  const { id, name } = currentChannel;
+  const { id } = currentChannel;
   const handleDelete = async (channelId) => {
     try {
       await deleteChannel(channelId).unwrap();
