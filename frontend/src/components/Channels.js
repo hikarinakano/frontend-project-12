@@ -1,27 +1,28 @@
 import { useState } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
-import { useGetChannelsQuery, useDeleteChannelMutation } from '../store/api/channelsApi';
+import { useGetChannelsQuery } from '../store/api/channelsApi';
 import AddChannelModal from './modals/AddChannelModal';
+import DeleteChannelModal from './modals/DeleteChannelModal';
 
 const Channels = ({ currentChannel, onChannelSelect }) => {
   const { data: channels = [] } = useGetChannelsQuery();
-  const [deleteChannel] = useDeleteChannelMutation();
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [channelToDelete, setChannelToDelete] = useState(null);
   const { id } = currentChannel;
-  const handleDelete = async (channelId) => {
-    try {
-      await deleteChannel(channelId).unwrap();
-      if (channelId === id) {
-        const generalChannel = channels.find(c => c.name === 'general');
-        if (generalChannel) {
-          onChannelSelect(generalChannel);
-        }
+
+  const handleChannelDelete = (deletedChannelId) => {
+    if (deletedChannelId === currentChannel.id) {
+      const generalChannel = channels.find(c => c.name === 'general');
+      if (generalChannel) {
+        onChannelSelect(generalChannel);
       }
-    } catch (err) {
-      console.error('Failed to delete channel:', err);
     }
   };
-
+  const handleShowDeleteModal = (channelId) => {
+    setChannelToDelete(channelId)
+    setShowDeleteModal(true)
+  }
   const handleAddChannel = (newChannel) => {
     onChannelSelect(newChannel);
     setShowAddModal(false);
@@ -49,8 +50,11 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => handleDelete(channel.id)}>
+              <Dropdown.Item onClick={() => handleShowDeleteModal(channel.id)}>
                 Delete
+              </Dropdown.Item>
+              <Dropdown.Item>
+                Edit
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -85,6 +89,12 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
         show={showAddModal}
         onHide={() => setShowAddModal(false)}
         onChannelAdd={handleAddChannel}
+      />
+      <DeleteChannelModal
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        channelId={channelToDelete}
+        onChannelDelete = {handleChannelDelete}
       />
     </>
   );
