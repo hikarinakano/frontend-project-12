@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar, Container } from 'react-bootstrap';
 import LoginPage from './components/pages/LoginPage.js';
