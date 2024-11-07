@@ -21,6 +21,12 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
       console.error('Failed to delete channel:', err);
     }
   };
+
+  const handleAddChannel = (newChannel) => {
+    onChannelSelect(newChannel);
+    setShowAddModal(false);
+  };
+
   // handleEdit also
   const renderChannel = (channel) => {
     const isDefault = ['general', 'random'].includes(channel.name);
@@ -29,7 +35,7 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
     return (
       <li key={channel.id} className="nav-item d-flex mb-2">
         <Button
-          variant={currentChannel === channel.id ? 'primary' : 'light'}
+          variant={id === channel.id ? 'primary' : 'light'}
           className="text-start w-100 text-truncate"
           onClick={() => onChannelSelect(channel)}
         >
@@ -58,9 +64,9 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
       <div className="channels-container d-flex flex-column h-100">
         <div className="channels-header d-flex justify-content-between align-items-center p-3">
           <span className="h6 mb-0">Channels</span>
-          <Button 
-            variant="link" 
-            className="p-0 text-primary" 
+          <Button
+            variant="link"
+            className="p-0 text-primary"
             onClick={() => setShowAddModal(true)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor">
@@ -75,14 +81,10 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
         </ul>
       </div>
 
-      <AddChannelModal 
-        show={showAddModal} 
+      <AddChannelModal
+        show={showAddModal}
         onHide={() => setShowAddModal(false)}
-        onChannelAdd={(newChannel) => {
-          if (newChannel?.id) {
-            onChannelSelect(newChannel.id);
-          }
-        }}
+        onChannelAdd={handleAddChannel}
       />
     </>
   );
