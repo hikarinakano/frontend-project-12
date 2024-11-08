@@ -8,6 +8,14 @@ export default {
       noAccount: 'Нет аккаунта?',
       signup: 'Регистрация'
     },
+    signup: {
+      signupHeader: 'Регистрация',
+      username: 'Имя пользователя',
+      password: 'Пароль',
+      confirmPassword: 'Подтвердите пароль',
+      signup: 'Зарегистрироваться'
+    },
+
     chat: {
       channels: 'Каналы',
       messages_zero: '{{count}} сообщений',
@@ -45,6 +53,7 @@ export default {
       login: 'Неверные имя пользователя или пароль',
       unique: 'Должно быть уникальным',
       length: 'От 3 до 20 символов',
+      passwordMatch: 'Пароли должны совпадать',
     },
     warning: {
       channelCreated: 'Канал создан',
