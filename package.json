@@ -15,7 +15,7 @@
   "author": "Irina Shersheyeva",
   "license": "ISC",
   "dependencies": {
-    "@hexlet/chat-server": "^2.0.3",
+    "@hexlet/chat-server": "^2.0.3"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.0.0"
