@@ -5,9 +5,11 @@ import { Button, Form, Card } from 'react-bootstrap';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import useAuth from '../../hooks/index.js';
 import routes from '../../routes.js';
+import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
   const auth = useAuth();
+  const { t } = useTranslation();
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
   const location = useLocation();
@@ -52,10 +54,10 @@ const LoginPage = () => {
           <Card className="shadow-sm">
             <Card.Body className="p-5">
               <Form onSubmit={formik.handleSubmit} className="p-3">
-                <h1 className="text-center mb-4">Login</h1>
+                <h1 className="text-center mb-4">{t('login.header')}</h1>
                 <fieldset>
                   <Form.Group className="mb-3">
-                    <Form.Label htmlFor="username">Username</Form.Label>
+                    <Form.Label htmlFor="username">{t('login.username')}</Form.Label>
                     <Form.Control
                       onChange={formik.handleChange}
                       value={formik.values.username}
@@ -69,7 +71,7 @@ const LoginPage = () => {
                     />
                   </Form.Group>
                   <Form.Group className="mb-4">
-                    <Form.Label htmlFor="password">Password</Form.Label>
+                    <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
                     <Form.Control
                       type="password"
                       onChange={formik.handleChange}
@@ -82,7 +84,7 @@ const LoginPage = () => {
                       required
                     />
                     <Form.Control.Feedback type="invalid">
-                      Неверные имя пользователя или пароль
+                      {t('errors.login')}
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Button 
@@ -91,15 +93,15 @@ const LoginPage = () => {
                     className="w-100 mb-3"
                     disabled={formik.isSubmitting}
                   >
-                    Submit
+                   {t('login.submit')}
                   </Button>
                 </fieldset>
               </Form>
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>Don&apos;t have an account? </span>
-                <Link to="/signup">Sign up</Link>
+                <span>{t('login.noAccount')} </span>
+                <Link to="/signup">{t('login.signup')}</Link>
               </div>
             </Card.Footer>
           </Card>
