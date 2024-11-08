@@ -54,6 +54,10 @@ export default {
       unique: 'Должно быть уникальным',
       length: 'От 3 до 20 символов',
       passwordMatch: 'Пароли должны совпадать',
+      usernameTaken: 'Такой пользователь уже существует',
+      networkError: 'Ошибка соединения',
+      minLength: 'Не менее 3 символов',
+      maxLength: 'Не более 20 символов',
     },
     warning: {
       channelCreated: 'Канал создан',
