@@ -6,9 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/index.js';
 import routes from '../../routes.js';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 const SignupPage = () => {
   const auth = useAuth();
+  const { t } = useTranslation();
   const [signupError, setSignupError] = useState('');
   const inputRef = useRef();
   const navigate = useNavigate();
@@ -16,18 +18,17 @@ const SignupPage = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-
   const validationSchema = Yup.object({
     username: Yup.string()
       .min(3, 'Must be at least 3 characters')
       .max(20, 'Must be 20 characters or less')
-      .required('Required'),
+      .required(t('errors.required')),
     password: Yup.string()
       .min(6, 'Must be at least 6 characters')
-      .required('Required'),
+      .required(t('errors.required')),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords must match')
-      .required('Required'),
+      .oneOf([Yup.ref('password'), null], t('errors.passwordMatch'))
+      .required(t('errors.required')),
   });
 
   const formik = useFormik({
@@ -76,10 +77,10 @@ const SignupPage = () => {
           <Card className="shadow-sm">
             <Card.Body className="p-5">
               <Form onSubmit={formik.handleSubmit} className="p-3">
-                <h1 className="text-center mb-4">Sign Up</h1>
+                <h1 className="text-center mb-4">{t('signup.signupHeader')}</h1>
                 <fieldset>
                   <Form.Group className="mb-3">
-                    <Form.Label htmlFor="username">Username</Form.Label>
+                    <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
                     <Form.Control
                       onChange={formik.handleChange}
                       value={formik.values.username}
@@ -100,7 +101,7 @@ const SignupPage = () => {
                   </Form.Group>
 
                   <Form.Group className="mb-3">
-                    <Form.Label htmlFor="password">Password</Form.Label>
+                    <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
                     <Form.Control
                       type="password"
                       onChange={formik.handleChange}
@@ -118,7 +119,7 @@ const SignupPage = () => {
                   </Form.Group>
 
                   <Form.Group className="mb-4">
-                    <Form.Label htmlFor="confirmPassword">Confirm Password</Form.Label>
+                    <Form.Label htmlFor="confirmPassword">{t('signup.confirmPassword')}</Form.Label>
                     <Form.Control
                       type="password"
                       onChange={formik.handleChange}
@@ -147,7 +148,7 @@ const SignupPage = () => {
                     className="w-100"
                     disabled={formik.isSubmitting}
                   >
-                    Sign Up
+                    {t('signup.signup')}
                   </Button>
                 </fieldset>
               </Form>
