@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/index.js';
 import routes from '../../routes.js';
 import * as Yup from 'yup';
-import { useTranslation } from 'react-i18next';
+import { usePageTranslation } from '../../hooks/usePageTranslation';
 
 const SignupPage = () => {
   const auth = useAuth();
-  const { t } = useTranslation();
+  const t = usePageTranslation('signup');
+  const err = usePageTranslation('errors')
   const [signupError, setSignupError] = useState('');
   const inputRef = useRef();
   const navigate = useNavigate();
@@ -20,15 +21,15 @@ const SignupPage = () => {
   }, []);
   const validationSchema = Yup.object({
     username: Yup.string()
-      .min(3, 'Must be at least 3 characters')
-      .max(20, 'Must be 20 characters or less')
-      .required(t('errors.required')),
+      .min(3, err('minLength', { min: 3 }))
+      .max(20, err('maxLength', { max: 20 }))
+      .required(err('required')),
     password: Yup.string()
-      .min(6, 'Must be at least 6 characters')
-      .required(t('errors.required')),
+      .min(6, err('minLength', { min: 6 }))
+      .required(err('required')),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], t('errors.passwordMatch'))
-      .required(t('errors.required')),
+      .oneOf([Yup.ref('password'), null], err('passwordMatch'))
+      .required(err('required')),
   });
 
   const formik = useFormik({
@@ -58,9 +59,9 @@ const SignupPage = () => {
       } catch (err) {
         if (err.isAxiosError) {
           if (err.response?.status === 409) {
-            setSignupError('Username already taken');
+            setSignupError(err('usernameTaken'));
           } else {
-            setSignupError('Network error');
+            setSignupError(err('networkError'));
           }
           inputRef.current.select();
           return;
@@ -77,14 +78,14 @@ const SignupPage = () => {
           <Card className="shadow-sm">
             <Card.Body className="p-5">
               <Form onSubmit={formik.handleSubmit} className="p-3">
-                <h1 className="text-center mb-4">{t('signup.signupHeader')}</h1>
+                <h1 className="text-center mb-4">{t('signupHeader')}</h1>
                 <fieldset>
                   <Form.Group className="mb-3">
-                    <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
+                    <Form.Label htmlFor="username">{t('username')}</Form.Label>
                     <Form.Control
                       onChange={formik.handleChange}
                       value={formik.values.username}
-                      placeholder="Username"
+                      placeholder={t('username')}
                       name="username"
                       id="username"
                       autoComplete="username"
@@ -101,12 +102,12 @@ const SignupPage = () => {
                   </Form.Group>
 
                   <Form.Group className="mb-3">
-                    <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
+                    <Form.Label htmlFor="password">{t('password')}</Form.Label>
                     <Form.Control
                       type="password"
                       onChange={formik.handleChange}
                       value={formik.values.password}
-                      placeholder="Password"
+                      placeholder={t('password')}
                       name="password"
                       id="password"
                       autoComplete="new-password"
@@ -119,12 +120,12 @@ const SignupPage = () => {
                   </Form.Group>
 
                   <Form.Group className="mb-4">
-                    <Form.Label htmlFor="confirmPassword">{t('signup.confirmPassword')}</Form.Label>
+                    <Form.Label htmlFor="confirmPassword">{t('confirmPassword')}</Form.Label>
                     <Form.Control
                       type="password"
                       onChange={formik.handleChange}
                       value={formik.values.confirmPassword}
-                      placeholder="Confirm password"
+                      placeholder={t('confirmPassword')}
                       name="confirmPassword"
                       id="confirmPassword"
                       autoComplete="new-password"
@@ -148,7 +149,7 @@ const SignupPage = () => {
                     className="w-100"
                     disabled={formik.isSubmitting}
                   >
-                    {t('signup.signup')}
+                    {t('signup')}
                   </Button>
                 </fieldset>
               </Form>
