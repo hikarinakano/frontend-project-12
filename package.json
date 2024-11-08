@@ -16,7 +16,6 @@
   "license": "ISC",
   "dependencies": {
     "@hexlet/chat-server": "^2.0.3",
-    "react-toastify": "^10.0.6"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.0.0"
