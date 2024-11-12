@@ -6,6 +6,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import useAuth from '../../hooks/index.js';
 import routes from '../../routes.js';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
   const auth = useAuth();
@@ -33,15 +34,24 @@ const LoginPage = () => {
           token: res.data.token
         }
         auth.logIn(authData);
-        const { from } = location.state;
+        const { from } = location.state || { from: { pathname: "/" } };
         navigate(from);
       } catch (err) {
         formik.setSubmitting(false);
-        if (err.isAxiosError && err.response.status === 401) {
-          setAuthFailed(true);
-          inputRef.current.select();
-          return;
+        if (err.isAxiosError) {
+          if (err.response && err.response.status === 401) {
+            setAuthFailed(true);
+            inputRef.current.select();
+            return;
+          }
+          // Handle network errors or other Axios errors
+          if (!err.response) {
+            toast.error(t('notifications.connection'));
+            return;
+          }
         }
+        // Log unexpected errors
+        console.error('Unexpected error:', err);
         throw err;
       }
     },
