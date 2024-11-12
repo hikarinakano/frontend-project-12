@@ -56,12 +56,11 @@ const LoginPage = () => {
               <Form onSubmit={formik.handleSubmit} className="p-3">
                 <h1 className="text-center mb-4">{t('login.header')}</h1>
                 <fieldset>
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="username">{t('login.username')}</Form.Label>
+                  <Form.Group className="form-floating mb-3">
                     <Form.Control
                       onChange={formik.handleChange}
                       value={formik.values.username}
-                      placeholder="username"
+                      placeholder={t('login.username')}
                       name="username"
                       id="username"
                       autoComplete="username"
@@ -69,31 +68,33 @@ const LoginPage = () => {
                       required
                       ref={inputRef}
                     />
+                    <label htmlFor="username">{t('login.username')}</label>
                   </Form.Group>
-                  <Form.Group className="mb-4">
-                    <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
+                  <Form.Group className="form-floating mb-4">
                     <Form.Control
                       type="password"
                       onChange={formik.handleChange}
                       value={formik.values.password}
-                      placeholder="password"
+                      placeholder={t('login.password')}
                       name="password"
                       id="password"
                       autoComplete="current-password"
                       isInvalid={authFailed}
                       required
                     />
+                    <label htmlFor="password">{t('login.password')}</label>
                     <Form.Control.Feedback type="invalid">
                       {t('errors.login')}
                     </Form.Control.Feedback>
                   </Form.Group>
+
                   <Button 
                     type="submit" 
                     variant="outline-primary" 
                     className="w-100 mb-3"
                     disabled={formik.isSubmitting}
                   >
-                   {t('login.submit')}
+                    {t('login.submit')}
                   </Button>
                 </fieldset>
               </Form>
