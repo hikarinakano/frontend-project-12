@@ -11,7 +11,7 @@ import { usePageTranslation } from '../../hooks/usePageTranslation';
 const SignupPage = () => {
   const auth = useAuth();
   const t = usePageTranslation('signup');
-  const err = usePageTranslation('errors')
+  const err = usePageTranslation('errors');
   const [signupError, setSignupError] = useState('');
   const inputRef = useRef();
   const navigate = useNavigate();
