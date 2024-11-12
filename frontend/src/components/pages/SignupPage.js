@@ -19,6 +19,7 @@ const SignupPage = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
   const validationSchema = Yup.object({
     username: Yup.string()
       .min(3, err('minLength', { min: 3 }))
@@ -42,7 +43,6 @@ const SignupPage = () => {
     onSubmit: async (values) => {
       try {
         setSignupError('');
-        // Send only username and password to the server
         const signupData = {
           username: values.username,
           password: values.password,
@@ -80,8 +80,7 @@ const SignupPage = () => {
               <Form onSubmit={formik.handleSubmit} className="p-3">
                 <h1 className="text-center mb-4">{t('signupHeader')}</h1>
                 <fieldset>
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="username">{t('username')}</Form.Label>
+                  <Form.Group className="form-floating mb-3">
                     <Form.Control
                       onChange={formik.handleChange}
                       value={formik.values.username}
@@ -96,13 +95,13 @@ const SignupPage = () => {
                       required
                       ref={inputRef}
                     />
+                    <label htmlFor="username">{t('username')}</label>
                     <Form.Control.Feedback type="invalid">
                       {formik.touched.username && formik.errors.username}
                     </Form.Control.Feedback>
                   </Form.Group>
 
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="password">{t('password')}</Form.Label>
+                  <Form.Group className="form-floating mb-3">
                     <Form.Control
                       type="password"
                       onChange={formik.handleChange}
@@ -114,13 +113,13 @@ const SignupPage = () => {
                       isInvalid={formik.touched.password && formik.errors.password}
                       required
                     />
+                    <label htmlFor="password">{t('password')}</label>
                     <Form.Control.Feedback type="invalid">
                       {formik.touched.password && formik.errors.password}
                     </Form.Control.Feedback>
                   </Form.Group>
 
-                  <Form.Group className="mb-4">
-                    <Form.Label htmlFor="confirmPassword">{t('confirmPassword')}</Form.Label>
+                  <Form.Group className="form-floating mb-4">
                     <Form.Control
                       type="password"
                       onChange={formik.handleChange}
@@ -134,6 +133,7 @@ const SignupPage = () => {
                       }
                       required
                     />
+                    <label htmlFor="confirmPassword">{t('confirmPassword')}</label>
                     <Form.Control.Feedback type="invalid">
                       {formik.touched.confirmPassword && formik.errors.confirmPassword}
                     </Form.Control.Feedback>
