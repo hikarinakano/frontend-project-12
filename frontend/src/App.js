@@ -10,6 +10,8 @@ import LogOutButton from './components/authorization/AuthButton.js';
 import store from '../src/store/index.js';
 import { Provider } from 'react-redux';
 import './styles/main.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => (
   <div className='d-flex flex-column vh-100'>
@@ -39,6 +41,18 @@ const App = () => (
           </Routes>
         </div>
       </Router>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </AuthProvider>
   </Provider>
   </div>
