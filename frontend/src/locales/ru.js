@@ -23,7 +23,6 @@ export default {
       messages_few: '{{count}} сообщения',
       messages_many: '{{count}} сообщений',
       messageInput: 'Введите сообщение...',
-      send: 'Отправить'
     },
     notFound: {
       header: 'Страница не найдена',
