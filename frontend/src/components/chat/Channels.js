@@ -5,6 +5,7 @@ import AddChannelModal from '../modals/AddChannelModal';
 import DeleteChannelModal from '../modals/DeleteChannelModal';
 import EditChannelModal from '../modals/EditChannelModal';
 import Channel from './Channel';
+import { usePageTranslation } from '../../hooks/usePageTranslation';
 
 const Channels = ({ currentChannel, onChannelSelect }) => {
   const { data: channels = [] } = useGetChannelsQuery();
@@ -13,6 +14,8 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
   const [channelToDelete, setChannelToDelete] = useState(null);
   const [channelToEdit, setChannelToEdit] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const t = usePageTranslation('chat')
+
 
   const handleChannelDelete = (deletedChannelId) => {
     if (deletedChannelId === currentChannel.id) {
@@ -39,7 +42,7 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
     <>
       <div className="channels-container d-flex flex-column h-100">
         <div className="channels-header d-flex justify-content-between align-items-center p-3">
-          <span className="h6 mb-0">Channels</span>
+          <span className="h6 mb-0">{t('channels')}</span>
           <Button
             variant="link"
             className="p-0 text-primary"
