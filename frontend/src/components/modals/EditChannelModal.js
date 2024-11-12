@@ -2,11 +2,13 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useGetChannelsQuery, useEditChannelMutation } from '../../store/api/channelsApi';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
   const { data: channels = [] } = useGetChannelsQuery();
   const [editChannel] = useEditChannelMutation();
-
+  const { t } = useTranslation();
   const currentChannel = channels.find(channel => channel.id === channelId);
 
   const validationSchema = yup.object().shape({
@@ -22,7 +24,7 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: currentChannel? currentChannel.name : '',
+      name: currentChannel ? currentChannel.name : '',
     },
     enableReinitialize: true,
     validationSchema,
@@ -30,10 +32,11 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
     validateOnBlur: true,
     onSubmit: async (values, { resetForm }) => {
       try {
-        const result = await editChannel({ id: channelId, name: values.name}).unwrap();
+        const result = await editChannel({ id: channelId, name: values.name }).unwrap();
         resetForm();
         onChannelEdit(result);
         onHide();
+        toast.success(t('notifications.channelRenamed'))
       } catch (err) {
         console.error('Failed to add channel:', err);
       }
@@ -75,8 +78,8 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
         <Button variant="secondary" onClick={handleClose}>
           Cancel
         </Button>
-        <Button 
-          variant="primary" 
+        <Button
+          variant="primary"
           onClick={formik.handleSubmit}
           disabled={formik.isSubmitting || !formik.isValid}
         >
