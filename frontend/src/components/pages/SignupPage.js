@@ -7,10 +7,13 @@ import useAuth from '../../hooks/index.js';
 import routes from '../../routes.js';
 import * as Yup from 'yup';
 import { usePageTranslation } from '../../hooks/usePageTranslation';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const SignupPage = () => {
   const auth = useAuth();
-  const t = usePageTranslation('signup');
+  const { t } = useTranslation();
+  const translation = usePageTranslation('signup');
   const err = usePageTranslation('errors');
   const [signupError, setSignupError] = useState('');
   const inputRef = useRef();
@@ -57,11 +60,13 @@ const SignupPage = () => {
         auth.logIn(authData);
         navigate('/');
       } catch (err) {
+        formik.setSubmitting(false);
         if (err.isAxiosError) {
           if (err.response?.status === 409) {
             setSignupError(err('usernameTaken'));
-          } else {
-            setSignupError(err('networkError'));
+          } else if (!err.response) {
+            toast.error(t('notifications.connection'));
+            setSignupError(err('networkError'))
           }
           inputRef.current.select();
           return;
@@ -78,13 +83,13 @@ const SignupPage = () => {
           <Card className="shadow-sm">
             <Card.Body className="p-5">
               <Form onSubmit={formik.handleSubmit} className="p-3">
-                <h1 className="text-center mb-4">{t('signupHeader')}</h1>
+                <h1 className="text-center mb-4">{translation('signupHeader')}</h1>
                 <fieldset>
                   <Form.Group className="form-floating mb-3">
                     <Form.Control
                       onChange={formik.handleChange}
                       value={formik.values.username}
-                      placeholder={t('username')}
+                      placeholder={translation('username')}
                       name="username"
                       id="username"
                       autoComplete="username"
@@ -95,7 +100,7 @@ const SignupPage = () => {
                       required
                       ref={inputRef}
                     />
-                    <label htmlFor="username">{t('username')}</label>
+                    <label htmlFor="username">{translation('username')}</label>
                     <Form.Control.Feedback type="invalid">
                       {formik.touched.username && formik.errors.username}
                     </Form.Control.Feedback>
@@ -106,14 +111,14 @@ const SignupPage = () => {
                       type="password"
                       onChange={formik.handleChange}
                       value={formik.values.password}
-                      placeholder={t('password')}
+                      placeholder={translation('password')}
                       name="password"
                       id="password"
                       autoComplete="new-password"
                       isInvalid={formik.touched.password && formik.errors.password}
                       required
                     />
-                    <label htmlFor="password">{t('password')}</label>
+                    <label htmlFor="password">{translation('password')}</label>
                     <Form.Control.Feedback type="invalid">
                       {formik.touched.password && formik.errors.password}
                     </Form.Control.Feedback>
@@ -124,7 +129,7 @@ const SignupPage = () => {
                       type="password"
                       onChange={formik.handleChange}
                       value={formik.values.confirmPassword}
-                      placeholder={t('confirmPassword')}
+                      placeholder={translation('confirmPassword')}
                       name="confirmPassword"
                       id="confirmPassword"
                       autoComplete="new-password"
@@ -133,7 +138,7 @@ const SignupPage = () => {
                       }
                       required
                     />
-                    <label htmlFor="confirmPassword">{t('confirmPassword')}</label>
+                    <label htmlFor="confirmPassword">{translation('confirmPassword')}</label>
                     <Form.Control.Feedback type="invalid">
                       {formik.touched.confirmPassword && formik.errors.confirmPassword}
                     </Form.Control.Feedback>
@@ -149,7 +154,7 @@ const SignupPage = () => {
                     className="w-100"
                     disabled={formik.isSubmitting}
                   >
-                    {t('signup')}
+                    {translation('signup')}
                   </Button>
                 </fieldset>
               </Form>
