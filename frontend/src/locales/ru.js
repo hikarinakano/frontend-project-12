@@ -58,7 +58,7 @@ export default {
       minLength: 'Не менее 3 символов',
       maxLength: 'Не более 20 символов',
     },
-    warning: {
+    notifications: {
       channelCreated: 'Канал создан',
       connection: 'Ошибка соединения',
       channelDeleted: 'Канал удален',
