@@ -2,11 +2,13 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useGetChannelsQuery, useAddChannelMutation } from '../../store/api/channelsApi';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
   const { data: channels = [] } = useGetChannelsQuery();
   const [addChannel] = useAddChannelMutation();
-
+  const { t } = useTranslation();
   const validationSchema = yup.object().shape({
     name: yup
       .string()
@@ -31,6 +33,7 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
         resetForm();
         onHide();
         onChannelAdd(result);
+        toast.success(t('notifications.channelCreated'));
       } catch (err) {
         console.error('Failed to add channel:', err);
       }
