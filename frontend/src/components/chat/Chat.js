@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useGetMessagesQuery, useAddMessageMutation } from '../../store/api/messagesApi';
-
+import { useTranslation } from 'react-i18next';
 const Chat = ({ currentChannel }) => {
   const { id, name } = currentChannel;
   const { username } = useSelector((state) => state.auth);
@@ -10,6 +10,7 @@ const Chat = ({ currentChannel }) => {
   const [addMessage] = useAddMessageMutation();
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const { t } = useTranslation();
 
   const channelMessages = messages.filter(
     (message) => message.channelId === id
@@ -49,7 +50,7 @@ const Chat = ({ currentChannel }) => {
           <b># {name}</b>
         </p>
         <span className="text-muted">
-          {channelMessages.length} messages
+        {t('chat.messages', { count: channelMessages.length })}
         </span>
       </div>
 
@@ -80,7 +81,7 @@ const Chat = ({ currentChannel }) => {
             <Form.Control
               name="message"
               aria-label="New message"
-              placeholder="Enter message..."
+              placeholder={t('chat.messageInput')}
               className="border-0 p-0 ps-2"
               ref={inputRef}
             />
