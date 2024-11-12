@@ -1,14 +1,18 @@
 import { Modal, Button } from 'react-bootstrap';
 import { useDeleteChannelMutation } from '../../store/api/channelsApi';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const DeleteChannelModal = ({ show, onHide, channelId, onChannelDelete }) => {
   const [deleteChannel] = useDeleteChannelMutation();
+  const { t } = useTranslation();
 
   const handleDelete = async () => {
     try {
       await deleteChannel(channelId).unwrap();
       onChannelDelete(channelId); 
       onHide();
+      toast.success(t('notifications.channelDeleted'))
     } catch (err) {
       console.error('Failed to delete channel:', err);
     }
