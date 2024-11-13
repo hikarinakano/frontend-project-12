@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useGetChannelsQuery, useAddChannelMutation } from '../../store/api/channelsApi';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 
 const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
   const { data: channels = [] } = useGetChannelsQuery();
@@ -29,7 +30,10 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
     validateOnBlur: true,
     onSubmit: async (values, { resetForm }) => {
       try {
-        const result = await addChannel({ name: values.name }).unwrap();
+        const cleanedName = filter.clean(values.name);
+        console.log('uncensored', values.name);
+        console.log('cleaned name', cleanedName)
+        const result = await addChannel({ name: cleanedName }).unwrap();
         resetForm();
         onHide();
         onChannelAdd(result);
@@ -75,8 +79,8 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
         <Button variant="secondary" onClick={handleClose}>
           Cancel
         </Button>
-        <Button 
-          variant="primary" 
+        <Button
+          variant="primary"
           onClick={formik.handleSubmit}
           disabled={formik.isSubmitting || !formik.isValid}
         >
