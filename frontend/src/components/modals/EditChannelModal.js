@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useGetChannelsQuery, useEditChannelMutation } from '../../store/api/channelsApi';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 
 const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
   const { data: channels = [] } = useGetChannelsQuery();
@@ -32,7 +33,8 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
     validateOnBlur: true,
     onSubmit: async (values, { resetForm }) => {
       try {
-        const result = await editChannel({ id: channelId, name: values.name }).unwrap();
+        const cleanedResult = filter.clean(values.name);
+        const result = await editChannel({ id: channelId, name: cleanedResult }).unwrap();
         resetForm();
         onChannelEdit(result);
         onHide();
