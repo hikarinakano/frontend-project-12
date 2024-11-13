@@ -3,6 +3,8 @@ import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useGetMessagesQuery, useAddMessageMutation } from '../../store/api/messagesApi';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
+
 const Chat = ({ currentChannel }) => {
   const { id, name } = currentChannel;
   const { username } = useSelector((state) => state.auth);
@@ -31,8 +33,9 @@ const Chat = ({ currentChannel }) => {
     if (!messageText.trim()) return;
 
     try {
+      const cleanedMessage = filter.clean(messageText);
       await addMessage({
-        body: messageText,
+        body: cleanedMessage,
         channelId: id,
         username,
       });
