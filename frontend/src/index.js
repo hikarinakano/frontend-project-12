@@ -23,19 +23,6 @@ const rollbarConfig = {
   }
 };
 
-function TestError() {
-  React.useEffect(() => {
-    const a = null;
-    try {
-      a.hello();
-    } catch (error) {
-      throw new Error('Test error for Rollbar');
-    }
-  }, []);
-
-  return null;
-}
-
 setupProfanityFilter();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -43,7 +30,6 @@ root.render(
   <Provider config={rollbarConfig}>
     <React.StrictMode>
       <ErrorBoundary>
-        <TestError />
         <App />
       </ErrorBoundary>
     </React.StrictMode>
