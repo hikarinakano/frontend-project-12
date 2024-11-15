@@ -43,6 +43,8 @@ const SignupPage = () => {
       confirmPassword: '',
     },
     validationSchema,
+    ValidateOnBlur: true,
+    ValidateOnChange: true,
     onSubmit: async (values) => {
       try {
         setSignupError('');
@@ -50,13 +52,13 @@ const SignupPage = () => {
           username: values.username,
           password: values.password,
         };
-        
+
         const res = await axios.post(routes.signupPath(), signupData);
         const authData = {
           username: res.data.username,
           token: res.data.token,
         };
-        
+
         auth.logIn(authData);
         navigate('/');
       } catch (error) {
