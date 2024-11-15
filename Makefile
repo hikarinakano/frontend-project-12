@@ -10,8 +10,11 @@ start-frontend:
 start-backend:
 	npx start-server -s ./frontend/dist
 
+deploy:
+	git push heroku main
+
 start:
-	make start-backend & make start-frontend
+	make start-frontend & make start-backend
 
 build:
 	rm -rf frontend/build
