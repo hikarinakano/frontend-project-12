@@ -59,12 +59,12 @@ const SignupPage = () => {
         
         auth.logIn(authData);
         navigate('/');
-      } catch (err) {
+      } catch (error) {
         formik.setSubmitting(false);
-        if (err.isAxiosError) {
-          if (err.response?.status === 409) {
+        if (error.isAxiosError) {
+          if (error.response?.status === 409) {
             setSignupError(err('usernameTaken'));
-          } else if (!err.response) {
+          } else if (!error.response) {
             toast.error(t('notifications.connection'));
             setSignupError(err('networkError'))
           }
