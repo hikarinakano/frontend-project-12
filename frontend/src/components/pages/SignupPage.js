@@ -43,8 +43,8 @@ const SignupPage = () => {
       confirmPassword: '',
     },
     validationSchema,
-    ValidateOnBlur: true,
-    ValidateOnChange: true,
+    validateOnBlur: true,
+    validateOnChange: true,
     onSubmit: async (values) => {
       try {
         setSignupError('');
@@ -90,6 +90,7 @@ const SignupPage = () => {
                   <Form.Group className="form-floating mb-3">
                     <Form.Control
                       onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.username}
                       placeholder={translation('username')}
                       name="username"
@@ -112,6 +113,7 @@ const SignupPage = () => {
                     <Form.Control
                       type="password"
                       onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.password}
                       placeholder={translation('password')}
                       name="password"
@@ -130,6 +132,7 @@ const SignupPage = () => {
                     <Form.Control
                       type="password"
                       onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.confirmPassword}
                       placeholder={translation('confirmPassword')}
                       name="confirmPassword"
