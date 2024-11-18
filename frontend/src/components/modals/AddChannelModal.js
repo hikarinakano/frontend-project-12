@@ -4,19 +4,21 @@ import * as yup from 'yup';
 import { useGetChannelsQuery, useAddChannelMutation } from '../../store/api/channelsApi';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { usePageTranslation } from '../../hooks/usePageTranslation';
 import filter from 'leo-profanity';
 
 const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
   const { data: channels = [] } = useGetChannelsQuery();
   const [addChannel] = useAddChannelMutation();
   const { t } = useTranslation();
+  const errTranslation = usePageTranslation('errors');
   const validationSchema = yup.object().shape({
     name: yup
       .string()
-      .min(3, 'From 3 to 20 characters')
-      .max(20, 'From 3 to 20 characters')
-      .required('Required')
-      .test('unique', 'Must be unique', (value) => {
+      .min(3, errTranslation('length'))
+      .max(20, errTranslation('length'))
+      .required(errTranslation('required'))
+      .test('unique', errTranslation('unique'), (value) => {
         return !channels.some((channel) => channel.name === value);
       }),
   });
@@ -26,8 +28,6 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
       name: '',
     },
     validationSchema,
-    validateOnChange: true,
-    validateOnBlur: true,
     onSubmit: async (values, { resetForm }) => {
       try {
         const cleanedName = filter.clean(values.name);
@@ -38,8 +38,8 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
         onHide();
         onChannelAdd(result);
         toast.success(t('notifications.channelCreated'));
-      } catch (err) {
-        console.error('Failed to add channel:', err);
+      } catch (error) {
+        console.error('Failed to add channel:', error);
       }
     },
   });
@@ -52,7 +52,7 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Add Channel</Modal.Title>
+        <Modal.Title>{t('modals.add.title')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -60,10 +60,8 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
           <Form.Group>
             <Form.Control
               name="name"
-              placeholder="Enter channel name"
               value={formik.values.name}
               onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
               isInvalid={formik.touched.name && formik.errors.name}
               disabled={formik.isSubmitting}
               autoFocus
@@ -77,14 +75,14 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
 
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          Cancel
+          {t('modals.add.cancel')}
         </Button>
         <Button
           variant="primary"
           onClick={formik.handleSubmit}
           disabled={formik.isSubmitting || !formik.isValid}
         >
-          Add
+          {t('modals.add.submit')}
         </Button>
       </Modal.Footer>
     </Modal>
