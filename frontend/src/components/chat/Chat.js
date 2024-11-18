@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 
 const Chat = ({ currentChannel }) => {
-  const { id, name } = currentChannel;
   const { username } = useSelector((state) => state.auth);
   const { data: messages = [] } = useGetMessagesQuery();
   const [addMessage] = useAddMessageMutation();
@@ -15,7 +14,7 @@ const Chat = ({ currentChannel }) => {
   const { t } = useTranslation();
 
   const channelMessages = messages.filter(
-    (message) => message.channelId === id
+    (message) => message.channelId === currentChannel?.id
   );
 
   useEffect(() => {
@@ -24,7 +23,7 @@ const Chat = ({ currentChannel }) => {
 
   useEffect(() => {
     inputRef.current?.focus();
-  }, [id]);
+  }, [currentChannel]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +35,7 @@ const Chat = ({ currentChannel }) => {
       const cleanedMessage = filter.clean(messageText);
       await addMessage({
         body: cleanedMessage,
-        channelId: id,
+        channelId: currentChannel.id,
         username,
       });
       e.target.reset();
@@ -47,13 +46,13 @@ const Chat = ({ currentChannel }) => {
   };
 
   return (
-    <div className="d-flex flex-column h-100">
+    <div className="h-100 d-flex flex-column">
       <div className="bg-light mb-4 p-3 shadow-sm small">
         <p className="m-0">
-          <b># {name}</b>
+          <b># {currentChannel?.name}</b>
         </p>
         <span className="text-muted">
-        {t('chat.messages', { count: channelMessages.length })}
+          {t('chat.messages', { count: channelMessages.length })}
         </span>
       </div>
 
@@ -63,8 +62,7 @@ const Chat = ({ currentChannel }) => {
             key={message.id}
             className={`mb-2 ${message.username === username ? 'text-end' : ''}`}
           >
-            <div className={`message-bubble ${message.username === username ? 'bg-primary text-white' : 'bg-light'
-              }`}>
+            <div className={`message-bubble ${message.username === username ? 'bg-primary text-white' : 'bg-light'}`}>
               <div className="small mb-1 text-bold">
                 {message.username}
               </div>
