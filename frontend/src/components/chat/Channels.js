@@ -7,7 +7,7 @@ import EditChannelModal from '../modals/EditChannelModal';
 import Channel from './Channel';
 import { usePageTranslation } from '../../hooks/usePageTranslation';
 
-const Channels = ({ currentChannelId, onChannelSelect }) => {
+const Channels = ({ currentChannel, onChannelSelect }) => {
   const { data: channels = [] } = useGetChannelsQuery();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
