@@ -1,9 +1,9 @@
 import { useRef, useEffect } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { useGetMessagesQuery, useAddMessageMutation } from '../../store/api/messagesApi';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
+import { useGetMessagesQuery, useAddMessageMutation } from '../../store/api/messagesApi';
 
 const Chat = ({ currentChannel }) => {
   const { username } = useSelector((state) => state.auth);
@@ -49,7 +49,9 @@ const Chat = ({ currentChannel }) => {
     <div className="h-100 d-flex flex-column">
       <div className="bg-light mb-4 p-3 shadow-sm small">
         <p className="m-0">
-          <b># {currentChannel?.name}</b>
+          <b>
+            # {currentChannel?.name}
+          </b>
         </p>
         <span className="text-muted">
           {t('chat.messages', { count: channelMessages.length })}
@@ -96,4 +98,4 @@ const Chat = ({ currentChannel }) => {
   );
 };
 
-export default Chat; 
+export default Chat;
