@@ -1,7 +1,7 @@
+import { useDispatch } from 'react-redux';
+import { useEffect, useState, useMemo } from 'react';
 import AuthContext from '../../contexts/auth-context.js';
 import { setAuthInfo, clearAuthInfo } from '../../store/slices/authSlice.js';
-import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -14,11 +14,11 @@ const AuthProvider = ({ children }) => {
         const parsedAuth = JSON.parse(storedAuth);
         dispatch(setAuthInfo({
           username: parsedAuth.username,
-          token: parsedAuth.token
+          token: parsedAuth.token,
         }));
         setLoggedIn(true);
       } catch(e) {
-        console.error('Failed to parse auth data', e)
+        console.error('Failed to parse auth data', e);
       }
     }
   }, [dispatch]);
@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
     setLoggedIn(true);
     const authToStore = {
       username: authData.username,
-      token: authData.token
+      token: authData.token,
     };
     localStorage.setItem('userId', JSON.stringify(authToStore));
     dispatch(setAuthInfo(authToStore));
@@ -39,8 +39,14 @@ const AuthProvider = ({ children }) => {
     setLoggedIn(false);
   };
 
+  const contextValue = useMemo(() => ({
+    loggedIn,
+    logIn,
+    logOut
+  }), [loggedIn]);
+
   return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );
