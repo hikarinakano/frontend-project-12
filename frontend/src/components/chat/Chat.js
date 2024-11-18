@@ -83,7 +83,7 @@ const Chat = ({ currentChannel }) => {
           <InputGroup>
             <Form.Control
               name="message"
-              aria-label="New message"
+              aria-label={t('chat.newMessageLabel')}
               placeholder={t('chat.messageInput')}
               className="border-0 p-0 ps-2"
               ref={inputRef}
