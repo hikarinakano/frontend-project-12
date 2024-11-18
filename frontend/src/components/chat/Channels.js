@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import AddChannelModal from '../modals/AddChannelModal';
 import DeleteChannelModal from '../modals/DeleteChannelModal';
@@ -8,6 +9,7 @@ import Channel from './Channel';
 import { usePageTranslation } from '../../hooks/usePageTranslation';
 
 const Channels = ({ currentChannel, onChannelSelect }) => {
+  const { username } = useSelector((state) => state.auth);
   const { data: channels = [] } = useGetChannelsQuery();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -35,7 +37,9 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
   };
 
   const handleAddChannel = (newChannel) => {
-    onChannelSelect(newChannel);
+    if (username === newChannel.username) {
+      onChannelSelect(newChannel);
+    }
     setShowAddModal(false);
   };
 
