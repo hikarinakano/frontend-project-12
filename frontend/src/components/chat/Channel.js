@@ -5,21 +5,14 @@ const Channel = ({ channel, currentChannel, onChannelSelect, onChannelDelete, on
   const isDefault = ['general', 'random'].includes(channel.name);
   const translation = usePageTranslation('chat');
   const channelName = `# ${channel.name}`;
-  const isActive = channel.id === currentChannel?.id;
-
-  const buttonClasses = [
-    'w-100',
-    'rounded-0',
-    'text-start',
-    'text-truncate',
-  ].join(' ');
+  const isActive = channel.id === currentChannel.id;
 
   return (
     <li key={channel.id} className="nav-item w-100">
       <div className="d-flex dropdown">
         <Button
           variant={isActive ? 'secondary' : 'light'}
-          className={buttonClasses}
+          className="w-100 rounded-0 text-start text-truncate"
           onClick={() => onChannelSelect(channel)}
         >
           {channelName}
