@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { usePageTranslation } from '../../hooks/usePageTranslation';
 import filter from 'leo-profanity';
 import { useSelector } from 'react-redux';
-import socket from '../../services/socket'; // Import your socket service
 
 const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
   const { username } = useSelector((state) => state.auth);
@@ -38,17 +37,10 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
           name: cleanedName,
           username,
         }).unwrap();
-        socket.emit('newChannel', {
-          ...result,
-          username,
-        });
 
         resetForm();
         onHide();
-        onChannelAdd({
-          ...result,
-          username,
-        });
+        onChannelAdd(result);
         toast.success(t('notifications.channelCreated'));
       } catch (error) {
         console.error('Failed to add channel:', error);

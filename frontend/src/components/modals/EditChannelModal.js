@@ -6,9 +6,9 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 
-const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
+const EditChannelModal = ({ show, onHide, channelId, onChannelEdit }) => {
+  const [editChannel, { isLoading }] = useEditChannelMutation();
   const { data: channels = [] } = useGetChannelsQuery();
-  const [editChannel] = useEditChannelMutation();
   const { t } = useTranslation();
   const currentChannel = channels.find(channel => channel.id === channelId);
 
@@ -27,14 +27,13 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
     initialValues: {
       name: currentChannel ? currentChannel.name : '',
     },
-    enableReinitialize: true,
     validationSchema,
-    onSubmit: async (values, { resetForm }) => {
+    enableReinitialize: true,
+    onSubmit: async (values, { setSubmitting }) => {
       try {
-        const cleanedResult = filter.clean(values.name);
-        const result = await editChannel({ id: channelId, name: cleanedResult }).unwrap();
-        resetForm();
-        onChannelEdit(result);
+        const cleanedName = filter.clean(values.name);
+        await editChannel({ id: channelId, name: cleanedName }).unwrap();
+        onChannelEdit(channelId);
         onHide();
         toast.success(t('notifications.channelRenamed'))
       } catch (err) {
@@ -66,7 +65,7 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
               value={formik.values.name}
               onChange={formik.handleChange}
               isInvalid={formik.touched.name && formik.errors.name}
-              disabled={formik.isSubmitting}
+              disabled={formik.isSubmitting || isLoading}
               autoFocus
             />
             <Form.Control.Feedback type="invalid">

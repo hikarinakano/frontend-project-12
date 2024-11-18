@@ -4,17 +4,18 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 const DeleteChannelModal = ({ show, onHide, channelId, onChannelDelete }) => {
-  const [deleteChannel] = useDeleteChannelMutation();
+  const [deleteChannel, { isLoading }] = useDeleteChannelMutation();
   const { t } = useTranslation();
 
   const handleDelete = async () => {
     try {
       await deleteChannel(channelId).unwrap();
-      onChannelDelete(channelId); 
+      onChannelDelete(channelId);
       onHide();
-      toast.success(t('notifications.channelDeleted'))
+      toast.success(t('notifications.channelDeleted'));
     } catch (err) {
       console.error('Failed to delete channel:', err);
+      toast.error(t('notifications.connection'));
     }
   };
 
@@ -24,16 +25,25 @@ const DeleteChannelModal = ({ show, onHide, channelId, onChannelDelete }) => {
         <Modal.Title>{t('modals.delete.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {t('modals.delete.confirm')}
+        <p className="lead">{t('modals.delete.confirm')}</p>
+        <div className="d-flex justify-content-end">
+          <Button
+            variant="secondary"
+            className="me-2"
+            onClick={onHide}
+            disabled={isLoading}
+          >
+            {t('modals.delete.cancel')}
+          </Button>
+          <Button
+            variant="danger"
+            onClick={handleDelete}
+            disabled={isLoading}
+          >
+            {t('modals.delete.submit')}
+          </Button>
+        </div>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
-          {t('modals.delete.cancel')}
-        </Button>
-        <Button variant="danger" onClick={handleDelete}>
-         {t('modals.delete.submit')}
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 };
