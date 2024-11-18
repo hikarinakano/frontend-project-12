@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import AuthContext from '../../contexts/auth-context.js';
 import { setAuthInfo, clearAuthInfo } from '../../store/slices/authSlice.js';
 
@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
     }
   }, [dispatch]);
 
-  const logIn = (authData) => {
+  const logIn = useCallback((authData) => {
     setLoggedIn(true);
     const authToStore = {
       username: authData.username,
@@ -31,13 +31,13 @@ const AuthProvider = ({ children }) => {
     };
     localStorage.setItem('userId', JSON.stringify(authToStore));
     dispatch(setAuthInfo(authToStore));
-  };
+  }, [dispatch, setLoggedIn]);
 
-  const logOut = () => {
+  const logOut = useCallback(() => {
     localStorage.removeItem('userId');
     dispatch(clearAuthInfo());
     setLoggedIn(false);
-  };
+  }, [dispatch, setLoggedIn]);
 
   const contextValue = useMemo(() => ({
     loggedIn,
