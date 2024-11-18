@@ -11,7 +11,7 @@ import { usePageTranslation } from '../../hooks/usePageTranslation';
 const Channels = ({ currentChannel, onChannelSelect }) => {
   const { username } = useSelector((state) => state.auth);
   const { data: channels = [] } = useGetChannelsQuery(undefined, {
-    refetchOnMountOrArgChange: true
+    refetchOnMountOrArgChange: true,
   });
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -20,10 +20,9 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const t = usePageTranslation('chat')
 
-
   const handleChannelDelete = (deletedChannelId) => {
     if (deletedChannelId === currentChannel.id) {
-      const generalChannel = channels.find(c => c.name === 'general');
+      const generalChannel = channels.find((c) => c.name === 'general');
       if (generalChannel) {
         onChannelSelect(generalChannel);
       }
@@ -32,7 +31,7 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
   const handleShowDeleteModal = (channelId) => {
     setChannelToDelete(channelId);
     setShowDeleteModal(true);
-  }
+  };
   const handleButtonClick = (e) => {
     e.currentTarget.blur();
     setShowAddModal(true);
@@ -48,7 +47,8 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
   const handleChannelEdit = (channelId) => {
     setChannelToEdit(channelId);
     setShowEditModal(true);
-  }
+  };
+
   return (
     <>
       <div className="channels-container d-flex flex-column h-100">
