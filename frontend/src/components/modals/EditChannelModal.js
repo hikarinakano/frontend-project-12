@@ -49,7 +49,7 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
   };
 
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.edit.title')}</Modal.Title>
       </Modal.Header>
