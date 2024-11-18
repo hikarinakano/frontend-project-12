@@ -6,7 +6,7 @@ const Channel = ({
   currentChannel,
   onChannelSelect,
   onChannelDelete,
-  onChannelEdit
+  onChannelEdit,
 }) => {
   const isDefault = ['general', 'random'].includes(channel.name);
   const translation = usePageTranslation('chat');
