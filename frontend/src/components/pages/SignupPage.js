@@ -3,12 +3,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../../hooks/index.js';
-import routes from '../../routes.js';
 import * as Yup from 'yup';
 import { usePageTranslation } from '../../hooks/usePageTranslation';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import useAuth from '../../hooks/index.js';
+import routes from '../../routes.js';
 
 const SignupPage = () => {
   const auth = useAuth();
@@ -69,7 +69,7 @@ const SignupPage = () => {
             setSignupError(err('usernameTaken'));
           } else if (!error.response) {
             toast.error(t('notifications.connection'));
-            setSignupError(err('networkError'))
+            setSignupError(err('networkError'));
           }
           inputRef.current.select();
           return;
@@ -101,8 +101,9 @@ const SignupPage = () => {
                       id="username"
                       autoComplete="username"
                       isInvalid={
-                        (formik.touched.username && formik.errors.username) ||
-                        signupError
+                        (
+                          formik.touched.username && formik.errors.username
+                        ) || signupError
                       }
                       required
                       ref={inputRef}
