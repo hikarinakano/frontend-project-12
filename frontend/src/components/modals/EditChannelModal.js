@@ -51,13 +51,13 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{t('modal.edit.title')}</Modal.Title>
+        <Modal.Title>{t('modals.edit.title')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <Form.Label>{t('modal.edit.formLabel')}</Form.Label>
+            <Form.Label className='visually-hidden'>{t('modals.edit.formLabel')}</Form.Label>
             <Form.Control
               name="name"
               id="name"
@@ -77,14 +77,14 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
 
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          {t('modal.edit.cancel')}
+          {t('modals.edit.cancel')}
         </Button>
         <Button
           variant="primary"
           onClick={formik.handleSubmit}
           disabled={formik.isSubmitting || !formik.isValid}
         >
-          {t('modal.edit.submit')}
+          {t('modals.edit.submit')}
         </Button>
       </Modal.Footer>
     </Modal>
