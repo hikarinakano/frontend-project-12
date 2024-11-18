@@ -31,8 +31,6 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
     onSubmit: async (values, { resetForm }) => {
       try {
         const cleanedName = filter.clean(values.name);
-        console.log('uncensored', values.name);
-        console.log('cleaned name', cleanedName)
         const result = await addChannel({ name: cleanedName }).unwrap();
         resetForm();
         onHide();
@@ -58,6 +56,7 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
+          <Form.Label>{t('modals.add.formLabel')}</Form.Label>
             <Form.Control
               name="name"
               value={formik.values.name}
