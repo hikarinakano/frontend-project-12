@@ -1,10 +1,10 @@
 import './styles/main.css';
 import { Provider } from 'react-redux';
-import store from '../src/store/index.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar, Container } from 'react-bootstrap';
+import store from './store/index.js';
 import LoginPage from './components/pages/LoginPage.js';
 import ChatPage from './components/chat/ChatPage.js';
 import SignupPage from './components/pages/SignupPage.js';
@@ -14,7 +14,7 @@ import NotFoundPage from './components/pages/NotFoundPage.js';
 import LogOutButton from './components/authorization/AuthButton.js';
 
 const App = () => (
-  <div className='d-flex flex-column vh-100'>
+  <div className="d-flex flex-column vh-100">
     <Provider store={store}>
       <AuthProvider>
         <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
