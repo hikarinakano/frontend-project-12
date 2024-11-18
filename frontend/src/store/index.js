@@ -11,8 +11,8 @@ const store = configureStore({
   },
   middleware:
     (getDefaultMiddleware) => getDefaultMiddleware()
-        .concat(channelsApi.middleware)
-        .concat(messagesApi.middleware),
+      .concat(channelsApi.middleware)
+      .concat(messagesApi.middleware),
 });
 
 export default store;
