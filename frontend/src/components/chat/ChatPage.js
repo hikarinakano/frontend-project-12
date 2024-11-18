@@ -14,18 +14,20 @@ const ChatPage = () => {
       setCurrentChannel(generalChannel);
       setFirstLoad(false);
     }
-  }, [channels]);
+  }, [channels, isFirstLoad]);
+
   if (isLoading || !currentChannel) return <div>Loading...</div>;
+
   return (
-    <div className="container-fluid h-100 p-0">
-      <div className="row h-100 g-0">
-        <div className="col-3 col-md-2">
+    <div className="container h-100  overflow-hidden rounded shadow">
+      <div className="row h-100 bg-white flex-md-row">
+        <div className="col-4 col-md-2 border-end  bg-light flex-column h-100 d-flex">
           <Channels
             currentChannel={currentChannel}
             onChannelSelect={setCurrentChannel}
           />
         </div>
-        <div className="col-9 col-md-10">
+        <div className="col-8 col-md-10 h-100">
           <Chat currentChannel={currentChannel} />
         </div>
       </div>
