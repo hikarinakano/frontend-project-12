@@ -3,10 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Card } from 'react-bootstrap';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import useAuth from '../../hooks/index.js';
 import routes from '../../routes.js';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import useAuth from '../../hooks/index.js';
 
 const LoginPage = () => {
   const auth = useAuth();
@@ -31,10 +31,10 @@ const LoginPage = () => {
         const res = await axios.post(routes.loginPath(), values);
         const authData = {
           username: res.data.username,
-          token: res.data.token
-        }
+          token: res.data.token,
+        };
         auth.logIn(authData);
-        const { from } = location.state || { from: { pathname: "/" } };
+        const { from } = location.state || { from: { pathname: '/' } };
         navigate(from);
       } catch (err) {
         formik.setSubmitting(false);
@@ -50,7 +50,6 @@ const LoginPage = () => {
             return;
           }
         }
-        // Log unexpected errors
         console.error('Unexpected error:', err);
         throw err;
       }
@@ -98,9 +97,9 @@ const LoginPage = () => {
                     </Form.Control.Feedback>
                   </Form.Group>
 
-                  <Button 
-                    type="submit" 
-                    variant="outline-primary" 
+                  <Button
+                    type="submit"
+                    variant="outline-primary"
                     className="w-100 mb-3"
                     disabled={formik.isSubmitting}
                   >
@@ -112,7 +111,9 @@ const LoginPage = () => {
             <Card.Footer className="p-4">
               <div className="text-center">
                 <span>{t('login.noAccount')} </span>
-                <Link to="/signup">{t('login.signup')}</Link>
+                <Link to="/signup">
+                  {t('login.signup')}
+                </Link>
               </div>
             </Card.Footer>
           </Card>
