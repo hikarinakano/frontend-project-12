@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
           token: parsedAuth.token,
         }));
         setLoggedIn(true);
-      } catch(e) {
+      } catch (e) {
         console.error('Failed to parse auth data', e);
       }
     }
@@ -42,8 +42,8 @@ const AuthProvider = ({ children }) => {
   const contextValue = useMemo(() => ({
     loggedIn,
     logIn,
-    logOut
-  }), [loggedIn]);
+    logOut,
+  }), [loggedIn, logIn, logOut]);
 
   return (
     <AuthContext.Provider value={contextValue}>
