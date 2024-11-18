@@ -5,13 +5,13 @@ const Channel = ({ channel, currentChannel, onChannelSelect, onChannelDelete, on
   const isDefault = ['general', 'random'].includes(channel.name);
   const translation = usePageTranslation('chat');
   const channelName = `# ${channel.name}`;
-  const { id } = currentChannel;
+  const isActive = channel.id === currentChannel.id;
 
   return (
     <li key={channel.id} className="nav-item w-100">
       <div className="d-flex dropdown">
         <Button
-          variant={id === channel.id ? 'secondary' : 'light'}
+          variant={isActive ? 'secondary' : 'light'}
           className="w-100 rounded-0 text-start text-truncate"
           onClick={() => onChannelSelect(channel)}
         >
@@ -22,7 +22,7 @@ const Channel = ({ channel, currentChannel, onChannelSelect, onChannelDelete, on
           <Dropdown align="end">
             <Dropdown.Toggle 
               split
-              variant={id === channel.id ? 'secondary' : 'light'}
+              variant={isActive ? 'secondary' : 'light'}
               className="flex-grow-0"
             >
               <span className="visually-hidden">{translation('manageChannelLabel')}</span>
