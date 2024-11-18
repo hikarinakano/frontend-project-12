@@ -25,11 +25,11 @@ const SignupPage = () => {
 
   const validationSchema = Yup.object({
     username: Yup.string()
-      .min(3, err('minLength', { min: 3 }))
-      .max(20, err('maxLength', { max: 20 }))
+      .min(3, err('length'))
+      .max(20, err('length'))
       .required(err('required')),
     password: Yup.string()
-      .min(6, err('minLength', { min: 6 }))
+      .min(6, err('passwordLength'))
       .required(err('required')),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref('password'), null], err('passwordMatch'))
@@ -43,6 +43,7 @@ const SignupPage = () => {
       confirmPassword: '',
     },
     validationSchema,
+    validateOnMount: true,
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (values) => {
@@ -89,7 +90,10 @@ const SignupPage = () => {
                 <fieldset>
                   <Form.Group className="form-floating mb-3">
                     <Form.Control
-                      onChange={formik.handleChange}
+                      onChange={(e) => {
+                        formik.handleChange(e);
+                        formik.setFieldTouched('username', true, true);
+                      }}
                       onBlur={formik.handleBlur}
                       value={formik.values.username}
                       placeholder={translation('username')}
@@ -105,14 +109,17 @@ const SignupPage = () => {
                     />
                     <label htmlFor="username">{translation('username')}</label>
                     <Form.Control.Feedback type="invalid">
-                      {formik.touched.username && formik.errors.username}
+                      {formik.errors.username}
                     </Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group className="form-floating mb-3">
                     <Form.Control
                       type="password"
-                      onChange={formik.handleChange}
+                      onChange={(e) => {
+                        formik.handleChange(e);
+                        formik.setFieldTouched('password', true, true);
+                      }}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
                       placeholder={translation('password')}
@@ -124,14 +131,17 @@ const SignupPage = () => {
                     />
                     <label htmlFor="password">{translation('password')}</label>
                     <Form.Control.Feedback type="invalid">
-                      {formik.touched.password && formik.errors.password}
+                      {formik.errors.password}
                     </Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group className="form-floating mb-4">
                     <Form.Control
                       type="password"
-                      onChange={formik.handleChange}
+                      onChange={(e) => {
+                        formik.handleChange(e);
+                        formik.setFieldTouched('confirmPassword', true, true);
+                      }}
                       onBlur={formik.handleBlur}
                       value={formik.values.confirmPassword}
                       placeholder={translation('confirmPassword')}
@@ -145,7 +155,7 @@ const SignupPage = () => {
                     />
                     <label htmlFor="confirmPassword">{translation('confirmPassword')}</label>
                     <Form.Control.Feedback type="invalid">
-                      {formik.touched.confirmPassword && formik.errors.confirmPassword}
+                      {formik.errors.confirmPassword}
                     </Form.Control.Feedback>
                   </Form.Group>
 
