@@ -7,7 +7,7 @@ import EditChannelModal from '../modals/EditChannelModal';
 import Channel from './Channel';
 import { usePageTranslation } from '../../hooks/usePageTranslation';
 
-const Channels = ({ currentChannel, onChannelSelect }) => {
+const Channels = ({ currentChannelId, onChannelSelect }) => {
   const { data: channels = [] } = useGetChannelsQuery();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -29,6 +29,11 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
     setChannelToDelete(channelId);
     setShowDeleteModal(true);
   }
+  const handleButtonClick = (e) => {
+    e.currentTarget.blur();
+    setShowAddModal(true);
+  };
+
   const handleAddChannel = (newChannel) => {
     onChannelSelect(newChannel);
     setShowAddModal(false);
@@ -46,7 +51,8 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
           <Button
             variant="link"
             className="p-0 text-primary"
-            onClick={() => setShowAddModal(true)}
+            onClick={handleButtonClick}
+            tabIndex="-1"
           >
             +
           </Button>
