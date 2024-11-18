@@ -10,7 +10,9 @@ import { usePageTranslation } from '../../hooks/usePageTranslation';
 
 const Channels = ({ currentChannel, onChannelSelect }) => {
   const { username } = useSelector((state) => state.auth);
-  const { data: channels = [] } = useGetChannelsQuery();
+  const { data: channels = [] } = useGetChannelsQuery(undefined, {
+    refetchOnMountOrArgChange: true
+  });
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [channelToDelete, setChannelToDelete] = useState(null);
@@ -63,7 +65,16 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
         </div>
 
         <ul className="nav flex-column nav-pills nav-fill px-2">
-          {Array.isArray(channels) && channels.map((channel) => <Channel key={channel.id} channel={channel} currentChannel={currentChannel} onChannelSelect={onChannelSelect} onChannelDelete={handleShowDeleteModal} onChannelEdit={handleChannelEdit}/>)}
+          {channels.map((channel) => (
+            <Channel
+              key={channel.id}
+              channel={channel}
+              currentChannel={currentChannel}
+              onChannelSelect={onChannelSelect}
+              onChannelDelete={handleShowDeleteModal}
+              onChannelEdit={handleChannelEdit}
+            />
+          ))}
         </ul>
       </div>
 
