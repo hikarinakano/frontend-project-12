@@ -49,7 +49,7 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.edit.title')}</Modal.Title>
       </Modal.Header>
@@ -57,8 +57,9 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <Form.Label className='visually-hidden'>{t('modals.edit.formLabel')}</Form.Label>
+            <Form.Label className='visually-hidden' htmlFor='name'>{t('modals.edit.formLabel')}</Form.Label>
             <Form.Control
+              required
               name="name"
               id="name"
               type="text"
@@ -72,21 +73,20 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
               {formik.errors.name}
             </Form.Control.Feedback>
           </Form.Group>
+          <div className="d-flex justify-content-end gap-2 mt-3">
+            <Button variant="secondary" onClick={onHide}>
+              {t('modals.edit.cancel')}
+            </Button>
+            <Button
+              type="submit"
+              variant="primary"
+              disabled={formik.isSubmitting || !formik.isValid}
+            >
+              {t('modals.edit.submit')}
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
-
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          {t('modals.edit.cancel')}
-        </Button>
-        <Button
-          variant="primary"
-          onClick={formik.handleSubmit}
-          disabled={formik.isSubmitting || !formik.isValid}
-        >
-          {t('modals.edit.submit')}
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 };
