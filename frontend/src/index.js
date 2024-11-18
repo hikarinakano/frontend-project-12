@@ -33,5 +33,5 @@ root.render(
         <App />
       </ErrorBoundary>
     </React.StrictMode>
-  </Provider>
+  </Provider>,
 );

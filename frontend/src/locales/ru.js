@@ -50,7 +50,7 @@ export default {
         confirm: 'Уверены?',
         submit: 'Удалить',
         cancel: 'Отменить',
-      }
+      },
     },
     errors: {
       required: 'Обязательное поле',
