@@ -6,7 +6,7 @@ import AddChannelModal from '../modals/AddChannelModal';
 import DeleteChannelModal from '../modals/DeleteChannelModal';
 import EditChannelModal from '../modals/EditChannelModal';
 import Channel from './Channel';
-import { usePageTranslation } from '../../hooks/usePageTranslation';
+import usePageTranslation from '../../hooks/usePageTranslation';
 
 const Channels = ({ currentChannel, onChannelSelect }) => {
   const { username } = useSelector((state) => state.auth);

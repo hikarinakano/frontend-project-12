@@ -5,4 +5,4 @@ const usePageTranslation = (page) => {
   return (key) => t(`${page}.${key}`);
 };
 
-export { usePageTranslation };
+export default usePageTranslation;

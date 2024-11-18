@@ -1,5 +1,5 @@
 import { Button, Dropdown } from 'react-bootstrap';
-import { usePageTranslation } from '../../hooks/usePageTranslation';
+import usePageTranslation from '../../hooks/usePageTranslation';
 
 const Channel = ({
   channel,

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { usePageTranslation } from '../../hooks/usePageTranslation';
+import usePageTranslation from '../../hooks/usePageTranslation';
 import useAuth from '../../hooks/index.js';
 import routes from '../../routes.js';
 

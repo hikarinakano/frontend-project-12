@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
-import { usePageTranslation } from '../../hooks/usePageTranslation';
+import usePageTranslation from '../../hooks/usePageTranslation';
 import { useGetChannelsQuery, useAddChannelMutation } from '../../store/api/channelsApi';
 
 const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
@@ -20,8 +20,10 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
       .min(3, errTranslation('length'))
       .max(20, errTranslation('length'))
       .required(errTranslation('required'))
-      .test('unique', errTranslation('unique'),
-        (value) => !channels.some((channel) => channel.name === value)
+      .test(
+        'unique',
+        errTranslation('unique'),
+        (value) => !channels.some((channel) => channel.name === value),
       ),
   });
 
