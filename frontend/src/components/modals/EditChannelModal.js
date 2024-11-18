@@ -23,9 +23,8 @@ const EditChannelModal = ({
       .min(3, t('errors.length'))
       .max(20, t('errors.length'))
       .required(t('errors.reqiured'))
-      .test('unique', t('errors.unique'), (value) =>
-        !channels.some((channel) => channel.name === value)
-      ),
+      .test('unique', t('errors.unique'), (value) => 
+        !channels.some((channel) => channel.name === value)),
   });
 
   const formik = useFormik({
