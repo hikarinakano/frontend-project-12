@@ -75,7 +75,7 @@ export const channelsApi = createApi({
         body: data,
       }),
       invalidatesTags: ['Channels'],
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(arg, { queryFulfilled}) {
         try {
           const { data: newChannel } = await queryFulfilled;
           socket.emit('newChannel', { ...newChannel, username: arg.username });

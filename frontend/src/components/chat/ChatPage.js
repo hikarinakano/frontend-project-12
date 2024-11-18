@@ -8,7 +8,6 @@ const ChatPage = () => {
   const { data: channels, isLoading } = useGetChannelsQuery();
   const [currentChannel, setCurrentChannel] = useState(null);
   const [isFirstLoad, setFirstLoad] = useState(true);
-  const { username } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (channels && isFirstLoad) {

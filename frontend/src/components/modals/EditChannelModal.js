@@ -29,7 +29,7 @@ const EditChannelModal = ({ show, onHide, channelId, onChannelEdit }) => {
     },
     validationSchema,
     enableReinitialize: true,
-    onSubmit: async (values, { setSubmitting }) => {
+    onSubmit: async (values) => {
       try {
         const cleanedName = filter.clean(values.name);
         await editChannel({ id: channelId, name: cleanedName }).unwrap();
