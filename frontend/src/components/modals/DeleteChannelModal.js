@@ -21,17 +21,17 @@ const DeleteChannelModal = ({ show, onHide, channelId, onChannelDelete }) => {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Delete Channel</Modal.Title>
+        <Modal.Title>{t('modals.delete.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Are you sure you want to delete this channel?
+        {t('modals.delete.confirm')}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
-          Cancel
+          {t('modals.delete.cancel')}
         </Button>
         <Button variant="danger" onClick={handleDelete}>
-          Delete
+         {t('modals.delete.submit')}
         </Button>
       </Modal.Footer>
     </Modal>
