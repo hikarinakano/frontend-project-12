@@ -32,6 +32,7 @@ export default {
     },
     modals: {
       add: {
+        formLabel: 'Имя канала',
         title: 'Добавить канал',
         submit: 'Добавить',
         cancel: 'Отменить'
