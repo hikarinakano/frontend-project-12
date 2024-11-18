@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
-import { useSelector } from 'react-redux';
 import Channels from './Channels';
 import Chat from './Chat';
 
@@ -11,7 +10,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     if (channels && isFirstLoad) {
-      const generalChannel = channels.find(channel => channel.name === 'general') || channels[0];
+      const generalChannel = channels.find((channel) => channel.name === 'general') || channels[0];
       setCurrentChannel(generalChannel);
       setFirstLoad(false);
     }
