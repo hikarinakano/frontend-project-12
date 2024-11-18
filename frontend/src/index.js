@@ -30,7 +30,7 @@ root.render(
   <Provider config={rollbarConfig}>
     <React.StrictMode>
       <ErrorBoundary>
-        <App/>
+        <App />
       </ErrorBoundary>
     </React.StrictMode>
   </Provider>

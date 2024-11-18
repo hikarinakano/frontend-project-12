@@ -25,7 +25,7 @@ export const messagesApi = createApi({
       query: () => routes.messagesPath(),
       async onCacheEntryAdded(
         arg,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved, }
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
       ) {
         try {
           await cacheDataLoaded;
@@ -37,7 +37,7 @@ export const messagesApi = createApi({
 
           await cacheEntryRemoved;
           socket.off('newMessage');
-        } catch(e) {
+        } catch (e) {
           console.error('Error fetching messages', e.message);
         }
       },
@@ -52,7 +52,7 @@ export const messagesApi = createApi({
   }),
 });
 
-export const { 
+export const {
   useGetMessagesQuery,
   useAddMessageMutation,
 } = messagesApi;

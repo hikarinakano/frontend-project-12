@@ -27,7 +27,7 @@ export const channelsApi = createApi({
       providesTags: ['Channels'],
       async onCacheEntryAdded(
         arg,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved, }
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
       ) {
         try {
           await cacheDataLoaded;

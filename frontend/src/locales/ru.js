@@ -37,19 +37,19 @@ export default {
         formLabel: 'Имя канала',
         title: 'Добавить канал',
         submit: 'Добавить',
-        cancel: 'Отменить'
+        cancel: 'Отменить',
       },
       edit: {
         formLabel: 'Имя канала',
         title: 'Переименовать канал',
         submit: 'Сохранить',
-        cancel: 'Отменить'
+        cancel: 'Отменить',
       },
       delete: {
         title: 'Удалить канал',
         confirm: 'Уверены?',
         submit: 'Удалить',
-        cancel: 'Отменить'
+        cancel: 'Отменить',
       }
     },
     errors: {
@@ -71,5 +71,5 @@ export default {
       channelRenamed: 'Канал переименован',
     },
     logOutBtn: 'Выйти',
-  }
+  },
 };
