@@ -24,6 +24,9 @@ export default {
       messages_many: '{{count}} сообщений',
       messageInput: 'Введите сообщение...',
       newMessageLabel: 'Новое сообщение',
+      manageChannelLabel: 'Управление каналом',
+      dropdownDelete: 'Удалить',
+      dropdownEdit: 'Переименовать',
     },
     notFound: {
       header: 'Страница не найдена',
@@ -38,6 +41,7 @@ export default {
         cancel: 'Отменить'
       },
       edit: {
+        formLabel: 'Имя канала',
         title: 'Переименовать канал',
         submit: 'Сохранить',
         cancel: 'Отменить'
