@@ -1,12 +1,13 @@
 import { Modal, Form, Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useGetChannelsQuery, useAddChannelMutation } from '../../store/api/channelsApi';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { usePageTranslation } from '../../hooks/usePageTranslation';
 import filter from 'leo-profanity';
-import { useSelector } from 'react-redux';
+import { useGetChannelsQuery, useAddChannelMutation } from '../../store/api/channelsApi';
+
 
 const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
   const { username } = useSelector((state) => state.auth);
@@ -20,9 +21,9 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
       .min(3, errTranslation('length'))
       .max(20, errTranslation('length'))
       .required(errTranslation('required'))
-      .test('unique', errTranslation('unique'), (value) => {
-        return !channels.some((channel) => channel.name === value);
-      }),
+      .test('unique', errTranslation('unique'), (value) => 
+        !channels.some((channel) => channel.name === value)
+      ),
   });
 
   const formik = useFormik({
@@ -33,7 +34,7 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
     onSubmit: async (values, { resetForm }) => {
       try {
         const cleanedName = filter.clean(values.name);
-        const result = await addChannel({ 
+        const result = await addChannel({
           name: cleanedName,
           username,
         }).unwrap();
@@ -62,7 +63,7 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <Form.Label className='visually-hidden' htmlFor='name'>{t('modals.add.formLabel')}</Form.Label>
+            <Form.Label className="visually-hidden" htmlFor="name">{t('modals.add.formLabel')}</Form.Label>
             <Form.Control
               required
               name="name"
@@ -95,4 +96,4 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
   );
 };
 
-export default AddChannelModal; 
+export default AddChannelModal;
