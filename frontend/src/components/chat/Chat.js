@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useGetMessagesQuery, useAddMessageMutation } from '../../store/api/messagesApi';
+import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import Channels from './Channels';
