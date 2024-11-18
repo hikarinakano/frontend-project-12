@@ -3,7 +3,6 @@ import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import { useSelector } from 'react-redux';
 import Channels from './Channels';
 import Chat from './Chat';
-import socket from '../../services/socket';
 
 const ChatPage = () => {
   const { data: channels, isLoading } = useGetChannelsQuery();
@@ -18,18 +17,6 @@ const ChatPage = () => {
       setFirstLoad(false);
     }
   }, [channels, isFirstLoad]);
-
-  useEffect(() => {
-    socket.on('newChannel', (channel) => {
-      if (channel.username === username) {
-        setCurrentChannel(channel);
-      }
-    });
-
-    return () => {
-      socket.off('newChannel');
-    };
-  }, [username]);
 
   const handleChannelSelect = (channel) => {
     setCurrentChannel(channel);
