@@ -6,8 +6,10 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { usePageTranslation } from '../../hooks/usePageTranslation';
 import filter from 'leo-profanity';
+import { useSelector } from 'react-redux';
 
 const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
+  const { username } = useSelector((state) => state.auth);
   const { data: channels = [] } = useGetChannelsQuery();
   const [addChannel] = useAddChannelMutation();
   const { t } = useTranslation();
@@ -31,10 +33,16 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
     onSubmit: async (values, { resetForm }) => {
       try {
         const cleanedName = filter.clean(values.name);
-        const result = await addChannel({ name: cleanedName }).unwrap();
+        const result = await addChannel({ 
+          name: cleanedName,
+          username,
+        }).unwrap();
         resetForm();
         onHide();
-        onChannelAdd(result);
+        onChannelAdd({
+          ...result,
+          username,
+        });
         toast.success(t('notifications.channelCreated'));
       } catch (error) {
         console.error('Failed to add channel:', error);
