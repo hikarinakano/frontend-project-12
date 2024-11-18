@@ -8,7 +8,6 @@ export const messagesApi = createApi({
     baseUrl: '/',
     prepareHeaders: (headers, { getState }) => {
       const { token } = getState().auth;
-      
       if (!token) {
         const stored = localStorage.getItem('userId');
         if (stored) {
@@ -26,11 +25,10 @@ export const messagesApi = createApi({
       query: () => routes.messagesPath(),
       async onCacheEntryAdded(
         arg,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved, }
       ) {
         try {
           await cacheDataLoaded;
-
           socket.on('newMessage', (message) => {
             updateCachedData((draft) => {
               draft.push(message);
@@ -40,7 +38,7 @@ export const messagesApi = createApi({
           await cacheEntryRemoved;
           socket.off('newMessage');
         } catch(e) {
-          console.error("Error fetching messages", e.message);
+          console.error('Error fetching messages', e.message);
         }
       },
     }),
@@ -54,4 +52,7 @@ export const messagesApi = createApi({
   }),
 });
 
-export const { useGetMessagesQuery, useAddMessageMutation } = messagesApi;
+export const { 
+  useGetMessagesQuery,
+  useAddMessageMutation,
+} = messagesApi;

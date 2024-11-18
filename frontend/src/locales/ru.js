@@ -6,16 +6,15 @@ export default {
       password: 'Пароль',
       submit: 'Войти',
       noAccount: 'Нет аккаунта?',
-      signup: 'Регистрация'
+      signup: 'Регистрация',
     },
     signup: {
       signupHeader: 'Регистрация',
       username: 'Имя пользователя',
       password: 'Пароль',
       confirmPassword: 'Подтвердите пароль',
-      signup: 'Зарегистрироваться'
+      signup: 'Зарегистрироваться',
     },
-
     chat: {
       channels: 'Каналы',
       messages_zero: '{{count}} сообщений',
@@ -71,6 +70,6 @@ export default {
       channelDeleted: 'Канал удалён',
       channelRenamed: 'Канал переименован',
     },
-    logOutBtn: "Выйти",
+    logOutBtn: 'Выйти',
   }
 };

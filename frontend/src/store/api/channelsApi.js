@@ -9,7 +9,6 @@ export const channelsApi = createApi({
     baseUrl: '/',
     prepareHeaders: (headers, { getState }) => {
       const { token } = getState().auth;
-      
       if (!token) {
         const stored = localStorage.getItem('userId');
         if (stored) {
@@ -28,7 +27,7 @@ export const channelsApi = createApi({
       providesTags: ['Channels'],
       async onCacheEntryAdded(
         arg,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved, }
       ) {
         try {
           await cacheDataLoaded;
@@ -75,7 +74,7 @@ export const channelsApi = createApi({
         body: data,
       }),
       invalidatesTags: ['Channels'],
-      async onQueryStarted(arg, { queryFulfilled}) {
+      async onQueryStarted(arg, { queryFulfilled }) {
         try {
           const { data: newChannel } = await queryFulfilled;
           socket.emit('newChannel', { ...newChannel, username: arg.username });
@@ -122,5 +121,5 @@ export const {
   useGetChannelsQuery,
   useAddChannelMutation,
   useDeleteChannelMutation,
-  useEditChannelMutation
+  useEditChannelMutation,
 } = channelsApi;
