@@ -1,16 +1,21 @@
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useGetChannelsQuery, useEditChannelMutation } from '../../store/api/channelsApi';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
+import { useGetChannelsQuery, useEditChannelMutation } from '../../store/api/channelsApi';
 
-const EditChannelModal = ({ show, onHide, channelId, onChannelEdit }) => {
+const EditChannelModal = ({
+  show,
+  onHide,
+  channelId,
+  onChannelEdit,
+}) => {
   const [editChannel, { isLoading }] = useEditChannelMutation();
   const { data: channels = [] } = useGetChannelsQuery();
   const { t } = useTranslation();
-  const currentChannel = channels.find(channel => channel.id === channelId);
+  const currentChannel = channels.find((channel) => channel.id === channelId);
 
   const validationSchema = yup.object().shape({
     name: yup
@@ -18,9 +23,9 @@ const EditChannelModal = ({ show, onHide, channelId, onChannelEdit }) => {
       .min(3, t('errors.length'))
       .max(20, t('errors.length'))
       .required(t('errors.reqiured'))
-      .test('unique', t('errors.unique'), (value) => {
-        return !channels.some((channel) => channel.name === value);
-      }),
+      .test('unique', t('errors.unique'), (value) =>
+        !channels.some((channel) => channel.name === value)
+      ),
   });
 
   const formik = useFormik({
@@ -56,7 +61,7 @@ const EditChannelModal = ({ show, onHide, channelId, onChannelEdit }) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <Form.Label className='visually-hidden' htmlFor='name'>{t('modals.edit.formLabel')}</Form.Label>
+            <Form.Label className="visually-hidden" htmlFor="name">{t('modals.edit.formLabel')}</Form.Label>
             <Form.Control
               required
               name="name"
@@ -90,4 +95,4 @@ const EditChannelModal = ({ show, onHide, channelId, onChannelEdit }) => {
   );
 };
 
-export default EditChannelModal; 
+export default EditChannelModal;
