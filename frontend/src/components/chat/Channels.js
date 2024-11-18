@@ -18,7 +18,7 @@ const Channels = ({ currentChannel, onChannelSelect }) => {
   const [channelToDelete, setChannelToDelete] = useState(null);
   const [channelToEdit, setChannelToEdit] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
-  const t = usePageTranslation('chat')
+  const t = usePageTranslation('chat');
 
   const handleChannelDelete = (deletedChannelId) => {
     if (deletedChannelId === currentChannel.id) {
