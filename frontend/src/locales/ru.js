@@ -53,6 +53,7 @@ export default {
       unique: 'Должно быть уникальным',
       length: 'От 3 до 20 символов',
       passwordMatch: 'Пароли должны совпадать',
+      passwordLength: 'Не менее 6 символов',
       usernameTaken: 'Такой пользователь уже существует',
       networkError: 'Ошибка соединения',
       minLength: 'Не менее 3 символов',
