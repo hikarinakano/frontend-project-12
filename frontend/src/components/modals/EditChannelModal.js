@@ -29,8 +29,6 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
     },
     enableReinitialize: true,
     validationSchema,
-    validateOnChange: true,
-    validateOnBlur: true,
     onSubmit: async (values, { resetForm }) => {
       try {
         const cleanedResult = filter.clean(values.name);
@@ -53,18 +51,17 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Add Channel</Modal.Title>
+        <Modal.Title>{t('modal.edit.title')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
+            <Form.Label>{t('modal.edit.formLabel')}</Form.Label>
             <Form.Control
               name="name"
-              placeholder="Enter channel name"
               value={formik.values.name}
               onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
               isInvalid={formik.touched.name && formik.errors.name}
               disabled={formik.isSubmitting}
               autoFocus
@@ -78,14 +75,14 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
 
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          Cancel
+          {t('modal.edit.cancel')}
         </Button>
         <Button
           variant="primary"
           onClick={formik.handleSubmit}
           disabled={formik.isSubmitting || !formik.isValid}
         >
-          Add
+          {t('modal.edit.submit')}
         </Button>
       </Modal.Footer>
     </Modal>
