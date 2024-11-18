@@ -1,6 +1,7 @@
-import useAuth from "../../hooks";
-import { Button } from "react-bootstrap";
-import { useTranslation } from "react-i18next";
+import { Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import useAuth from '../../hooks';
+
 const LogOutButton = () => {
   const { t } = useTranslation();
   const auth = useAuth();

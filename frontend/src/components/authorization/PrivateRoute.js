@@ -1,6 +1,6 @@
-import useAuth from "../../hooks";
-import { useLocation, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useLocation, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import useAuth from '../../hooks';
 
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
@@ -12,6 +12,5 @@ const PrivateRoute = ({ children }) => {
     isAuthenticated ? children : <Navigate to="/login" state={{ from: location }} />
   );
 };
-
 
 export default PrivateRoute;
