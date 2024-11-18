@@ -1,7 +1,13 @@
 import { Button, Dropdown } from 'react-bootstrap';
 import { usePageTranslation } from '../../hooks/usePageTranslation';
 
-const Channel = ({ channel, currentChannel, onChannelSelect, onChannelDelete, onChannelEdit }) => {
+const Channel = ({
+  channel,
+  currentChannel,
+  onChannelSelect,
+  onChannelDelete,
+  onChannelEdit
+}) => {
   const isDefault = ['general', 'random'].includes(channel.name);
   const translation = usePageTranslation('chat');
   const channelName = `# ${channel.name}`;
