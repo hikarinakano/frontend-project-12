@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider, ErrorBoundary } from '@rollbar/react';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './locales/index.js';
 import setupProfanityFilter from './services/profanityFilter.js';
-import { Provider, ErrorBoundary } from '@rollbar/react';
 
 const rollbarConfig = {
   accessToken: 'f7030b6c09544a6baa9243112f15213e',
@@ -17,10 +17,10 @@ const rollbarConfig = {
       javascript: {
         source_map_enabled: true,
         code_version: '1.0.0',
-        guess_uncaught_frames: true
-      }
-    }
-  }
+        guess_uncaught_frames: true,
+      },
+    },
+  },
 };
 
 setupProfanityFilter();
@@ -30,7 +30,7 @@ root.render(
   <Provider config={rollbarConfig}>
     <React.StrictMode>
       <ErrorBoundary>
-        <App />
+        <App/>
       </ErrorBoundary>
     </React.StrictMode>
   </Provider>

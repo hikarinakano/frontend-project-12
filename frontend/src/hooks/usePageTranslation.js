@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-export const usePageTranslation = (page) => {
+export default usePageTranslation = (page) => {
   const { t } = useTranslation();
   return (key) => t(`${page}.${key}`);
-}; 
+};

@@ -6,7 +6,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources: {
-      ru: resources
+      ru: resources,
     },
     lng: 'ru',
     fallbackLng: 'ru',
