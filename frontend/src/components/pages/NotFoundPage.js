@@ -6,7 +6,8 @@ const NotFoundPage = () => {
   return (
     <nav>
       <h1>{t('notFound.header')}</h1>
-      <div>{t('notFound.goto')}
+      <div>
+        {t('notFound.goto')}
         <Link to="/">
           {t('notFound.mainPage')}
         </Link>

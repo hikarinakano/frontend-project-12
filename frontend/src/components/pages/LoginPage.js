@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Card } from 'react-bootstrap';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import routes from '../../routes.js';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import routes from '../../routes.js';
 import useAuth from '../../hooks/index.js';
 
 const LoginPage = () => {

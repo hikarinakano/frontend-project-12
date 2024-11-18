@@ -23,8 +23,9 @@ const EditChannelModal = ({
       .min(3, t('errors.length'))
       .max(20, t('errors.length'))
       .required(t('errors.reqiured'))
-      .test('unique', t('errors.unique'), (value) => 
-        !channels.some((channel) => channel.name === value)),
+      .test('unique', t('errors.unique'),
+        (value) => !channels.some((channel) => channel.name === value)
+      ),
   });
 
   const formik = useFormik({
@@ -39,7 +40,7 @@ const EditChannelModal = ({
         await editChannel({ id: channelId, name: cleanedName }).unwrap();
         onChannelEdit(channelId);
         onHide();
-        toast.success(t('notifications.channelRenamed'))
+        toast.success(t('notifications.channelRenamed'));
       } catch (err) {
         console.error('Failed to add channel:', err);
       }
