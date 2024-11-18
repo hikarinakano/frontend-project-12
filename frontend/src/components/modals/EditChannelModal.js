@@ -15,10 +15,10 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
   const validationSchema = yup.object().shape({
     name: yup
       .string()
-      .min(3, 'From 3 to 20 characters')
-      .max(20, 'From 3 to 20 characters')
-      .required('Required')
-      .test('unique', 'Must be unique', (value) => {
+      .min(3, t('errors.length'))
+      .max(20, t('errors.length'))
+      .required(t('errors.reqiured'))
+      .test('unique', t('errors.unique'), (value) => {
         return !channels.some((channel) => channel.name === value);
       }),
   });
@@ -60,12 +60,13 @@ const EditChannelModal = ({ show, onHide, onChannelEdit, channelId }) => {
             <Form.Label>{t('modal.edit.formLabel')}</Form.Label>
             <Form.Control
               name="name"
+              id="name"
+              type="text"
               value={formik.values.name}
               onChange={formik.handleChange}
               isInvalid={formik.touched.name && formik.errors.name}
               disabled={formik.isSubmitting}
               autoFocus
-              autoComplete="off"
             />
             <Form.Control.Feedback type="invalid">
               {formik.errors.name}
