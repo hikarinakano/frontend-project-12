@@ -20,7 +20,7 @@ const Channel = ({ channel, currentChannel, onChannelSelect, onChannelDelete, on
 
         {!isDefault && (
           <Dropdown align="end">
-            <Dropdown.Toggle 
+            <Dropdown.Toggle
               split
               variant={isActive ? 'secondary' : 'light'}
               className="flex-grow-0"
