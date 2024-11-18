@@ -20,8 +20,9 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
       .min(3, errTranslation('length'))
       .max(20, errTranslation('length'))
       .required(errTranslation('required'))
-      .test('unique', errTranslation('unique'), (value) =>
-        !channels.some((channel) => channel.name === value)),
+      .test('unique', errTranslation('unique'),
+        (value) => !channels.some((channel) => channel.name === value)
+      ),
   });
 
   const formik = useFormik({
