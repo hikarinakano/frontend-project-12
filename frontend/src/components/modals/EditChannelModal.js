@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import { useGetChannelsQuery, useEditChannelMutation } from '../../store/api/channelsApi';
+import { useEffect, useRef } from 'react';
 
 const EditChannelModal = ({
   show,
@@ -16,6 +17,7 @@ const EditChannelModal = ({
   const { data: channels = [] } = useGetChannelsQuery();
   const { t } = useTranslation();
   const currentChannel = channels.find((channel) => channel.id === channelId);
+  const inputRef = useRef(null);
 
   const validationSchema = yup.object().shape({
     name: yup
@@ -56,6 +58,12 @@ const EditChannelModal = ({
     onHide();
   };
 
+  useEffect(() => {
+    if (show && inputRef.current) {
+      inputRef.current.select();
+    }
+  }, [show]);
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -67,6 +75,7 @@ const EditChannelModal = ({
           <Form.Group>
             <Form.Label className="visually-hidden" htmlFor="name">{t('modals.edit.formLabel')}</Form.Label>
             <Form.Control
+              ref={inputRef}
               required
               name="name"
               id="name"
