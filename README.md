@@ -20,7 +20,7 @@ A real-time chat application similar to Slack, featuring channels, messages, and
 
 ## Requirements
 
-- Node.js version 18.0 or higher
+- Node.js version 20.16 or higher
 - npm or yarn package manager
 - A working terminal
 - Supported operating systems: MacOS, Linux, and Windows
