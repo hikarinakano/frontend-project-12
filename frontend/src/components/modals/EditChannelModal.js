@@ -20,6 +20,7 @@ const EditChannelModal = ({
   const validationSchema = yup.object().shape({
     name: yup
       .string()
+      .trim()
       .min(3, t('errors.length'))
       .max(20, t('errors.length'))
       .required(t('errors.reqiured'))
@@ -38,7 +39,8 @@ const EditChannelModal = ({
     enableReinitialize: true,
     onSubmit: async (values) => {
       try {
-        const cleanedName = filter.clean(values.name);
+        const trimmedName = values.name.trim();
+        const cleanedName = filter.clean(trimmedName);
         await editChannel({ id: channelId, name: cleanedName }).unwrap();
         onChannelEdit(channelId);
         onHide();
