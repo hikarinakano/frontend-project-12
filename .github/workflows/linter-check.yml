@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v3
       # run – произвольная bash-команда
       - run: make install
-      - run: make lint
+      - run: make lint-frontend
       # Add Code Climate secret key
         env:
           CHAT_SECRET: ${{ secrets.CHAT_SECRET }}
