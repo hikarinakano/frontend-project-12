@@ -1,0 +1,23 @@
+name: linter-check
+
+on: 
+  - push
+  - pull_request
+
+env:
+  CI: true
+
+jobs:
+  build:
+    # операционная система для работы воркфлоу
+    runs-on: ubuntu-latest
+
+    steps: 
+
+      - uses: actions/checkout@v3
+      # run – произвольная bash-команда
+      - run: make install
+      - run: make lint
+      # Add Code Climate secret key
+        env:
+          CHAT_SECRET: ${{ secrets.CHAT_SECRET }}
