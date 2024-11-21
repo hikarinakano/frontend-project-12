@@ -14,7 +14,7 @@ import NotFoundPage from './components/pages/NotFoundPage.js';
 import LogOutButton from './components/authorization/AuthButton.js';
 
 const App = () => (
-  <div className="d-flex flex-column vh-100">
+  <div className="d-flex flex-column vh-100 bg-light">
     <Provider store={store}>
       <AuthProvider>
         <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
