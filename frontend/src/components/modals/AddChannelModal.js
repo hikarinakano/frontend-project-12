@@ -24,7 +24,7 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
         'unique',
         errTranslation('unique'),
         (value) => {
-          if (!value) return true; // Skip validation if empty
+          if (!value) return true;
           const trimmedValue = value.trim().toLowerCase();
           return !channels.some((channel) => 
             channel.name.trim().toLowerCase() === trimmedValue
@@ -52,6 +52,7 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
         onChannelAdd(result);
         toast.success(t('notifications.channelCreated'));
       } catch (error) {
+        console.error(error);
         toast.error(t('notifications.connection'));
         onHide();
       }

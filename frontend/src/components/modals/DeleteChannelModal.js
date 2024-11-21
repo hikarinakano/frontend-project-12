@@ -19,6 +19,7 @@ const DeleteChannelModal = ({
       onHide();
       toast.success(t('notifications.channelDeleted'));
     } catch (err) {
+      console.error(err)
       toast.error(t('notifications.connection'));
     }
   };
