@@ -17,13 +17,19 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
   const validationSchema = yup.object().shape({
     name: yup
       .string()
+      .required(errTranslation('required'))
       .min(3, errTranslation('length'))
       .max(20, errTranslation('length'))
-      .required(errTranslation('required'))
       .test(
         'unique',
         errTranslation('unique'),
-        (value) => !channels.some((channel) => channel.name === value),
+        (value) => {
+          if (!value) return true; // Skip validation if empty
+          const trimmedValue = value.trim().toLowerCase();
+          return !channels.some((channel) => 
+            channel.name.trim().toLowerCase() === trimmedValue
+          );
+        },
       ),
   });
 
@@ -34,7 +40,8 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       try {
-        const cleanedName = filter.clean(values.name);
+        const trimmedName = values.name.trim();
+        const cleanedName = filter.clean(trimmedName);
         const result = await addChannel({
           name: cleanedName,
           username,
