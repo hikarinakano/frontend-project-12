@@ -43,8 +43,6 @@ const SignupPage = () => {
       confirmPassword: '',
     },
     validationSchema,
-    validateOnMount: true,
-    validateOnBlur: true,
     validateOnChange: true,
     onSubmit: async (values) => {
       try {
@@ -92,7 +90,6 @@ const SignupPage = () => {
                     <Form.Control
                       onChange={(e) => {
                         formik.handleChange(e);
-                        formik.setFieldTouched('username', true, true);
                       }}
                       onBlur={formik.handleBlur}
                       value={formik.values.username}
@@ -119,7 +116,6 @@ const SignupPage = () => {
                       type="password"
                       onChange={(e) => {
                         formik.handleChange(e);
-                        formik.setFieldTouched('password', true, true);
                       }}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -141,7 +137,6 @@ const SignupPage = () => {
                       type="password"
                       onChange={(e) => {
                         formik.handleChange(e);
-                        formik.setFieldTouched('confirmPassword', true, true);
                       }}
                       onBlur={formik.handleBlur}
                       value={formik.values.confirmPassword}
