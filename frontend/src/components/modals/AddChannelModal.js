@@ -52,7 +52,8 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
         onChannelAdd(result);
         toast.success(t('notifications.channelCreated'));
       } catch (error) {
-        console.error('Failed to add channel:', error);
+        toast.error(t('notifications.connection'));
+        onHide();
       }
     },
   });

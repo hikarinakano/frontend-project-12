@@ -48,7 +48,8 @@ const EditChannelModal = ({
         onHide();
         toast.success(t('notifications.channelRenamed'));
       } catch (err) {
-        console.error('Failed to add channel:', err);
+        toast.error(t('notifications.connection'));
+        onHide();
       }
     },
   });
