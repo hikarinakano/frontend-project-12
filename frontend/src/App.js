@@ -24,22 +24,35 @@ const App = () => (
           </Container>
         </Navbar>
         <Router>
-          <div className="container h-100 my-4 overflow-hidden rounded shadow flex-grow-1">
-            <Routes>
-              <Route path="*" element={<NotFoundPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
-              <Route
-                path="/"
-                element={(
+          <Routes>
+            <Route path="*" element={<NotFoundPage />} />
+            <Route
+              path="/"
+              element={(
+                <div className="container h-100 my-4 overflow-hidden rounded shadow flex-grow-1">
                   <PrivateRoute>
                     <ChatPage />
                   </PrivateRoute>
-                )}
-              />
-              <Route path="/signup" element={<LoginPage />} />
-            </Routes>
-          </div>
+                </div>
+              )}
+            />
+            <Route
+              path="/login"
+              element={(
+                <div className="container h-100 my-4 overflow-hidden rounded shadow flex-grow-1">
+                  <LoginPage />
+                </div>
+              )}
+            />
+            <Route
+              path="/signup"
+              element={(
+                <div className="container h-100 my-4 overflow-hidden rounded shadow flex-grow-1">
+                  <SignupPage />
+                </div>
+              )}
+            />
+          </Routes>
         </Router>
         <ToastContainer
           position="top-right"
