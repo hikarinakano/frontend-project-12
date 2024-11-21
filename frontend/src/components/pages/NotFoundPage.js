@@ -24,7 +24,6 @@ const NotFoundPage = () => {
             </Link>
           </p>
         </div>
-        <div className="Toastify"></div>
       </div>
     </div>
   );
