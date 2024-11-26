@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import routes from '../../routes.js';
 import useAuth from '../../hooks/index.js';
+import loginPic from '../../assets/avatar-login.jpg';
 
 const LoginPage = () => {
   const auth = useAuth();
@@ -44,7 +45,6 @@ const LoginPage = () => {
             inputRef.current.select();
             return;
           }
-          // Handle network errors or other Axios errors
           if (!err.response) {
             toast.error(t('notifications.connection'));
             return;
@@ -58,11 +58,14 @@ const LoginPage = () => {
 
   return (
     <div className="container-fluid h-100">
-      <div className="row justify-content-center align-items-center h-100">
+      <div className="row justify-content-center align-content-center h-100">
         <div className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
-            <Card.Body className="p-5">
-              <Form onSubmit={formik.handleSubmit} className="p-3">
+            <Card.Body className="row p-5">
+              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <img src={loginPic} className="rounded-circle" alt={t('login.header')} />
+              </div>
+              <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6">
                 <h1 className="text-center mb-4">{t('login.header')}</h1>
                 <fieldset>
                   <Form.Group className="form-floating mb-3">
@@ -111,7 +114,7 @@ const LoginPage = () => {
             <Card.Footer className="p-4">
               <div className="text-center">
                 <span>
-                  {t('login.noAccount')}
+                  {`${t('login.noAccount')} `}
                 </span>
                 <Link to="/signup">
                   {t('login.signup')}
