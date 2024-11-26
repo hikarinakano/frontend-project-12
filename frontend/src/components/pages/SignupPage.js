@@ -66,14 +66,14 @@ const SignupPage = () => {
         if (error.isAxiosError) {
           if (error.response?.status === 409) {
             setSignupError(err('usernameTaken'));
+            inputRef.current.select();
           } else if (!error.response) {
             toast.error(t('notifications.connection'));
             setSignupError(err('networkError'));
           }
-          inputRef.current.select();
           return;
         }
-        throw err;
+        throw error;
       }
     },
   });
@@ -119,7 +119,7 @@ const SignupPage = () => {
                     value={formik.values.password}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    isInvalid={formik.touched.password && formik.errors.password}
+                    isInvalid={(formik.touched.password && formik.errors.password) || signupError}
                   />
                   <div className="invalid-tooltip">
                     {formik.errors.password}
@@ -138,10 +138,10 @@ const SignupPage = () => {
                     value={formik.values.confirmPassword}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    isInvalid={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                    isInvalid={(formik.touched.confirmPassword && formik.errors.confirmPassword) || signupError}
                   />
                   <div className="invalid-tooltip">
-                    {formik.errors.confirmPassword}
+                    {signupError || formik.errors.confirmPassword}
                   </div>
                   <Form.Label htmlFor="confirmPassword">{translation('confirmPassword')}</Form.Label>
                 </Form.Group>
