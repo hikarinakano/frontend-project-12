@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -5,7 +6,6 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import { useGetChannelsQuery, useEditChannelMutation } from '../../store/api/channelsApi';
-import { useEffect, useRef } from 'react';
 
 const EditChannelModal = ({
   show,
@@ -48,7 +48,7 @@ const EditChannelModal = ({
         onHide();
         toast.success(t('notifications.channelRenamed'));
       } catch (err) {
-        console.error(err)
+        console.error(err);
         toast.error(t('notifications.connection'));
         onHide();
       }
