@@ -77,7 +77,7 @@ const SignupPage = () => {
       }
     },
   });
-
+  const isPasswordConfirmed = formik.touched.confirmPassword && formik.errors.confirmPassword;
   return (
     <div className="container-fluid h-100">
       <div className="row justify-content-center align-content-center h-100">
@@ -107,7 +107,6 @@ const SignupPage = () => {
                     {formik.errors.username}
                   </div>
                 </Form.Group>
-
                 <Form.Group className="form-floating mb-3">
                   <Form.Control
                     type="password"
@@ -126,7 +125,6 @@ const SignupPage = () => {
                   </div>
                   <Form.Label htmlFor="password">{translation('password')}</Form.Label>
                 </Form.Group>
-
                 <Form.Group className="form-floating mb-4">
                   <Form.Control
                     type="password"
@@ -138,7 +136,7 @@ const SignupPage = () => {
                     value={formik.values.confirmPassword}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    isInvalid={(formik.touched.confirmPassword && formik.errors.confirmPassword) || signupError}
+                    isInvalid={isPasswordConfirmed || signupError}
                   />
                   <div className="invalid-tooltip">
                     {signupError || formik.errors.confirmPassword}
