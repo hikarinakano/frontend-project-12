@@ -14,60 +14,30 @@ import NotFoundPage from './components/pages/NotFoundPage.js';
 import LogOutButton from './components/authorization/AuthButton.js';
 
 const App = () => (
-  <div className="d-flex flex-column vh-100 bg-light">
-    <Provider store={store}>
-      <AuthProvider>
-        <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
-          <Container>
-            <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
-            <LogOutButton />
-          </Container>
-        </Navbar>
-        <Router>
-          <Routes>
-            <Route path="*" element={<NotFoundPage />} />
-            <Route
-              path="/"
-              element={(
-                <div className="container h-100 my-4 overflow-hidden rounded shadow flex-grow-1">
-                  <PrivateRoute>
-                    <ChatPage />
-                  </PrivateRoute>
-                </div>
-              )}
-            />
-            <Route
-              path="/login"
-              element={(
-                <div className="container h-100 my-4 overflow-hidden rounded shadow flex-grow-1">
-                  <LoginPage />
-                </div>
-              )}
-            />
-            <Route
-              path="/signup"
-              element={(
-                <div className="container h-100 my-4 overflow-hidden rounded shadow flex-grow-1">
-                  <SignupPage />
-                </div>
-              )}
-            />
-          </Routes>
-        </Router>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
-      </AuthProvider>
-    </Provider>
+  <div className="h-100">
+    <div className="h-100" id="chat">
+      <div className="d-flex flex-column h-100 bg-light">
+        <Provider store={store}>
+          <AuthProvider>
+            <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+              <Container>
+                <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
+                <LogOutButton />
+              </Container>
+            </Navbar>
+            <Router>
+              <Routes>
+                <Route path="*" element={<NotFoundPage />} />
+                <Route path="/" element={<PrivateRoute><ChatPage /></PrivateRoute>} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+              </Routes>
+            </Router>
+            <ToastContainer />
+          </AuthProvider>
+        </Provider>
+      </div>
+    </div>
   </div>
 );
 
