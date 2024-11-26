@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import usePageTranslation from '../../hooks/usePageTranslation';
 import useAuth from '../../hooks/index.js';
 import routes from '../../routes.js';
+import signupPic from '../../assets/sign-in-logo.jpg';
 
 const SignupPage = () => {
   const auth = useAuth();
@@ -79,95 +80,80 @@ const SignupPage = () => {
 
   return (
     <div className="container-fluid h-100">
-      <div className="row justify-content-center align-items-center h-100">
+      <div className="row justify-content-center align-content-center h-100">
         <div className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
-            <Card.Body className="p-5">
-              <Form onSubmit={formik.handleSubmit} className="p-3">
+            <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
+              <div>
+                <img src={signupPic} className="rounded-circle" alt={translation('signupHeader')} />
+              </div>
+              <Form onSubmit={formik.handleSubmit} className="w-50">
                 <h1 className="text-center mb-4">{translation('signupHeader')}</h1>
-                <fieldset>
-                  <Form.Group className="form-floating mb-3">
-                    <Form.Control
-                      onChange={(e) => {
-                        formik.handleChange(e);
-                      }}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.username}
-                      placeholder={translation('username')}
-                      name="username"
-                      id="username"
-                      autoComplete="username"
-                      isInvalid={
-                        (
-                          formik.touched.username && formik.errors.username
-                        ) || signupError
-                      }
-                      required
-                      ref={inputRef}
-                    />
-                    <label htmlFor="username">{translation('username')}</label>
-                    <Form.Control.Feedback type="invalid">
-                      {formik.errors.username}
-                    </Form.Control.Feedback>
-                  </Form.Group>
+                <Form.Group className="form-floating mb-3">
+                  <Form.Control
+                    placeholder={translation('username')}
+                    name="username"
+                    id="username"
+                    autoComplete="username"
+                    required
+                    ref={inputRef}
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    isInvalid={(formik.touched.username && formik.errors.username) || signupError}
+                  />
+                  <Form.Label htmlFor="username">{translation('username')}</Form.Label>
+                  <div className="invalid-tooltip">
+                    {formik.errors.username}
+                  </div>
+                </Form.Group>
 
-                  <Form.Group className="form-floating mb-3">
-                    <Form.Control
-                      type="password"
-                      onChange={(e) => {
-                        formik.handleChange(e);
-                      }}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.password}
-                      placeholder={translation('password')}
-                      name="password"
-                      id="password"
-                      autoComplete="new-password"
-                      isInvalid={formik.touched.password && formik.errors.password}
-                      required
-                    />
-                    <label htmlFor="password">{translation('password')}</label>
-                    <Form.Control.Feedback type="invalid">
-                      {formik.errors.password}
-                    </Form.Control.Feedback>
-                  </Form.Group>
+                <Form.Group className="form-floating mb-3">
+                  <Form.Control
+                    type="password"
+                    placeholder={translation('password')}
+                    name="password"
+                    id="password"
+                    autoComplete="new-password"
+                    required
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    isInvalid={formik.touched.password && formik.errors.password}
+                  />
+                  <div className="invalid-tooltip">
+                    {formik.errors.password}
+                  </div>
+                  <Form.Label htmlFor="password">{translation('password')}</Form.Label>
+                </Form.Group>
 
-                  <Form.Group className="form-floating mb-4">
-                    <Form.Control
-                      type="password"
-                      onChange={(e) => {
-                        formik.handleChange(e);
-                      }}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.confirmPassword}
-                      placeholder={translation('confirmPassword')}
-                      name="confirmPassword"
-                      id="confirmPassword"
-                      autoComplete="new-password"
-                      isInvalid={
-                        formik.touched.confirmPassword && formik.errors.confirmPassword
-                      }
-                      required
-                    />
-                    <label htmlFor="confirmPassword">{translation('confirmPassword')}</label>
-                    <Form.Control.Feedback type="invalid">
-                      {formik.errors.confirmPassword}
-                    </Form.Control.Feedback>
-                  </Form.Group>
+                <Form.Group className="form-floating mb-4">
+                  <Form.Control
+                    type="password"
+                    placeholder={translation('confirmPassword')}
+                    name="confirmPassword"
+                    id="confirmPassword"
+                    autoComplete="new-password"
+                    required
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    isInvalid={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                  />
+                  <div className="invalid-tooltip">
+                    {formik.errors.confirmPassword}
+                  </div>
+                  <Form.Label htmlFor="confirmPassword">{translation('confirmPassword')}</Form.Label>
+                </Form.Group>
 
-                  {signupError && (
-                    <div className="text-danger mb-3">{signupError}</div>
-                  )}
-
-                  <Button
-                    type="submit"
-                    variant="outline-primary"
-                    className="w-100"
-                    disabled={formik.isSubmitting}
-                  >
-                    {translation('signup')}
-                  </Button>
-                </fieldset>
+                <Button
+                  type="submit"
+                  variant="outline-primary"
+                  className="w-100"
+                  disabled={formik.isSubmitting}
+                >
+                  {translation('signup')}
+                </Button>
               </Form>
             </Card.Body>
           </Card>
