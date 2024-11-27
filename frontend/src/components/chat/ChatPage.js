@@ -23,15 +23,15 @@ const ChatPage = () => {
   if (isLoading || !currentChannel) return <div>Loading...</div>;
 
   return (
-    <div className="container h-100  overflow-hidden rounded shadow">
+    <div className="container h-100 my-4 overflow-hidden rounded shadow">
       <div className="row h-100 bg-white flex-md-row">
-        <div className="col-4 col-md-2 border-end  bg-light flex-column h-100 d-flex">
+        <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
           <Channels
             currentChannel={currentChannel}
             onChannelSelect={handleChannelSelect}
           />
         </div>
-        <div className="col-8 col-md-10 h-100">
+        <div className="col p-0 h-100">
           <Chat currentChannel={currentChannel} />
         </div>
       </div>

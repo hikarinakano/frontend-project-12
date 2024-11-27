@@ -1,4 +1,4 @@
-import { Button, Dropdown } from 'react-bootstrap';
+import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
 import usePageTranslation from '../../hooks/usePageTranslation';
 
 const Channel = ({
@@ -8,43 +8,48 @@ const Channel = ({
   onChannelDelete,
   onChannelEdit,
 }) => {
-  const isDefault = ['general', 'random'].includes(channel.name);
   const translation = usePageTranslation('chat');
-  const channelName = `# ${channel.name}`;
   const isActive = channel.id === currentChannel.id;
 
   return (
-    <li key={channel.id} className="nav-item w-100">
-      <div className="d-flex dropdown">
+    <li className="nav-item w-100">
+      {!['general', 'random'].includes(channel.name) ? (
+        <Dropdown as={ButtonGroup} className="d-flex">
+          <Button
+            type="button"
+            variant={isActive ? 'secondary' : null}
+            className="w-100 rounded-0 text-start text-truncate"
+            onClick={() => onChannelSelect(channel)}
+          >
+            <span className="me-1">#</span>{channel.name}
+          </Button>
+          <Dropdown.Toggle
+            split
+            type="button"
+            variant={isActive ? 'secondary' : null}
+            className="flex-grow-0"
+          >
+            <span className="visually-hidden">{translation('manageChannelLabel')}</span>
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item role="button" onClick={() => onChannelDelete(channel.id)}>
+              {translation('dropdownDelete')}
+            </Dropdown.Item>
+            <Dropdown.Item role="button" onClick={() => onChannelEdit(channel.id)}>
+              {translation('dropdownEdit')}
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      ) : (
         <Button
-          variant={isActive ? 'secondary' : 'light'}
-          className="w-100 rounded-0 text-start text-truncate"
+          type="button"
+          variant={isActive ? 'secondary' : null}
+          className="w-100 rounded-0 text-start"
           onClick={() => onChannelSelect(channel)}
         >
-          {channelName}
+          <span className="me-1">#</span>{channel.name}
         </Button>
-
-        {!isDefault && (
-          <Dropdown align="end">
-            <Dropdown.Toggle
-              split
-              variant={isActive ? 'secondary' : 'light'}
-              className="flex-grow-0"
-            >
-              <span className="visually-hidden">{translation('manageChannelLabel')}</span>
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => onChannelEdit(channel.id)}>
-                {translation('dropdownEdit')}
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => onChannelDelete(channel.id)}>
-                {translation('dropdownDelete')}
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        )}
-      </div>
+      )}
     </li>
   );
 };
