@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +12,7 @@ const Chat = ({ currentChannel }) => {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const { t } = useTranslation();
+  const [messageText, setMessageText] = useState('');
 
   const channelMessages = messages.filter(
     (message) => message.channelId === currentChannel?.id,
@@ -27,8 +28,6 @@ const Chat = ({ currentChannel }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const messageText = e.target.body.value;
-
     if (!messageText.trim()) return;
 
     try {
@@ -38,11 +37,15 @@ const Chat = ({ currentChannel }) => {
         channelId: currentChannel.id,
         username,
       });
-      e.target.reset();
+      setMessageText('');
       inputRef.current?.focus();
     } catch (err) {
       console.error('Failed to send message:', err);
     }
+  };
+
+  const handleChange = (e) => {
+    setMessageText(e.target.value);
   };
 
   return (
@@ -57,16 +60,10 @@ const Chat = ({ currentChannel }) => {
       </div>
       <div id="messages-box" className="chat-messages overflow-auto px-5">
         {channelMessages.map((message) => (
-          <div
-            key={message.id}
-            className={`mb-2 ${message.username === username ? 'text-end' : ''}`}
-          >
-            <div className={`message-bubble ${message.username === username ? 'bg-primary text-white' : 'bg-light'}`}>
-              <div className="small mb-1 text-bold">
-                {message.username}
-              </div>
-              {message.body}
-            </div>
+          <div key={message.id} className="text-break mb-2">
+            <b>{message.username}</b>
+            {': '}
+            {message.body}
           </div>
         ))}
         <div ref={messagesEndRef} />
@@ -84,8 +81,14 @@ const Chat = ({ currentChannel }) => {
               placeholder={t('chat.messageInput')}
               className="border-0 p-0 ps-2"
               ref={inputRef}
+              value={messageText}
+              onChange={handleChange}
             />
-            <Button type="submit" variant="group-vertical" disabled={!inputRef.current?.value}>
+            <Button 
+              type="submit" 
+              variant="group-vertical"
+              disabled={!messageText.trim()}
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor">
                 <path fillRule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
               </svg>
