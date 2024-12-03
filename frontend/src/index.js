@@ -7,7 +7,7 @@ import './locales/index.js';
 import setupProfanityFilter from './services/profanityFilter.js';
 
 const rollbarConfig = {
-  accessToken: 'f7030b6c09544a6baa9243112f15213e',
+  accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
   environment: 'testenv',
   captureUncaught: true,
   captureUnhandledRejections: true,
