@@ -4,6 +4,7 @@ plugins:
     enabled: true
     channel: "eslint-8"
     config:
+      config: .eslintrc.json
       extensions:
         - .js
         - .jsx
