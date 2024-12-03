@@ -1,0 +1,20 @@
+version: "2"
+plugins:
+  eslint:
+    enabled: true
+    channel: "eslint-8"
+    config:
+      extensions:
+        - .js
+        - .jsx
+      parser: "@babel/eslint-parser"
+checks:
+  method-lines:
+    config:
+      threshold: 25
+exclude_patterns:
+  - "node_modules/"
+  - "build/"
+  - "dist/"
+  - "**/*.test.js"
+  - "**/*.spec.js" 
