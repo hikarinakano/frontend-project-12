@@ -1,37 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider, ErrorBoundary } from '@rollbar/react';
-import App from './App';
+import { io } from 'socket.io-client';
+import { init } from './init.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './locales/index.js';
-import setupProfanityFilter from './services/profanityFilter.js';
 
-const rollbarConfig = {
-  accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
-  environment: 'testenv',
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  enabled: true,
-  payload: {
-    client: {
-      javascript: {
-        source_map_enabled: true,
-        code_version: '1.0.0',
-        guess_uncaught_frames: true,
-      },
-    },
-  },
+const run = async () => {
+  const socket = io();
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  const app = await init(socket);
+  root.render(<React.StrictMode>{app}</React.StrictMode>);
 };
 
-setupProfanityFilter();
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <Provider config={rollbarConfig}>
-    <React.StrictMode>
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
-    </React.StrictMode>
-  </Provider>,
-);
+run();
