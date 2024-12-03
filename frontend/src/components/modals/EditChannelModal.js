@@ -56,7 +56,9 @@ const EditChannelModal = ({
   });
 
   const handleClose = () => {
-    formik.resetForm();
+    formik.resetForm({
+      values: { name: currentChannel ? currentChannel.name : '' }
+    });
     onHide();
   };
 
@@ -93,7 +95,7 @@ const EditChannelModal = ({
             </Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex justify-content-end gap-2 mt-3">
-            <Button variant="secondary" onClick={onHide}>
+            <Button variant="secondary" onClick={handleClose}>
               {t('modals.edit.cancel')}
             </Button>
             <Button
