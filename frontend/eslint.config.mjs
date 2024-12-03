@@ -45,7 +45,7 @@ export default [
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
-      "import/extensions": ["error", "ignorePackages", {
+      "import/extensions": ["error", "always", {
         "js": "never",
         "jsx": "never",
         "mjs": "never"
