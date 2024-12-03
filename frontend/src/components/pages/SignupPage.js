@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import usePageTranslation from '../../hooks/usePageTranslation';
 import useAuth from '../../hooks/index.js';
 import routes from '../../routes.js';
-import signupPic from '../../assets/sign-in-logo.jpg';
+import signupPic from '../../assets/pictures/sign-in-logo.jpg';
 
 const SignupPage = () => {
   const auth = useAuth();

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import routes from '../../routes.js';
 import useAuth from '../../hooks/index.js';
-import loginPic from '../../assets/avatar-login.jpg';
+import loginPic from '../../assets/pictures/avatar-login.jpg';
 
 const LoginPage = () => {
   const auth = useAuth();
