@@ -18,7 +18,9 @@
     "@hexlet/chat-server": "^2.0.3"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.0.0"
+    "@babel/plugin-proposal-private-property-in-object": "^7.0.0",
+    "eslint": "^9.16.0",
+    "eslint-plugin-react": "^7.37.2"
   },
   "repository": {
     "type": "git",
