@@ -57,7 +57,7 @@ const EditChannelModal = ({
 
   const handleClose = () => {
     formik.resetForm({
-      values: { name: currentChannel ? currentChannel.name : '' }
+      values: { name: currentChannel ? currentChannel.name : '' },
     });
     onHide();
   };
