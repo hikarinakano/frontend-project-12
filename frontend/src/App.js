@@ -1,4 +1,4 @@
-import './styles/main.css';
+import './assets/styles/main.css';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
