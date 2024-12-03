@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import routes from '../../routes';
-import socket from '../../services/socket';
 
 export const messagesApi = createApi({
   reducerPath: 'messages',
@@ -29,14 +28,18 @@ export const messagesApi = createApi({
       ) {
         try {
           await cacheDataLoaded;
-          socket.on('newMessage', (message) => {
+          const socket = window.socket;
+
+          const handleNewMessage = (message) => {
             updateCachedData((draft) => {
               draft.push(message);
             });
-          });
+          };
+
+          socket.on('newMessage', handleNewMessage);
 
           await cacheEntryRemoved;
-          socket.off('newMessage');
+          socket.off('newMessage', handleNewMessage);
         } catch (e) {
           console.error('Error fetching messages', e.message);
         }

@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import routes from '../../routes';
-import socket from '../../services/socket';
 
 export const channelsApi = createApi({
   reducerPath: 'channels',
@@ -31,37 +30,41 @@ export const channelsApi = createApi({
       ) {
         try {
           await cacheDataLoaded;
-
-          socket.on('newChannel', (channel) => {
+          const socket = window.socket;
+          const handleNewChannel = (channel) => {
             updateCachedData((draft) => {
               if (!draft.find((ch) => ch.id === channel.id)) {
                 draft.push(channel);
               }
             });
-          });
+          };
 
-          socket.on('removeChannel', ({ id }) => {
+          const handleRemoveChannel = ({ id }) => {
             updateCachedData((draft) => {
               const index = draft.findIndex((channel) => channel.id === id);
               if (index !== -1) {
                 draft.splice(index, 1);
               }
             });
-          });
+          };
 
-          socket.on('renameChannel', ({ id, name }) => {
+          const handleRenameChannel = ({ id, name }) => {
             updateCachedData((draft) => {
               const channel = draft.find((c) => c.id === id);
               if (channel) {
                 channel.name = name;
               }
             });
-          });
+          };
+
+          socket.on('newChannel', handleNewChannel);
+          socket.on('removeChannel', handleRemoveChannel);
+          socket.on('renameChannel', handleRenameChannel);
 
           await cacheEntryRemoved;
-          socket.off('newChannel');
-          socket.off('removeChannel');
-          socket.off('renameChannel');
+          socket.off('newChannel', handleNewChannel);
+          socket.off('removeChannel', handleRemoveChannel);
+          socket.off('renameChannel', handleRenameChannel);
         } catch (e) {
           console.error('Error handling channel socket events:', e.message);
         }
@@ -77,7 +80,7 @@ export const channelsApi = createApi({
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
           const { data: newChannel } = await queryFulfilled;
-          socket.emit('newChannel', { ...newChannel, username: arg.username });
+          window.socket.emit('newChannel', { ...newChannel, username: arg.username });
         } catch (error) {
           console.error('Failed to add channel:', error);
         }
@@ -92,7 +95,7 @@ export const channelsApi = createApi({
       async onQueryStarted(id, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          socket.emit('removeChannel', { id });
+          window.socket.emit('removeChannel', { id });
         } catch (error) {
           console.error('Failed to delete channel:', error);
         }
@@ -108,7 +111,7 @@ export const channelsApi = createApi({
       async onQueryStarted({ id, name }, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          socket.emit('renameChannel', { id, name });
+          window.socket.emit('renameChannel', { id, name });
         } catch (error) {
           console.error('Failed to rename channel:', error);
         }
