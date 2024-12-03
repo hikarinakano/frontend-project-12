@@ -4,7 +4,7 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { Provider as StoreProvider } from 'react-redux';
 import React from 'react';
 import setupProfanityFilter from './services/profanityFilter.js';
-import { ru } from './locales/index.js';
+import ru from './locales/index.js';
 import App from './App.js';
 import store from './store/index.js';
 
