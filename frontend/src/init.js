@@ -41,7 +41,7 @@ const init = async (socket) => {
   await i18n
     .use(initReactI18next)
     .init({
-      resources: { ru },
+      resources: ru,
       lng: 'ru',
       fallbackLng: 'ru',
       interpolation: {
