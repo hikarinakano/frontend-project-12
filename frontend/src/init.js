@@ -62,8 +62,8 @@ const init = async (socket) => {
       },
     });
 
-  setupProfanityFilter();
   initSocket(socket);
+  setupProfanityFilter();
 
   const vdom = (
     <RollbarProvider config={rollbarConfig}>
