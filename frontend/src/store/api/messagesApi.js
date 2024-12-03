@@ -28,7 +28,7 @@ export const messagesApi = createApi({
       ) {
         try {
           await cacheDataLoaded;
-          const socket = window.socket;
+          const { socket } = window;
 
           const handleNewMessage = (message) => {
             updateCachedData((draft) => {

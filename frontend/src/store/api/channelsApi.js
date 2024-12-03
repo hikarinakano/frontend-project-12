@@ -30,7 +30,7 @@ export const channelsApi = createApi({
       ) {
         try {
           await cacheDataLoaded;
-          const socket = window.socket;
+          const { socket } = window;
           const handleNewChannel = (channel) => {
             updateCachedData((draft) => {
               if (!draft.find((ch) => ch.id === channel.id)) {
