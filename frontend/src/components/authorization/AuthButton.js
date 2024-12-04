@@ -1,13 +1,17 @@
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import useAuth from '../../hooks';
+import { useDispatch } from 'react-redux';
+import { loginSuccess, logout } from '../../store/slices/authSlice';
 
 const LogOutButton = () => {
   const { t } = useTranslation();
-  const auth = useAuth();
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
-    auth.loggedIn
-      ? <Button variant="primary" onClick={auth.logOut}>{t('logOutBtn')}</Button>
+    loginSuccess
+      ? <Button variant="primary" onClick={handleLogout}>{t('logOutBtn')}</Button>
       : ''
   );
 };

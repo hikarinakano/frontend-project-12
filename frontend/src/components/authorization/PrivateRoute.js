@@ -1,15 +1,11 @@
 import { useLocation, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import useAuth from '../../hooks';
-
+import { selectors } from '../../store/slices/authSlice';
 const PrivateRoute = ({ children }) => {
-  const auth = useAuth();
+  const loggedIn = useSelector(selectors.selectIsLoggedIn);
   const location = useLocation();
-  const { token } = useSelector((state) => state.auth);
-  const storedAuth = localStorage.getItem('userId');
-  const isAuthenticated = auth.loggedIn || token || storedAuth;
   return (
-    isAuthenticated ? children : <Navigate to="/login" state={{ from: location }} />
+    loggedIn ? children : <Navigate to="/login" state={{ from: location }} />
   );
 };
 
