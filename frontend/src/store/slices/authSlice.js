@@ -36,24 +36,15 @@ const authSlice = createSlice({
 
 const selectAuthState = (state) => state.auth;
 
-export const selectAuth = createSelector(
-  [selectAuthState],
-  (auth) => ({
-    loggedIn: auth.loggedIn,
-    username: auth.username,
-    token: auth.token,
-  })
-);
-
-export const selectIsLoggedIn = createSelector(
-  [selectAuthState],
-  (auth) => auth.loggedIn
-);
-
-export const selectUsername = createSelector(
-  [selectAuthState],
-  (auth) => auth.username
-);
-
 export const { loginSuccess, logout } = authSlice.actions;
+export const selectors = {
+  selectIsLoggedIn: createSelector(
+    [selectAuthState],
+    (auth) => auth.loggedIn,
+  ),
+  selectUsername: createSelector(
+    [selectAuthState],
+    (auth) => auth.username,
+  ),
+};
 export default authSlice.reducer;
