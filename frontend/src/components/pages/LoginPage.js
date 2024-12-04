@@ -5,8 +5,8 @@ import { Button, Form, Card } from 'react-bootstrap';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import routes from '../../routes.js';
 import { useDispatch } from 'react-redux';
+import routes from '../../routes.js';
 import { loginSuccess } from '../../store/slices/authSlice.js';
 import loginPic from '../../assets/pictures/avatar-login.jpg';
 
