@@ -29,7 +29,7 @@ const App = () => (
         <ToastContainer />
       </AuthProvider>
     </Provider>
-</AppWrapper>
+  </AppWrapper>
 );
 
 export default App;

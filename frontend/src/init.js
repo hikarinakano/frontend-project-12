@@ -61,9 +61,9 @@ const initi18n = async () => {
         },
       },
     });
-}
-const init = async (socket) => {
+};
 
+const init = async (socket) => {
   await initi18n();
   initSocket(socket);
   setupProfanityFilter();
