@@ -1,25 +1,59 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 
-const initialState = {
-  username: null,
-  token: null,
+const getInitialState = () => {
+  const stored = localStorage.getItem('userId');
+  if (stored) {
+    try {
+      const { username, token } = JSON.parse(stored);
+      return { username, token, loggedIn: true };
+    } catch (e) {
+      console.error('Failed to parse auth data:', e);
+    }
+  }
+  return { username: null, token: null, loggedIn: false };
 };
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: getInitialState(),
   reducers: {
-    setAuthInfo: (state, action) => {
-      state.username = action.payload.username;
-      state.token = action.payload.token;
+    loginSuccess: (state, action) => {
+      const { username, token } = action.payload;
+      state.username = username;
+      state.token = token;
+      state.loggedIn = true;
+      localStorage.setItem('userId', JSON.stringify({ username, token }));
     },
-    clearAuthInfo: (state) => {
+    logout: (state) => {
       state.username = null;
       state.token = null;
+      state.loggedIn = false;
+      localStorage.removeItem('userId');
     },
   },
 });
 
-export const { setAuthInfo, clearAuthInfo } = authSlice.actions;
+const selectAuthState = (state) => state.auth;
+
+export const selectAuth = createSelector(
+  [selectAuthState],
+  (auth) => ({
+    loggedIn: auth.loggedIn,
+    username: auth.username,
+    token: auth.token,
+  })
+);
+
+export const selectIsLoggedIn = createSelector(
+  [selectAuthState],
+  (auth) => auth.loggedIn
+);
+
+export const selectUsername = createSelector(
+  [selectAuthState],
+  (auth) => auth.username
+);
+
+export const { loginSuccess, logout } = authSlice.actions;
 export default authSlice.reducer;
