@@ -7,12 +7,13 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import usePageTranslation from '../../hooks/usePageTranslation';
-import useAuth from '../../hooks/index.js';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../store/slices/authSlice.js';
 import routes from '../../routes.js';
 import signupPic from '../../assets/pictures/sign-in-logo.jpg';
 
 const SignupPage = () => {
-  const auth = useAuth();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const translation = usePageTranslation('signup');
   const err = usePageTranslation('errors');
@@ -59,7 +60,7 @@ const SignupPage = () => {
           token: res.data.token,
         };
 
-        auth.logIn(authData);
+        dispatch(loginSuccess(authData));
         navigate('/');
       } catch (error) {
         formik.setSubmitting(false);

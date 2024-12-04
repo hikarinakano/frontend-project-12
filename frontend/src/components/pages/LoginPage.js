@@ -6,11 +6,12 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import routes from '../../routes.js';
-import useAuth from '../../hooks/index.js';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../store/slices/authSlice.js';
 import loginPic from '../../assets/pictures/avatar-login.jpg';
 
 const LoginPage = () => {
-  const auth = useAuth();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
@@ -34,7 +35,7 @@ const LoginPage = () => {
           username: res.data.username,
           token: res.data.token,
         };
-        auth.logIn(authData);
+        dispatch(loginSuccess(authData));
         const { from } = location.state || { from: { pathname: '/' } };
         navigate(from);
       } catch (err) {
