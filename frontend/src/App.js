@@ -17,18 +17,22 @@ const App = () => (
       <Router>
         <Routes>
           {getRoutes().map(({
-             key,
-             path,
-             component,
-             private: isPrivate 
-            }) => (
-            <Route
-              key={key}
-              path={path}
-              element={
-                isPrivate ? <PrivateRoute>{pagesList[component]}</PrivateRoute> : pagesList[component]
-              }
-            />
+            key,
+            path,
+            component,
+            private: isPrivate,
+          }) => (
+              <Route
+                key={key}
+                path={path}
+                element={
+                  isPrivate ? (
+                    <PrivateRoute>{pagesList[component]}</PrivateRoute>
+                  ) : (
+                    pagesList[component]
+                  )
+                }
+              />
           ))}
         </Routes>
       </Router>
