@@ -22,17 +22,17 @@ const App = () => (
             component,
             private: isPrivate,
           }) => (
-              <Route
-                key={key}
-                path={path}
-                element={
-                  isPrivate ? (
-                    <PrivateRoute>{pagesList[component]}</PrivateRoute>
-                  ) : (
-                    pagesList[component]
-                  )
-                }
-              />
+            <Route
+              key={key}
+              path={path}
+              element={
+                isPrivate ? (
+                  <PrivateRoute>{pagesList[component]}</PrivateRoute>
+                ) : (
+                  pagesList[component]
+                )
+              }
+            />
           ))}
         </Routes>
       </Router>
