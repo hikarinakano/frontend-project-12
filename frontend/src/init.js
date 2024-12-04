@@ -37,7 +37,7 @@ const initSocket = (socket) => {
   });
 };
 
-const init = async (socket) => {
+const initi18n = async () => {
   await i18n
     .use(initReactI18next)
     .init({
@@ -61,7 +61,10 @@ const init = async (socket) => {
         },
       },
     });
+}
+const init = async (socket) => {
 
+  await initi18n();
   initSocket(socket);
   setupProfanityFilter();
 
@@ -78,4 +81,4 @@ const init = async (socket) => {
   return vdom;
 };
 
-export { init, rollbarConfig };
+export default init;
