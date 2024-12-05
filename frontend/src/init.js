@@ -7,13 +7,14 @@ import setupProfanityFilter from './services/profanityFilter.js';
 import ru from './locales/index.js';
 import App from './App.js';
 import store from './store/index.js';
+import Rollbar from 'rollbar';
 
 const rollbarConfig = {
   accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
-  environment: 'testenv',
+  environment: process.env.REACT_APP_ENV,
   captureUncaught: true,
   captureUnhandledRejections: true,
-  enabled: true,
+  enabled: !!process.env.REACT_APP_ROLLBAR_TOKEN,
   payload: {
     client: {
       javascript: {
@@ -24,6 +25,11 @@ const rollbarConfig = {
     },
   },
 };
+
+const rollbar = new Rollbar({
+  accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
+  environment: process.env.NODE_ENV,
+});
 
 const initSocket = (socket) => {
   window.socket = socket;
@@ -64,21 +70,26 @@ const initi18n = async () => {
 };
 
 const init = async (socket) => {
-  await initi18n();
-  initSocket(socket);
-  setupProfanityFilter();
+  try {
+    await initi18n();
+    initSocket(socket);
+    setupProfanityFilter();
 
-  const vdom = (
-    <RollbarProvider config={rollbarConfig}>
-      <ErrorBoundary>
-        <StoreProvider store={store}>
-          <App socket={socket} />
-        </StoreProvider>
-      </ErrorBoundary>
-    </RollbarProvider>
-  );
+    const vdom = (
+      <RollbarProvider config={rollbarConfig}>
+        <ErrorBoundary>
+          <StoreProvider store={store}>
+            <App socket={socket} />
+          </StoreProvider>
+        </ErrorBoundary>
+      </RollbarProvider>
+    );
 
-  return vdom;
+    return vdom;
+  } catch (error) {
+    rollbar.error('Initialization error:', error);
+    throw error;
+  }
 };
 
 export default init;
