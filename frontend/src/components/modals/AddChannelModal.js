@@ -53,8 +53,9 @@ const AddChannelModal = () => {
     initialValues: {
       name: '',
     },
+    validateOnChange: false,
     validationSchema,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm, setErrors }) => {
       try {
         const trimmedName = values.name.trim();
         const cleanedName = filter.clean(trimmedName);
@@ -76,7 +77,7 @@ const AddChannelModal = () => {
   });
 
   return (
-    <Modal show={true} onHide={handleClose}>
+    <Modal show onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.add.title')}</Modal.Title>
       </Modal.Header>
@@ -109,7 +110,7 @@ const AddChannelModal = () => {
         <Button
           variant="primary"
           onClick={formik.handleSubmit}
-          disabled={formik.isSubmitting || !formik.isValid}
+          disabled={formik.isSubmitting}
         >
           {t('modals.add.submit')}
         </Button>
