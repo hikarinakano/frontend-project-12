@@ -18,7 +18,7 @@ import {
   useGetChannelsQuery,
 } from '../store/api/channelsApi';
 import renderModalContent from '../modalLogic/renderModalContent';
-import { getValidationSchema } from '../modalLogic/validationSchema';
+import getValidationSchema from '../modalLogic/validationSchema';
 
 const ModalComponent = () => {
   const dispatch = useDispatch();

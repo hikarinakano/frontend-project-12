@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const getValidationSchema = (t, channels) => yup.object().shape({
+const getValidationSchema = (t, channels) => yup.object().shape({
   name: yup
     .string()
     .required(t('errors.required'))
@@ -17,4 +17,6 @@ export const getValidationSchema = (t, channels) => yup.object().shape({
         );
       },
     ),
-}); 
+});
+
+export default getValidationSchema;

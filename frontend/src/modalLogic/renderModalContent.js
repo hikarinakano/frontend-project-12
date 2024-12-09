@@ -1,6 +1,12 @@
 import { Modal, Form, Button } from 'react-bootstrap';
 
-const renderModalContent = ({ type, handleClose, formik, inputRef, t }) => {
+const renderModalContent = ({
+  type,
+  handleClose,
+  formik,
+  inputRef,
+  t
+}) => {
   const modalType = type === 'adding' ? 'add' : 'edit';
 
   switch (type) {
