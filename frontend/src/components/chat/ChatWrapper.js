@@ -1,5 +1,5 @@
-const Wrapper = ({ channels, chat }) => {
-  return (
+const Wrapper = ({ channels, chat }) =>
+  (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
       <div className="row h-100 bg-white flex-md-row">
         <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
@@ -10,7 +10,6 @@ const Wrapper = ({ channels, chat }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
 
 export default Wrapper;
