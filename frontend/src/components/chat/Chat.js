@@ -4,10 +4,14 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import { useGetMessagesQuery, useAddMessageMutation } from '../../store/api/messagesApi';
-import { ReactComponent as ChatSendBtn } from '../../assets/plus-box.svg';
+import { useGetChannelsQuery } from '../../store/api/channelsApi';
+import { selectors } from '../../store/slices/uiSlice';
+import { ReactComponent as ChatSendBtn } from '../../assets/svg/send-message-button.svg';
 
-const Chat = ({ currentChannel }) => {
+const Chat = () => {
   const { username } = useSelector((state) => state.auth);
+  const currentChannelId = useSelector(selectors.selectCurrentChannelId);
+  const { data: channels = [] } = useGetChannelsQuery();
   const { data: messages = [] } = useGetMessagesQuery();
   const [addMessage] = useAddMessageMutation();
   const messagesEndRef = useRef(null);
@@ -15,8 +19,9 @@ const Chat = ({ currentChannel }) => {
   const { t } = useTranslation();
   const [messageText, setMessageText] = useState('');
 
+  const currentChannel = channels.find((channel) => channel.id === currentChannelId);
   const channelMessages = messages.filter(
-    (message) => message.channelId === currentChannel?.id,
+    (message) => message.channelId === currentChannelId,
   );
 
   useEffect(() => {
@@ -35,7 +40,7 @@ const Chat = ({ currentChannel }) => {
       const cleanedMessage = filter.clean(messageText);
       await addMessage({
         body: cleanedMessage,
-        channelId: currentChannel.id,
+        channelId: currentChannelId,
         username,
       });
       setMessageText('');
