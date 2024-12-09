@@ -4,7 +4,7 @@ import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import { setCurrentChannel, openModal, selectors } from '../../store/slices/uiSlice';
 import Channel from './Channel';
 import usePageTranslation from '../../hooks/usePageTranslation';
-import { ReactComponent as AddChannelSquare} from '../../assets/svg/add-channel.svg';
+import { ReactComponent as AddChannelSquare } from '../../assets/svg/add-channel.svg';
 
 const Channels = () => {
   const dispatch = useDispatch();
