@@ -1,30 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import { useGetMessagesQuery } from '../../store/api/messagesApi';
+import { setCurrentChannel, selectors } from '../../store/slices/uiSlice';
 import Channels from '../chat/Channels';
 import Chat from '../chat/Chat';
 import ChatSkeleton from '../chat/skeletons/ChatSkeleton';
 import ChannelsSkeleton from '../chat/skeletons/ChannelsSkeleton';
 
 const ChatPage = () => {
+  const dispatch = useDispatch();
   const { data: channels, isLoading: isChannelsLoading } = useGetChannelsQuery();
   const { isLoading: isMessagesLoading } = useGetMessagesQuery();
-  const [currentChannel, setCurrentChannel] = useState(null);
-  const [isFirstLoad, setFirstLoad] = useState(true);
+  const currentChannelId = useSelector(selectors.selectCurrentChannelId);
 
   useEffect(() => {
-    if (channels && isFirstLoad) {
-      const generalChannel = channels.find((channel) => channel.name === 'general') || channels[0];
-      setCurrentChannel(generalChannel);
-      setFirstLoad(false);
+    if (channels?.length > 0 && !currentChannelId) {
+      const generalChannel = channels.find((channel) => channel.name === 'general');
+      if (generalChannel) {
+        dispatch(setCurrentChannel(generalChannel.id));
+      }
     }
-  }, [channels, isFirstLoad]);
+  }, [channels, currentChannelId, dispatch]);
 
-  const handleChannelSelect = (channel) => {
-    setCurrentChannel(channel);
-  };
-
-  const isLoading = isChannelsLoading || isMessagesLoading || !currentChannel;
+  const currentChannel = channels?.find((channel) => channel.id === currentChannelId);
+  const isLoading = isChannelsLoading || isMessagesLoading;
 
   if (isLoading) {
     return (
@@ -47,7 +47,7 @@ const ChatPage = () => {
         <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
           <Channels
             currentChannel={currentChannel}
-            onChannelSelect={handleChannelSelect}
+            onChannelSelect={(channel) => dispatch(setCurrentChannel(channel.id))}
           />
         </div>
         <div className="col p-0 h-100">
