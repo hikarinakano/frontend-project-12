@@ -31,13 +31,14 @@ const ChatPage = () => {
     return <Wrapper channels={<ChannelsSkeleton />} chat={<ChatSkeleton />} />
   }
 
-  else return (
-    <Wrapper channels={
-      <Channels
-        currentChannel={currentChannel}
-        onChannelSelect={(channel) => dispatch(setCurrentChannel(channel.id))}
-      />
-    }
+  return (
+    <Wrapper channels=
+      {
+        <Channels
+          currentChannel={currentChannel}
+          onChannelSelect={(channel) => dispatch(setCurrentChannel(channel.id))}
+        />
+      }
       chat={<Chat currentChannel={currentChannel} />} />
   );
 };
