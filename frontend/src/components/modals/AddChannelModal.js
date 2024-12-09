@@ -55,7 +55,7 @@ const AddChannelModal = () => {
     },
     validateOnChange: false,
     validationSchema,
-    onSubmit: async (values, { resetForm, setErrors }) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
         const trimmedName = values.name.trim();
         const cleanedName = filter.clean(trimmedName);
