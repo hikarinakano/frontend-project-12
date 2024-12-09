@@ -1,22 +1,24 @@
 import { Modal, Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useDeleteChannelMutation } from '../../store/api/channelsApi';
+import { closeModal, selectors } from '../../store/slices/uiSlice';
 
-const DeleteChannelModal = ({
-  show,
-  onHide,
-  channelId,
-  onChannelDelete,
-}) => {
+const DeleteChannelModal = () => {
+  const dispatch = useDispatch();
+  const { extra: channelId } = useSelector(selectors.selectModal);
   const [deleteChannel, { isLoading }] = useDeleteChannelMutation();
   const { t } = useTranslation();
+
+  const handleClose = () => {
+    dispatch(closeModal());
+  };
 
   const handleDelete = async () => {
     try {
       await deleteChannel(channelId).unwrap();
-      onChannelDelete(channelId);
-      onHide();
+      dispatch(closeModal());
       toast.success(t('notifications.channelDeleted'));
     } catch (err) {
       console.error(err);
@@ -25,7 +27,7 @@ const DeleteChannelModal = ({
   };
 
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal show={true} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.delete.title')}</Modal.Title>
       </Modal.Header>
@@ -35,7 +37,7 @@ const DeleteChannelModal = ({
           <Button
             variant="secondary"
             className="me-2"
-            onClick={onHide}
+            onClick={handleClose}
             disabled={isLoading}
           >
             {t('modals.delete.cancel')}

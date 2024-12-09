@@ -1,18 +1,17 @@
 import { useEffect, useRef } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import { useGetChannelsQuery, useEditChannelMutation } from '../../store/api/channelsApi';
+import { closeModal, selectors } from '../../store/slices/uiSlice';
 
-const EditChannelModal = ({
-  show,
-  onHide,
-  channelId,
-  onChannelEdit,
-}) => {
+const EditChannelModal = () => {
+  const dispatch = useDispatch();
+  const { extra: channelId } = useSelector(selectors.selectModal);
   const [editChannel, { isLoading }] = useEditChannelMutation();
   const { data: channels = [] } = useGetChannelsQuery();
   const { t } = useTranslation();
@@ -44,32 +43,28 @@ const EditChannelModal = ({
         const trimmedName = values.name.trim();
         const cleanedName = filter.clean(trimmedName);
         await editChannel({ id: channelId, name: cleanedName }).unwrap();
-        onChannelEdit(channelId);
-        onHide();
+        dispatch(closeModal());
         toast.success(t('notifications.channelRenamed'));
       } catch (err) {
         console.error(err);
         toast.error(t('notifications.connection'));
-        onHide();
+        dispatch(closeModal());
       }
     },
   });
 
   const handleClose = () => {
-    formik.resetForm({
-      values: { name: currentChannel ? currentChannel.name : '' },
-    });
-    onHide();
+    dispatch(closeModal());
   };
 
   useEffect(() => {
-    if (show && inputRef.current) {
+    if (inputRef.current) {
       inputRef.current.select();
     }
-  }, [show]);
+  }, []);
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={true} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.edit.title')}</Modal.Title>
       </Modal.Header>

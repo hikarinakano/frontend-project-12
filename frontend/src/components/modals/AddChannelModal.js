@@ -1,14 +1,18 @@
+import { useEffect, useRef } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
-import usePageTranslation from '../../hooks/usePageTranslation';
 import { useGetChannelsQuery, useAddChannelMutation } from '../../store/api/channelsApi';
+import { closeModal, setCurrentChannel } from '../../store/slices/uiSlice';
+import usePageTranslation from '../../hooks/usePageTranslation';
 
-const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
+const AddChannelModal = () => {
+  const dispatch = useDispatch();
+  const inputRef = useRef(null);
   const { username } = useSelector((state) => state.auth);
   const { data: channels = [] } = useGetChannelsQuery();
   const [addChannel] = useAddChannelMutation();
@@ -35,6 +39,16 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
       ),
   });
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  const handleClose = () => {
+    dispatch(closeModal());
+  };
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -50,24 +64,19 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
         }).unwrap();
 
         resetForm();
-        onHide();
-        onChannelAdd(result);
+        dispatch(setCurrentChannel(result.id));
+        dispatch(closeModal());
         toast.success(t('notifications.channelCreated'));
       } catch (error) {
         console.error(error);
         toast.error(t('notifications.connection'));
-        onHide();
+        dispatch(closeModal());
       }
     },
   });
 
-  const handleClose = () => {
-    formik.resetForm();
-    onHide();
-  };
-
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={true} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.add.title')}</Modal.Title>
       </Modal.Header>
@@ -77,13 +86,14 @@ const AddChannelModal = ({ show, onHide, onChannelAdd }) => {
           <Form.Group>
             <Form.Label className="visually-hidden" htmlFor="name">{t('modals.add.formLabel')}</Form.Label>
             <Form.Control
+              ref={inputRef}
               required
               name="name"
+              id="name"
               value={formik.values.name}
               onChange={formik.handleChange}
               isInvalid={formik.touched.name && formik.errors.name}
               disabled={formik.isSubmitting}
-              autoFocus
             />
             <Form.Control.Feedback type="invalid">
               {formik.errors.name}
