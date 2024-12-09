@@ -5,12 +5,17 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 import { useRef, useEffect } from 'react';
-import { closeModal, selectors, setCurrentChannel, setDefaultChannel } from '../store/slices/uiSlice';
+import { 
+  closeModal,
+  selectors,
+  setCurrentChannel,
+  setDefaultChannel,
+} from '../store/slices/uiSlice';
 import {
   useAddChannelMutation,
   useEditChannelMutation,
   useDeleteChannelMutation,
-  useGetChannelsQuery
+  useGetChannelsQuery,
 } from '../store/api/channelsApi';
 import renderModalContent from '../modalLogic/renderModalContent';
 import { getValidationSchema } from '../modalLogic/validationSchema';
@@ -67,9 +72,7 @@ const ModalComponent = () => {
             dispatch(setDefaultChannel());
           }
           await deleteChannel(channelId).unwrap();
-
         }
-
         dispatch(closeModal());
         const notifications = {
           adding: 'channelCreated',

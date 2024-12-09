@@ -5,7 +5,7 @@ const DEFAULT_CHANNEL_ID = '1';
 
 const initialState = {
   channels: {
-    currentChannelId: null,
+    currentChannelId: DEFAULT_CHANNEL_ID,
     defaultChannelId: DEFAULT_CHANNEL_ID,
   },
   modal: {
