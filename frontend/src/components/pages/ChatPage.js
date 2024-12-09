@@ -28,19 +28,23 @@ const ChatPage = () => {
   const isLoading = isChannelsLoading || isMessagesLoading;
 
   if (isLoading) {
-    return (<Wrapper channels={<ChannelsSkeleton />} chat={<ChatSkeleton />} />);
+    return (
+      <Wrapper
+        channels={<ChannelsSkeleton />}
+        chat={<ChatSkeleton />}
+      />
+    );
   }
-
   return (
     <Wrapper
-      channels=
-      {
+      channels={(
         <Channels
           currentChannel={currentChannel}
           onChannelSelect={(channel) => dispatch(setCurrentChannel(channel.id))}
         />
-      }
-      chat={<Chat currentChannel={currentChannel} />} />
+      )}
+      chat={<Chat currentChannel={currentChannel} />}
+    />
   );
 };
 
