@@ -1,38 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { selectors, closeModal, setCurrentChannel } from '../store/slices/uiSlice';
-import AddChannelModal from './modals/AddChannelModal';
-import DeleteChannelModal from './modals/DeleteChannelModal';
-import EditChannelModal from './modals/EditChannelModal';
-
-const modals = {
-  adding: AddChannelModal,
-  removing: DeleteChannelModal,
-  renaming: EditChannelModal,
-};
+import { useSelector } from 'react-redux';
+import { selectors } from '../store/slices/uiSlice';
+import ModalComponent from './Modal';
 
 const AppWrapper = ({ children }) => {
-  const dispatch = useDispatch();
   const modalInfo = useSelector(selectors.selectModal);
-  const { isOpen, type, extra } = modalInfo;
-
-  const handleClose = () => {
-    dispatch(closeModal());
-  };
-
-  const handleChannelAdd = (channel) => {
-    dispatch(setCurrentChannel(channel.id));
-    handleClose();
-  };
-
-  const handleChannelDelete = () => {
-    handleClose();
-  };
-
-  const handleChannelEdit = () => {
-    handleClose();
-  };
-
-  const CurrentModal = modals[type];
+  const { isOpen } = modalInfo;
 
   return (
     <div className="h-100">
@@ -41,16 +13,7 @@ const AppWrapper = ({ children }) => {
           {children}
         </div>
       </div>
-      {isOpen && CurrentModal && (
-        <CurrentModal
-          show={isOpen}
-          onHide={handleClose}
-          channelId={extra}
-          onChannelAdd={handleChannelAdd}
-          onChannelDelete={handleChannelDelete}
-          onChannelEdit={handleChannelEdit}
-        />
-      )}
+      {isOpen && <ModalComponent />}
     </div>
   );
 };
