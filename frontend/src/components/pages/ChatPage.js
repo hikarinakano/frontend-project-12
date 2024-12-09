@@ -33,7 +33,8 @@ const ChatPage = () => {
 
   return (
     <Wrapper
-      channels={
+      channels=
+      {
         <Channels
           currentChannel={currentChannel}
           onChannelSelect={(channel) => dispatch(setCurrentChannel(channel.id))}
