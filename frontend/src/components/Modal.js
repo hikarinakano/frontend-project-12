@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 import { useRef, useEffect } from 'react';
-import { 
+import {
   closeModal,
   selectors,
   setCurrentChannel,
