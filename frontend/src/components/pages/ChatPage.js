@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
+import { useGetMessagesQuery } from '../../store/api/messagesApi';
 import Channels from '../chat/Channels';
 import Chat from '../chat/Chat';
 import ChatSkeleton from '../chat/skeletons/ChatSkeleton';
 import ChannelsSkeleton from '../chat/skeletons/ChannelsSkeleton';
 
 const ChatPage = () => {
-  const { data: channels, isLoading } = useGetChannelsQuery();
+  const { data: channels, isLoading: isChannelsLoading } = useGetChannelsQuery();
+  const { isLoading: isMessagesLoading } = useGetMessagesQuery();
   const [currentChannel, setCurrentChannel] = useState(null);
   const [isFirstLoad, setFirstLoad] = useState(true);
 
@@ -22,7 +24,9 @@ const ChatPage = () => {
     setCurrentChannel(channel);
   };
 
-  if (isLoading || !currentChannel) {
+  const isLoading = isChannelsLoading || isMessagesLoading || !currentChannel;
+
+  if (isLoading) {
     return (
       <div className="container h-100 my-4 overflow-hidden rounded shadow">
         <div className="row h-100 bg-white flex-md-row">
