@@ -23,7 +23,8 @@ const uiSlice = createSlice({
       state.channels.currentChannelId = payload;
     },
     setDefaultChannel: (state) => {
-      state.channels.currentChannelId = state.channels.defaultChannelId;
+      const defaultId = state.channels.defaultChannelId;
+      state.channels.currentChannelId = defaultId.toString();
     },
     openModal: (state, { payload: { type, extra = null } }) => {
       state.modal = { isOpen: true, type, extra };
