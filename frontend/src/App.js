@@ -12,32 +12,30 @@ import AppWrapper from './components/AppWrapper.js';
 
 const App = () => (
   <AppWrapper>
-    <Provider store={store}>
-      <Header />
-      <Router>
-        <Routes>
-          {getRoutes().map(({
-            key,
-            path,
-            component,
-            private: isPrivate,
-          }) => (
-            <Route
-              key={key}
-              path={path}
-              element={
-                isPrivate ? (
-                  <PrivateRoute>{pagesList[component]}</PrivateRoute>
-                ) : (
-                  pagesList[component]
-                )
-              }
-            />
-          ))}
-        </Routes>
-      </Router>
-      <ToastContainer />
-    </Provider>
+    <Header />
+    <Router>
+      <Routes>
+        {getRoutes().map(({
+          key,
+          path,
+          component,
+          private: isPrivate,
+        }) => (
+          <Route
+            key={key}
+            path={path}
+            element={
+              isPrivate ? (
+                <PrivateRoute>{pagesList[component]}</PrivateRoute>
+              ) : (
+                pagesList[component]
+              )
+            }
+          />
+        ))}
+      </Routes>
+    </Router>
+    <ToastContainer />
   </AppWrapper>
 );
 
