@@ -64,7 +64,7 @@ const EditChannelModal = () => {
   }, []);
 
   return (
-    <Modal show={true} onHide={handleClose}>
+    <Modal show onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.edit.title')}</Modal.Title>
       </Modal.Header>
