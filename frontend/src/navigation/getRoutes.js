@@ -2,8 +2,8 @@ import getPath from './getPath';
 
 const getRoutes = () => [
   {
-    key: 'main',
-    path: getPath('main'),
+    key: 'chat',
+    path: getPath('chat'),
     component: 'ChatPage',
     private: true,
   },

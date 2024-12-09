@@ -1,5 +1,5 @@
 import LoginPage from '../components/pages/LoginPage.js';
-import ChatPage from '../components/chat/ChatPage.js';
+import ChatPage from '../components/pages/ChatPage.js';
 import SignupPage from '../components/pages/SignupPage.js';
 import NotFoundPage from '../components/pages/NotFoundPage.js';
 
