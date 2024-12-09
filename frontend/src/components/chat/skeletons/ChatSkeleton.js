@@ -10,7 +10,7 @@ const ChatSkeleton = () => (
         <Placeholder xs={2} />
       </Placeholder>
     </div>
-    
+
     <div className="chat-messages overflow-auto px-5">
       {[1, 2, 3, 4, 5].map((i) => (
         <div key={i} className="mb-2">

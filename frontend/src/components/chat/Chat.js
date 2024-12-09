@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import { useGetMessagesQuery, useAddMessageMutation } from '../../store/api/messagesApi';
-import { ReactComponent as ChatSendBtn} from '../../assets/plus-box.svg';
+import { ReactComponent as ChatSendBtn } from '../../assets/plus-box.svg';
 
 const Chat = ({ currentChannel }) => {
   const { username } = useSelector((state) => state.auth);
@@ -92,7 +92,7 @@ const Chat = ({ currentChannel }) => {
               variant="group-vertical"
               disabled={!messageText.trim()}
             >
-              <ChatSendBtn/>
+              <ChatSendBtn />
               <span className="visually-hidden">{t('chat.send')}</span>
             </Button>
           </InputGroup>
