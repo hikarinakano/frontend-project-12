@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-const DEFAULT_CHANNEL_ID = 1;
+const DEFAULT_CHANNEL_ID = '1';
 
 const initialState = {
   channels: {
@@ -24,7 +24,7 @@ const uiSlice = createSlice({
     },
     setDefaultChannel: (state) => {
       const defaultId = state.channels.defaultChannelId;
-      state.channels.currentChannelId = defaultId.toString();
+      state.channels.currentChannelId = defaultId;
     },
     openModal: (state, { payload: { type, extra = null } }) => {
       state.modal = { isOpen: true, type, extra };
