@@ -5,7 +5,7 @@ const renderModalContent = ({
   handleClose,
   formik,
   inputRef,
-  t
+  t,
 }) => {
   const modalType = type === 'adding' ? 'add' : 'edit';
 

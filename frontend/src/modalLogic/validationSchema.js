@@ -13,7 +13,7 @@ const getValidationSchema = (t, channels) => yup.object().shape({
         if (!value) return true;
         const trimmedValue = value.trim().toLowerCase();
         return !channels.some(
-          (channel) => channel.name.trim().toLowerCase() === trimmedValue
+          (channel) => channel.name.trim().toLowerCase() === trimmedValue,
         );
       },
     ),
