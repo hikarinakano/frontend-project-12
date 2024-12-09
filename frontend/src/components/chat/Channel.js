@@ -9,7 +9,6 @@ const Channel = ({
 }) => {
   const translation = usePageTranslation('chat');
   const isActive = channel.id === currentChannelId;
-
   return (
     <li className="nav-item w-100">
       {!['general', 'random'].includes(channel.name) ? (
