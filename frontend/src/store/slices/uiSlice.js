@@ -47,4 +47,4 @@ export const selectors = {
   selectModal: (state) => state.ui.modal,
 };
 
-export default uiSlice.reducer; 
+export default uiSlice.reducer;
