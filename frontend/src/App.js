@@ -1,10 +1,8 @@
 import './assets/styles/main.css';
-import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import getRoutes from './navigation/getRoutes.js';
-import store from './store/index.js';
 import pagesList from './navigation/pagesList.js';
 import PrivateRoute from './components/authorization/PrivateRoute.js';
 import Header from './components/Header.js';
