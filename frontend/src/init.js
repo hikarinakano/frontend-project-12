@@ -2,7 +2,6 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { Provider as StoreProvider } from 'react-redux';
-import React from 'react';
 import Rollbar from 'rollbar';
 import setupProfanityFilter from './services/profanityFilter.js';
 import ru from './locales/index.js';
