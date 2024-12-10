@@ -7,8 +7,7 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../store/slices/authSlice.js';
 import { useLoginMutation } from '../../store/api/authApi.js';
-import { uiSelectors } from '../../store/slices/uiSlice.js';
-import { setAuthError, cleanError } from '../../store/slices/uiSlice.js';
+import { setAuthError, cleanError, uiSelectors } from '../../store/slices/uiSlice.js';
 import loginPic from '../../assets/pictures/avatar-login.jpg';
 
 const LoginPage = () => {
@@ -40,7 +39,7 @@ const LoginPage = () => {
         if (e.code === 'ERR_NETWORK') {
           toast.error(t('notifications.connection'));
         }
-        dispatch(setAuthError({ type: 'AuthError', code: e.code}));
+        dispatch(setAuthError({ type: 'AuthError', code: e.code }));
         inputRef.current.select();
       }
     },
