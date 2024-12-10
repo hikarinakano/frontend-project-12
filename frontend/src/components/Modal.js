@@ -81,8 +81,8 @@ const ModalComponent = () => {
         };
         toast.success(t(`notifications.${notifications[type]}`));
       } catch (err) {
-        console.error(err);
         toast.error(t('notifications.connection'));
+        dispatch(closeModal());
       }
     },
   });
