@@ -17,7 +17,7 @@ const initialState = {
     type: null,
     isAuthError: false,
     status: null,
-  }
+  },
 };
 
 const uiSlice = createSlice({
@@ -52,7 +52,7 @@ const uiSlice = createSlice({
       state.errors.isAuthError = false;
       state.errors.isSignupError = false;
       state.errors.code = null;
-    }
+    },
   },
 });
 
