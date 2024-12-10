@@ -14,27 +14,6 @@ export const messagesApi = createApi({
   endpoints: (builder) => ({
     getMessages: builder.query({
       query: () => apiRoutes.messagesPath(),
-      async onCacheEntryAdded(
-        arg,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
-      ) {
-        try {
-          await cacheDataLoaded;
-          const { socket } = window;
-
-          const handleNewMessage = (message) => {
-            updateCachedData((draft) => {
-              draft.push(message);
-            });
-          };
-
-          socket.on('newMessage', handleNewMessage);
-          await cacheEntryRemoved;
-          socket.off('newMessage', handleNewMessage);
-        } catch (e) {
-          console.error('Error fetching messages', e.message);
-        }
-      },
     }),
     addMessage: builder.mutation({
       query: (messageData) => ({
