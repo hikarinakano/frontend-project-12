@@ -7,6 +7,8 @@ import setupProfanityFilter from './services/profanityFilter.js';
 import ru from './locales/index.js';
 import App from './App.js';
 import store from './store/index.js';
+import { channelsApi } from './store/api/channelsApi';
+import { messagesApi } from './store/api/messagesApi';
 
 const rollbarConfig = {
   accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
@@ -30,8 +32,51 @@ const rollbar = new Rollbar({
   environment: process.env.NODE_ENV,
 });
 
-const initSocket = (socket) => {
-  window.socket = socket;
+const initSocketListeners = (socket, store) => {
+  const listenerNewChannel = (payload) => {
+    store.dispatch(
+      channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
+        if (!draft.find((ch) => ch.id === payload.id)) {
+          draft.push(payload);
+        }
+      }),
+    );
+  };
+
+  const listenerRemoveChannel = (payload) => {
+    store.dispatch(
+      channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
+        const index = draft.findIndex((channel) => channel.id === payload.id);
+        if (index !== -1) {
+          draft.splice(index, 1);
+        }
+      }),
+    );
+  };
+
+  const listenerRenameChannel = (payload) => {
+    store.dispatch(
+      channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
+        const channel = draft.find((ch) => ch.id === payload.id);
+        if (channel) {
+          channel.name = payload.name;
+        }
+      }),
+    );
+  };
+
+  const listenerNewMessage = (payload) => {
+    store.dispatch(
+      messagesApi.util.updateQueryData('getMessages', undefined, (draft) => {
+        draft.push(payload);
+      }),
+    );
+  };
+
+  socket.on('newChannel', listenerNewChannel);
+  socket.on('removeChannel', listenerRemoveChannel);
+  socket.on('renameChannel', listenerRenameChannel);
+  socket.on('newMessage', listenerNewMessage);
 
   socket.on('connect_error', (error) => {
     console.error('Socket connection error:', error);
@@ -71,14 +116,14 @@ const initi18n = async () => {
 const init = async (socket) => {
   try {
     await initi18n();
-    initSocket(socket);
+    initSocketListeners(socket, store);
     setupProfanityFilter();
 
     const vdom = (
       <RollbarProvider config={rollbarConfig}>
         <ErrorBoundary>
           <StoreProvider store={store}>
-            <App socket={socket} />
+            <App />
           </StoreProvider>
         </ErrorBoundary>
       </RollbarProvider>
