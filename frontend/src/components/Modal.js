@@ -7,7 +7,7 @@ import filter from 'leo-profanity';
 import { useRef, useEffect } from 'react';
 import {
   closeModal,
-  selectors,
+  uiSelectors,
   setCurrentChannel,
   setDefaultChannel,
 } from '../store/slices/uiSlice';
@@ -22,8 +22,8 @@ import getValidationSchema from '../modalLogic/validationSchema';
 
 const ModalComponent = () => {
   const dispatch = useDispatch();
-  const { type, isOpen, extra: channelId } = useSelector(selectors.selectModal);
-  const currentChannelId = useSelector(selectors.selectCurrentChannelId);
+  const { type, isOpen, extra: channelId } = useSelector(uiSelectors.selectModal);
+  const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
   const { username } = useSelector((state) => state.auth);
   const { data: channels = [] } = useGetChannelsQuery();
   const [addChannel] = useAddChannelMutation();

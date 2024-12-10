@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import { useGetMessagesQuery } from '../../store/api/messagesApi';
-import { setCurrentChannel, selectors } from '../../store/slices/uiSlice';
+import { setCurrentChannel, uiSelectors } from '../../store/slices/uiSlice';
 import Channels from '../chat/Channels';
 import Chat from '../chat/Chat';
 import ChatSkeleton from '../chat/skeletons/ChatSkeleton';
@@ -13,7 +13,7 @@ const ChatPage = () => {
   const dispatch = useDispatch();
   const { data: channels, isLoading: isChannelsLoading } = useGetChannelsQuery();
   const { isLoading: isMessagesLoading } = useGetMessagesQuery();
-  const currentChannelId = useSelector(selectors.selectCurrentChannelId);
+  const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
 
   useEffect(() => {
     if (channels?.length > 0 && !currentChannelId) {

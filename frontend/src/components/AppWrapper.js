@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
-import { selectors } from '../store/slices/uiSlice';
+import { uiSelectors } from '../store/slices/uiSlice';
 import ModalComponent from './Modal';
 
 const AppWrapper = ({ children }) => {
-  const modalInfo = useSelector(selectors.selectModal);
+  const modalInfo = useSelector(uiSelectors.selectModal);
   const { isOpen } = modalInfo;
 
   return (
