@@ -5,10 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { useSignupMutation } from '../../store/api/authApi.js';
-import { uiSelectors } from '../../store/slices/uiSlice.js';
-import { setSignupError, cleanError } from '../../store/slices/uiSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSignupMutation } from '../../store/api/authApi.js';
+import { setSignupError, cleanError, uiSelectors } from '../../store/slices/uiSlice.js';
 import { login } from '../../store/slices/authSlice.js';
 import signupPic from '../../assets/pictures/sign-in-logo.jpg';
 
@@ -120,7 +119,7 @@ const SignupPage = () => {
                     isInvalid={isPasswordConfirmed || isSignupError}
                   />
                   <div className="invalid-tooltip">
-                    {isSignupError? t('errors.usernameTaken') : formik.errors.confirmPassword}
+                    {isSignupError ? t('errors.usernameTaken') : formik.errors.confirmPassword}
                   </div>
                   <Form.Label htmlFor="confirmPassword">{t('signup.confirmPassword')}</Form.Label>
                 </Form.Group>
