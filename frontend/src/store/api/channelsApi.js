@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import routes from '../../routes';
+import { apiRoutes } from '../../routes';
 
 export const channelsApi = createApi({
   reducerPath: 'channels',
@@ -22,7 +22,7 @@ export const channelsApi = createApi({
   }),
   endpoints: (builder) => ({
     getChannels: builder.query({
-      query: () => routes.channelsPath(),
+      query: () => apiRoutes.channelsPath(),
       providesTags: ['Channels'],
       async onCacheEntryAdded(
         arg,
@@ -72,7 +72,7 @@ export const channelsApi = createApi({
     }),
     addChannel: builder.mutation({
       query: (data) => ({
-        url: routes.channelsPath(),
+        url: apiRoutes.channelsPath(),
         method: 'POST',
         body: data,
       }),
@@ -88,7 +88,7 @@ export const channelsApi = createApi({
     }),
     deleteChannel: builder.mutation({
       query: (id) => ({
-        url: `${routes.channelsPath()}/${id}`,
+        url: `${apiRoutes.channelsPath()}/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Channels'],
@@ -103,7 +103,7 @@ export const channelsApi = createApi({
     }),
     editChannel: builder.mutation({
       query: ({ id, name }) => ({
-        url: `${routes.channelsPath()}/${id}`,
+        url: `${apiRoutes.channelsPath()}/${id}`,
         method: 'PATCH',
         body: { name },
       }),

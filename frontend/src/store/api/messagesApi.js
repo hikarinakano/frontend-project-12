@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import routes from '../../routes';
+import { apiRoutes } from '../../routes';
 
 export const messagesApi = createApi({
   reducerPath: 'messages',
@@ -21,7 +21,7 @@ export const messagesApi = createApi({
   }),
   endpoints: (builder) => ({
     getMessages: builder.query({
-      query: () => routes.messagesPath(),
+      query: () => apiRoutes.messagesPath(),
       async onCacheEntryAdded(
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
@@ -47,7 +47,7 @@ export const messagesApi = createApi({
     }),
     addMessage: builder.mutation({
       query: (messageData) => ({
-        url: routes.messagesPath(),
+        url: apiRoutes.messagesPath(),
         method: 'POST',
         body: messageData,
       }),
