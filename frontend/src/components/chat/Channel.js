@@ -1,5 +1,6 @@
-import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
+import { Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import ChannelButton from './ChannelButton';
 
 const Channel = ({
   channel,
@@ -9,19 +10,21 @@ const Channel = ({
 }) => {
   const { t } = useTranslation();
   const isActive = channel.id === currentChannelId;
+  const isDefaultChannel = ['general', 'random'].includes(channel.name);
+
+  const channelButton = (
+    <ChannelButton 
+      channel={channel} 
+      isActive={isActive} 
+      onChannelSelect={onChannelSelect}
+    />
+  );
+
   return (
     <li className="nav-item w-100">
-      {!['general', 'random'].includes(channel.name) ? (
+      {isDefaultChannel ? channelButton : (
         <Dropdown as={ButtonGroup} className="d-flex">
-          <Button
-            type="button"
-            variant={isActive ? 'secondary' : null}
-            className="w-100 rounded-0 text-start text-truncate"
-            onClick={() => onChannelSelect(channel.id)}
-          >
-            <span className="me-1">#</span>
-            {channel.name}
-          </Button>
+          {channelButton}
           <Dropdown.Toggle
             split
             type="button"
@@ -39,16 +42,6 @@ const Channel = ({
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-      ) : (
-        <Button
-          type="button"
-          variant={isActive ? 'secondary' : null}
-          className="w-100 rounded-0 text-start"
-          onClick={() => onChannelSelect(channel.id)}
-        >
-          <span className="me-1">#</span>
-          {channel.name}
-        </Button>
       )}
     </li>
   );
