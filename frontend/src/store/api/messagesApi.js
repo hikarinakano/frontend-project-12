@@ -7,15 +7,7 @@ export const messagesApi = createApi({
     baseUrl: '/',
     prepareHeaders: (headers, { getState }) => {
       const { token } = getState().auth;
-      if (!token) {
-        const stored = localStorage.getItem('userId');
-        if (stored) {
-          const parsedAuth = JSON.parse(stored);
-          headers.set('Authorization', `Bearer ${parsedAuth.token}`);
-        }
-      } else {
         headers.set('Authorization', `Bearer ${token}`);
-      }
       return headers;
     },
   }),
@@ -37,7 +29,6 @@ export const messagesApi = createApi({
           };
 
           socket.on('newMessage', handleNewMessage);
-
           await cacheEntryRemoved;
           socket.off('newMessage', handleNewMessage);
         } catch (e) {
