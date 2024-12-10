@@ -5,7 +5,6 @@ import { channelsApi } from './api/channelsApi';
 import { messagesApi } from './api/messagesApi';
 import { authApi } from './api/authApi';
 
-
 const store = configureStore({
   reducer: {
     auth: authReducer,
