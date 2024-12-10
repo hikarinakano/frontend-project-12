@@ -1,21 +1,23 @@
-import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Card } from 'react-bootstrap';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
-import { apiRoutes } from '../../routes.js';
-import { loginSuccess } from '../../store/slices/authSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../store/slices/authSlice.js';
+import { useLoginMutation } from '../../store/api/authApi.js';
+import { uiSelectors } from '../../store/slices/uiSlice.js';
+import { setAuthError, cleanError } from '../../store/slices/uiSlice.js';
 import loginPic from '../../assets/pictures/avatar-login.jpg';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const [loginUser] = useLoginMutation();
   const { t } = useTranslation();
-  const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
   const location = useLocation();
+  const authFailed = useSelector(uiSelectors.selectIsAuthError);
   const navigate = useNavigate();
   useEffect(() => {
     inputRef.current.focus();
@@ -26,33 +28,20 @@ const LoginPage = () => {
       username: '',
       password: '',
     },
-    onSubmit: async (values) => {
-      setAuthFailed(false);
-
+    onSubmit: async (data, { setErrors }) => {
       try {
-        const res = await axios.post(apiRoutes.loginPath(), values);
-        const authData = {
-          username: res.data.username,
-          token: res.data.token,
-        };
-        dispatch(loginSuccess(authData));
+        setErrors({});
+        dispatch(cleanError());
+        const userData = await loginUser(data).unwrap();
+        dispatch(login(userData));
         const { from } = location.state || { from: { pathname: '/' } };
         navigate(from);
-      } catch (err) {
-        formik.setSubmitting(false);
-        if (err.isAxiosError) {
-          if (err.response && err.response.status === 401) {
-            setAuthFailed(true);
-            inputRef.current.select();
-            return;
-          }
-          if (!err.response) {
-            toast.error(t('notifications.connection'));
-            return;
-          }
+      } catch (e) {
+        if (e.code === 'ERR_NETWORK') {
+          toast.error(t('notifications.connection'));
         }
-        console.error('Unexpected error:', err);
-        throw err;
+        dispatch(setAuthError({ type: 'AuthError', code: e.code}));
+        inputRef.current.select();
       }
     },
   });
