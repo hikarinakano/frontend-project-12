@@ -32,7 +32,7 @@ const rollbar = new Rollbar({
   environment: process.env.NODE_ENV,
 });
 
-const initSocketListeners = (socket, store) => {
+const initSocketListeners = (socket) => {
   const listenerNewChannel = (payload) => {
     store.dispatch(
       channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
