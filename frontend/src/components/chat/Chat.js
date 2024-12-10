@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import { useGetMessagesQuery, useAddMessageMutation } from '../../store/api/messagesApi';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
-import { selectors } from '../../store/slices/uiSlice';
+import { uiSelectors } from '../../store/slices/uiSlice';
 import { ReactComponent as ChatSendBtn } from '../../assets/svg/send-message-button.svg';
 
 const Chat = () => {
   const { username } = useSelector((state) => state.auth);
-  const currentChannelId = useSelector(selectors.selectCurrentChannelId);
+  const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
   const { data: channels = [] } = useGetChannelsQuery();
   const { data: messages = [] } = useGetMessagesQuery();
   const [addMessage] = useAddMessageMutation();

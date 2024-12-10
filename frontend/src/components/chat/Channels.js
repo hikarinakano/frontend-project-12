@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
-import { setCurrentChannel, openModal, selectors } from '../../store/slices/uiSlice';
+import { setCurrentChannel, openModal, uiSelectors } from '../../store/slices/uiSlice';
 import Channel from './Channel';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as AddChannelSquare } from '../../assets/svg/add-channel.svg';
@@ -9,7 +9,7 @@ import { ReactComponent as AddChannelSquare } from '../../assets/svg/add-channel
 const Channels = () => {
   const dispatch = useDispatch();
   const { data: channels = [] } = useGetChannelsQuery();
-  const currentChannelId = useSelector(selectors.selectCurrentChannelId);
+  const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
   const { t } =  useTranslation();
 
   const handleShowModal = (type, extra = null) => {
