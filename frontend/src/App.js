@@ -18,7 +18,6 @@ const pagesList = {
   NotFoundPage: <NotFoundPage />,
 };
 
-
 const App = () => (
   <AppWrapper>
     <Header />
