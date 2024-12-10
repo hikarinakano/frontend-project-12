@@ -100,7 +100,6 @@ const SignupPage = () => {
                     ref={inputRef}
                     value={formik.values.username}
                     onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
                     isInvalid={(formik.touched.username && formik.errors.username) || signupError}
                   />
                   <Form.Label htmlFor="username">{translation('username')}</Form.Label>
@@ -118,7 +117,6 @@ const SignupPage = () => {
                     required
                     value={formik.values.password}
                     onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
                     isInvalid={(formik.touched.password && formik.errors.password) || signupError}
                   />
                   <div className="invalid-tooltip">
@@ -136,7 +134,6 @@ const SignupPage = () => {
                     required
                     value={formik.values.confirmPassword}
                     onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
                     isInvalid={isPasswordConfirmed || signupError}
                   />
                   <div className="invalid-tooltip">
