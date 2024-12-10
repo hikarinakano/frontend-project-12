@@ -141,7 +141,6 @@ const SignupPage = () => {
                   </div>
                   <Form.Label htmlFor="confirmPassword">{translation('confirmPassword')}</Form.Label>
                 </Form.Group>
-
                 <Button
                   type="submit"
                   variant="outline-primary"
