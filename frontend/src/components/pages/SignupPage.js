@@ -1,24 +1,23 @@
-import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import usePageTranslation from '../../hooks/usePageTranslation';
-import { loginSuccess } from '../../store/slices/authSlice.js';
-import { apiRoutes } from '../../routes.js';
+import { useSignupMutation } from '../../store/api/authApi.js';
+import { uiSelectors } from '../../store/slices/uiSlice.js';
+import { setSignupError, cleanError } from '../../store/slices/uiSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../store/slices/authSlice.js';
 import signupPic from '../../assets/pictures/sign-in-logo.jpg';
 
 const SignupPage = () => {
   const dispatch = useDispatch();
+  const [signup] = useSignupMutation();
   const { t } = useTranslation();
-  const translation = usePageTranslation('signup');
-  const err = usePageTranslation('errors');
-  const [signupError, setSignupError] = useState('');
   const inputRef = useRef();
+  const isSignupError = useSelector(uiSelectors.selectIsSignupError);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,15 +26,15 @@ const SignupPage = () => {
 
   const validationSchema = Yup.object({
     username: Yup.string()
-      .min(3, err('length'))
-      .max(20, err('length'))
-      .required(err('required')),
+      .min(3, t('errors.length'))
+      .max(20, t('errors.length'))
+      .required(t('errors.required')),
     password: Yup.string()
-      .min(6, err('passwordLength'))
-      .required(err('required')),
+      .min(6, t('errors.passwordLength'))
+      .required(t('errors.required')),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], err('passwordMatch'))
-      .required(err('required')),
+      .oneOf([Yup.ref('password'), null], t('errors.passwordMatch'))
+      .required(t('errors.required')),
   });
 
   const formik = useFormik({
@@ -46,35 +45,19 @@ const SignupPage = () => {
     },
     validationSchema,
     validateOnChange: true,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { setErrors }) => {
       try {
-        setSignupError('');
-        const signupData = {
-          username: values.username,
-          password: values.password,
-        };
-
-        const res = await axios.post(apiRoutes.signupPath(), signupData);
-        const authData = {
-          username: res.data.username,
-          token: res.data.token,
-        };
-
-        dispatch(loginSuccess(authData));
+        setErrors({});
+        dispatch(cleanError());
+        const userData = await signup(values).unwrap();
+        dispatch(login(userData));
         navigate('/');
-      } catch (error) {
-        formik.setSubmitting(false);
-        if (error.isAxiosError) {
-          if (error.response?.status === 409) {
-            setSignupError(err('usernameTaken'));
-            inputRef.current.select();
-          } else if (!error.response) {
-            toast.error(t('notifications.connection'));
-            setSignupError(err('networkError'));
-          }
-          return;
+      } catch (e) {
+        if (e.code === 'ERR_NETWORK') {
+          toast.error(t('notifications.connection'));
         }
-        throw error;
+        dispatch(setSignupError({ type: 'SignupError', code: 'usernameTaken' }));
+        inputRef.current.select();
       }
     },
   });
@@ -86,13 +69,13 @@ const SignupPage = () => {
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <div>
-                <img src={signupPic} className="rounded-circle" alt={translation('signupHeader')} />
+                <img src={signupPic} className="rounded-circle" alt={t('signup.signupHeader')} />
               </div>
               <Form onSubmit={formik.handleSubmit} className="w-50">
-                <h1 className="text-center mb-4">{translation('signupHeader')}</h1>
+                <h1 className="text-center mb-4">{t('signup.signupHeader')}</h1>
                 <Form.Group className="form-floating mb-3">
                   <Form.Control
-                    placeholder={translation('username')}
+                    placeholder={t('signup.username')}
                     name="username"
                     id="username"
                     autoComplete="username"
@@ -100,9 +83,9 @@ const SignupPage = () => {
                     ref={inputRef}
                     value={formik.values.username}
                     onChange={formik.handleChange}
-                    isInvalid={(formik.touched.username && formik.errors.username) || signupError}
+                    isInvalid={(formik.touched.username && formik.errors.username) || isSignupError}
                   />
-                  <Form.Label htmlFor="username">{translation('username')}</Form.Label>
+                  <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
                   <div className="invalid-tooltip">
                     {formik.errors.username}
                   </div>
@@ -110,36 +93,36 @@ const SignupPage = () => {
                 <Form.Group className="form-floating mb-3">
                   <Form.Control
                     type="password"
-                    placeholder={translation('password')}
+                    placeholder={t('signup.password')}
                     name="password"
                     id="password"
                     autoComplete="new-password"
                     required
                     value={formik.values.password}
                     onChange={formik.handleChange}
-                    isInvalid={(formik.touched.password && formik.errors.password) || signupError}
+                    isInvalid={(formik.touched.password && formik.errors.password) || isSignupError}
                   />
                   <div className="invalid-tooltip">
                     {formik.errors.password}
                   </div>
-                  <Form.Label htmlFor="password">{translation('password')}</Form.Label>
+                  <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
                 </Form.Group>
                 <Form.Group className="form-floating mb-4">
                   <Form.Control
                     type="password"
-                    placeholder={translation('confirmPassword')}
+                    placeholder={t('signup.confirmPassword')}
                     name="confirmPassword"
                     id="confirmPassword"
                     autoComplete="new-password"
                     required
                     value={formik.values.confirmPassword}
                     onChange={formik.handleChange}
-                    isInvalid={isPasswordConfirmed || signupError}
+                    isInvalid={isPasswordConfirmed || isSignupError}
                   />
                   <div className="invalid-tooltip">
-                    {signupError || formik.errors.confirmPassword}
+                    {isSignupError? t('errors.usernameTaken') : formik.errors.confirmPassword}
                   </div>
-                  <Form.Label htmlFor="confirmPassword">{translation('confirmPassword')}</Form.Label>
+                  <Form.Label htmlFor="confirmPassword">{t('signup.confirmPassword')}</Form.Label>
                 </Form.Group>
                 <Button
                   type="submit"
@@ -147,7 +130,7 @@ const SignupPage = () => {
                   className="w-100"
                   disabled={formik.isSubmitting}
                 >
-                  {translation('signup')}
+                  {t('signup.signup')}
                 </Button>
               </Form>
             </Card.Body>
