@@ -1,4 +1,3 @@
-import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { Provider as StoreProvider } from 'react-redux';
@@ -91,8 +90,8 @@ const initSocketListeners = (socket) => {
 
 const init = async (socket) => {
   try {
-    const i18n = i18next.createInstance();
-    await i18n
+    const i18nextInstance = i18next.createInstance();
+    await i18nextInstance
       .use(initReactI18next)
       .init({
         resources: ru,
@@ -105,7 +104,7 @@ const init = async (socket) => {
       <RollbarProvider config={rollbarConfig}>
         <ErrorBoundary>
           <StoreProvider store={store}>
-            <I18nextProvider i18n={i18n}>
+            <I18nextProvider i18n={i18nextInstance}>
               <App />
             </I18nextProvider>
           </StoreProvider>
