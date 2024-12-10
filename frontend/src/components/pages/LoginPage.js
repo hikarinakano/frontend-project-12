@@ -6,7 +6,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import routes from '../../routes.js';
+import { apiRoutes } from '../../routes.js';
 import { loginSuccess } from '../../store/slices/authSlice.js';
 import loginPic from '../../assets/pictures/avatar-login.jpg';
 
@@ -30,7 +30,7 @@ const LoginPage = () => {
       setAuthFailed(false);
 
       try {
-        const res = await axios.post(routes.loginPath(), values);
+        const res = await axios.post(apiRoutes.loginPath(), values);
         const authData = {
           username: res.data.username,
           token: res.data.token,

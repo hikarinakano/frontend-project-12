@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import usePageTranslation from '../../hooks/usePageTranslation';
 import { loginSuccess } from '../../store/slices/authSlice.js';
-import routes from '../../routes.js';
+import { apiRoutes } from '../../routes.js';
 import signupPic from '../../assets/pictures/sign-in-logo.jpg';
 
 const SignupPage = () => {
@@ -54,7 +54,7 @@ const SignupPage = () => {
           password: values.password,
         };
 
-        const res = await axios.post(routes.signupPath(), signupData);
+        const res = await axios.post(apiRoutes.signupPath(), signupData);
         const authData = {
           username: res.data.username,
           token: res.data.token,
