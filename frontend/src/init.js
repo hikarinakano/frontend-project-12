@@ -89,37 +89,15 @@ const initSocketListeners = (socket) => {
   });
 };
 
-const initi18n = async () => {
-  const i18n = i18next.createInstance();
-  await i18n
-    .use(initReactI18next)
-    .init({
-      resources: ru,
-      lng: 'ru',
-      fallbackLng: 'ru',
-      interpolation: {
-        escapeValue: false,
-      },
-      plurals: {
-        ru: {
-          numbers: [0, 1, 2, 5],
-          plurals: (n) => {
-            const lastTwo = n % 100;
-            const last = n % 10;
-            if (lastTwo >= 11 && lastTwo <= 19) return 'many';
-            if (last === 1) return 'one';
-            if (last >= 2 && last <= 4) return 'few';
-            return 'many';
-          },
-        },
-      },
-    });
-    return i18n;
-};
-
 const init = async (socket) => {
   try {
-    const i18nInstance = await initi18n();
+    const i18n = i18next.createInstance();
+    await i18n
+      .use(initReactI18next)
+      .init({
+        resources: ru,
+        lng: 'ru',
+      });
     initSocketListeners(socket, store);
     setupProfanityFilter();
 
@@ -127,7 +105,7 @@ const init = async (socket) => {
       <RollbarProvider config={rollbarConfig}>
         <ErrorBoundary>
           <StoreProvider store={store}>
-            <I18nextProvider i18n={i18nInstance}>
+            <I18nextProvider i18n={i18n}>
               <App />
             </I18nextProvider>
           </StoreProvider>
