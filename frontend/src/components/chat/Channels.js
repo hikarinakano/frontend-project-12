@@ -3,14 +3,14 @@ import { Button } from 'react-bootstrap';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import { setCurrentChannel, openModal, selectors } from '../../store/slices/uiSlice';
 import Channel from './Channel';
-import usePageTranslation from '../../hooks/usePageTranslation';
+import { useTranslation } from 'react-i18next';
 import { ReactComponent as AddChannelSquare } from '../../assets/svg/add-channel.svg';
 
 const Channels = () => {
   const dispatch = useDispatch();
   const { data: channels = [] } = useGetChannelsQuery();
   const currentChannelId = useSelector(selectors.selectCurrentChannelId);
-  const t = usePageTranslation('chat');
+  const { t } =  useTranslation();
 
   const handleShowModal = (type, extra = null) => {
     dispatch(openModal({ type, extra }));
@@ -23,7 +23,7 @@ const Channels = () => {
   return (
     <>
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-        <b>{t('channels')}</b>
+        <b>{t('chat.channels')}</b>
         <Button
           variant="group-vertical"
           className="p-0 text-primary"

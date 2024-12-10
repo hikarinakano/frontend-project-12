@@ -1,5 +1,5 @@
 import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
-import usePageTranslation from '../../hooks/usePageTranslation';
+import { useTranslation } from 'react-i18next';
 
 const Channel = ({
   channel,
@@ -7,7 +7,7 @@ const Channel = ({
   onChannelSelect,
   onShowModal,
 }) => {
-  const translation = usePageTranslation('chat');
+  const { t } = useTranslation();
   const isActive = channel.id === currentChannelId;
   return (
     <li className="nav-item w-100">
@@ -28,14 +28,14 @@ const Channel = ({
             variant={isActive ? 'secondary' : null}
             className="flex-grow-0"
           >
-            <span className="visually-hidden">{translation('manageChannelLabel')}</span>
+            <span className="visually-hidden">{t('chat.manageChannelLabel')}</span>
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => onShowModal('removing', channel.id)}>
-              {translation('dropdownDelete')}
+              {t('chat.dropdownDelete')}
             </Dropdown.Item>
             <Dropdown.Item onClick={() => onShowModal('renaming', channel.id)}>
-              {translation('dropdownEdit')}
+              {t('chat.dropdownEdit')}
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
