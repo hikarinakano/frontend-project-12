@@ -15,7 +15,7 @@ const Channels = () => {
   const handleShowModal = (type, extra = null) => {
     dispatch(openModal({ type, extra }));
   };
-  
+
   const handleChannelSelect = (channelId) => {
     dispatch(setCurrentChannel(channelId));
   };

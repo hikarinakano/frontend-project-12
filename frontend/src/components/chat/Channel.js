@@ -13,9 +13,9 @@ const Channel = ({
   const isDefaultChannel = ['general', 'random'].includes(channel.name);
 
   const channelButton = (
-    <ChannelButton 
-      channel={channel} 
-      isActive={isActive} 
+    <ChannelButton
+      channel={channel}
+      isActive={isActive}
       onChannelSelect={onChannelSelect}
     />
   );

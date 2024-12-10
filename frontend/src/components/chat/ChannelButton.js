@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button } from 'react-bootstrap';
 
 const ChannelButton = ({ channel, isActive, onChannelSelect }) => (
   <Button
