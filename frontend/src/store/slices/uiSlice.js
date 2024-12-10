@@ -13,6 +13,11 @@ const initialState = {
     type: null,
     extra: null,
   },
+  errors: {
+    type: null,
+    isAuthError: false,
+    status: null,
+  }
 };
 
 const uiSlice = createSlice({
@@ -32,12 +37,24 @@ const uiSlice = createSlice({
     closeModal: (state) => {
       state.modal = { isOpen: false, type: null, extra: null };
     },
+    setAuthError: (state, { payload: { type, code } }) => {
+      state.errors.type = type;
+      state.errors.isAuthError = true;
+      state.errors.code = code;
+    },
+    cleanError: (state) => {
+      state.errors.type = null;
+      state.errors.isAuthError = false;
+      state.errors.code = null;
+    }
   },
 });
 
 export const {
   setCurrentChannel,
   setDefaultChannel,
+  setAuthError,
+  cleanError,
   openModal,
   closeModal,
 } = uiSlice.actions;
@@ -46,6 +63,8 @@ export const selectors = {
   selectCurrentChannelId: (state) => state.ui.channels.currentChannelId,
   selectDefaultChannelId: (state) => state.ui.channels.defaultChannelId,
   selectModal: (state) => state.ui.modal,
+  selectIsAuthError: (state) => state.ui.errors.isAuthError,
+  selectAuthError: (state) => state.ui.errors.type,
 };
 
 export default uiSlice.reducer;
