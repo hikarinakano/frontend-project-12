@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { Provider as StoreProvider } from 'react-redux';
+import { I18nextProvider } from 'react-i18next';
 import Rollbar from 'rollbar';
 import setupProfanityFilter from './services/profanityFilter.js';
 import ru from './locales/index.js';
@@ -9,6 +10,7 @@ import App from './App.js';
 import store from './store/index.js';
 import { channelsApi } from './store/api/channelsApi';
 import { messagesApi } from './store/api/messagesApi';
+import i18next from 'i18next';
 
 const rollbarConfig = {
   accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
@@ -88,6 +90,7 @@ const initSocketListeners = (socket) => {
 };
 
 const initi18n = async () => {
+  const i18n = i18next.createInstance();
   await i18n
     .use(initReactI18next)
     .init({
@@ -111,11 +114,12 @@ const initi18n = async () => {
         },
       },
     });
+    return i18n;
 };
 
 const init = async (socket) => {
   try {
-    await initi18n();
+    const i18nInstance = await initi18n();
     initSocketListeners(socket, store);
     setupProfanityFilter();
 
@@ -123,7 +127,9 @@ const init = async (socket) => {
       <RollbarProvider config={rollbarConfig}>
         <ErrorBoundary>
           <StoreProvider store={store}>
-            <App />
+            <I18nextProvider i18n={i18nInstance}>
+              <App />
+            </I18nextProvider>
           </StoreProvider>
         </ErrorBoundary>
       </RollbarProvider>
