@@ -17,7 +17,7 @@ const LoginPage = () => {
   const { t } = useTranslation();
   const inputRef = useRef();
   const location = useLocation();
-  const authFailed = useSelector(uiSelectors.selectIsAuthError);
+  const isAuthFailed = useSelector(uiSelectors.selectIsAuthError);
   const navigate = useNavigate();
   useEffect(() => {
     inputRef.current.focus();
@@ -67,7 +67,7 @@ const LoginPage = () => {
                       name="username"
                       id="username"
                       autoComplete="username"
-                      isInvalid={authFailed}
+                      isInvalid={isAuthFailed}
                       required
                       ref={inputRef}
                     />
@@ -82,7 +82,7 @@ const LoginPage = () => {
                       name="password"
                       id="password"
                       autoComplete="current-password"
-                      isInvalid={authFailed}
+                      isInvalid={isAuthFailed}
                       required
                     />
                     <label htmlFor="password">{t('login.password')}</label>
