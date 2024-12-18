@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../store/slices/authSlice.js';
 import { useLoginMutation } from '../../store/api/authApi.js';
 import { setAuthError, cleanError, uiSelectors } from '../../store/slices/uiSlice.js';
+import { PAGES } from '../../routes.js';
 import loginPic from '../../assets/pictures/avatar-login.jpg';
 
 const LoginPage = () => {
@@ -33,7 +34,8 @@ const LoginPage = () => {
         dispatch(cleanError());
         const userData = await loginUser(data).unwrap();
         dispatch(login(userData));
-        const { from } = location.state || { from: { pathname: '/' } };
+        console.log(location.state)
+        const { from } = location.state || { from: { pathname: PAGES.getChat() } };
         navigate(from);
       } catch (e) {
         if (e.code === 'ERR_NETWORK') {
@@ -105,7 +107,7 @@ const LoginPage = () => {
                 <span>
                   {`${t('login.noAccount')} `}
                 </span>
-                <Link to="/signup">
+                <Link to={PAGES.getSignup()}>
                   {t('login.signup')}
                 </Link>
               </div>
