@@ -1,12 +1,12 @@
-import { useLocation, Navigate } from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectors } from '../../store/slices/authSlice';
+import { PAGES } from '../../routes';
 
-const PrivateRoute = ({ children }) => {
-  const loggedIn = useSelector(selectors.selectIsLoggedIn);
-  const location = useLocation();
+const PrivateRoute = () => {
+  const isAuth = useSelector(selectors.selectIsLoggedIn);
   return (
-    loggedIn ? children : <Navigate to="/login" state={{ from: location }} />
+    isAuth ? <Outlet /> : <Navigate to={PAGES.getLogin()} />
   );
 };
 
