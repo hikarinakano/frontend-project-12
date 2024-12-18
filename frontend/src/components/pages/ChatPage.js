@@ -7,7 +7,6 @@ import Channels from '../chat/Channels';
 import Chat from '../chat/Chat';
 import ChatSkeleton from '../chat/skeletons/ChatSkeleton';
 import ChannelsSkeleton from '../chat/skeletons/ChannelsSkeleton';
-import Wrapper from '../chat/ChatWrapper';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
@@ -29,22 +28,33 @@ const ChatPage = () => {
 
   if (isLoading) {
     return (
-      <Wrapper
-        channels={<ChannelsSkeleton />}
-        chat={<ChatSkeleton />}
-      />
+      <div className="container h-100 my-4 overflow-hidden rounded shadow">
+        <div className="row h-100 bg-white flex-md-row">
+          <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
+            <ChannelsSkeleton />
+          </div>
+          <div className="col p-0 h-100">
+            <ChatSkeleton />
+          </div>
+        </div>
+      </div>
     );
   }
+
   return (
-    <Wrapper
-      channels={(
-        <Channels
-          currentChannel={currentChannel}
-          onChannelSelect={(channel) => dispatch(setCurrentChannel(channel.id))}
-        />
-      )}
-      chat={<Chat currentChannel={currentChannel} />}
-    />
+    <div className="container h-100 my-4 overflow-hidden rounded shadow">
+      <div className="row h-100 bg-white flex-md-row">
+        <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
+          <Channels
+            currentChannel={currentChannel}
+            onChannelSelect={(channel) => dispatch(setCurrentChannel(channel.id))}
+          />
+        </div>
+        <div className="col p-0 h-100">
+          <Chat currentChannel={currentChannel} />
+        </div>
+      </div>
+    </div>
   );
 };
 
