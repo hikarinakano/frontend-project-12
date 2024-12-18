@@ -118,26 +118,32 @@ body {
   overflow-y: auto;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100vh;
 }
 
-.form-floating > label {
+.form-floating>label {
   padding: 1rem 0.75rem;
 }
 
-.form-floating > .form-control {
+.form-floating>.form-control {
   height: calc(3.5rem + 2px);
   line-height: 1.25;
 }
 
-.form-floating > .form-control:focus ~ label,
-.form-floating > .form-control:not(:placeholder-shown) ~ label {
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label {
   opacity: 0.65;
   transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
 
-.form-floating > .form-control:-webkit-autofill ~ label {
+.form-floating>.form-control:-webkit-autofill~label {
   opacity: 0.65;
   transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+.icon-blue {
+  filter: invert(31%) sepia(98%) saturate(1066%) hue-rotate(197deg) brightness(96%) contrast(98%);
 }
