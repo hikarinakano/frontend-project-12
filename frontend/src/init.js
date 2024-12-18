@@ -4,7 +4,7 @@ import { Provider as StoreProvider } from 'react-redux';
 import Rollbar from 'rollbar';
 import i18next from 'i18next';
 import setupProfanityFilter from './services/profanityFilter.js';
-import ru from './locales/index.js';
+import resources from './locales/index.js';
 import App from './App.js';
 import store from './store/index.js';
 import { channelsApi } from './store/api/channelsApi';
@@ -93,7 +93,7 @@ const init = async (socket) => {
     await i18nextInstance
       .use(initReactI18next)
       .init({
-        resources: ru,
+        resources,
         lng: 'ru',
       });
     initSocketListeners(socket, store);
