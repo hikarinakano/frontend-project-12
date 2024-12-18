@@ -7,28 +7,24 @@ const apiRoutes = {
   channelsPath: () => [apiPath, 'channels'].join('/'),
 };
 
-const pageRoutes = () => [
-  {
-    key: 'chat',
-    path: '/',
-    component: 'ChatPage',
-    private: true,
-  },
-  {
-    key: 'login',
-    path: '/login',
-    component: 'LoginPage',
-  },
-  {
-    key: 'signup',
-    path: '/signup',
-    component: 'SignupPage',
-  },
-  {
-    key: 'notFound',
-    path: '*',
-    component: 'NotFoundPage',
-  },
-];
+const PAGES = {
+  CHAT: '/',
+  LOGIN: '/login',
+  SIGNUP: '/signup',
+  NOT_FOUND: '*',
 
-export { apiRoutes, pageRoutes };
+  getChat() {
+    return this.CHAT;
+  },
+  getLogin() {
+    return this.LOGIN;
+  },
+  getSignup() {
+    return this.SIGNUP;
+  },
+  getNotFound() {
+    return this.NOT_FOUND;
+  }
+};
+
+export { apiRoutes, PAGES };
