@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSignupMutation } from '../../store/api/authApi.js';
 import { setSignupError, cleanError, uiSelectors } from '../../store/slices/uiSlice.js';
 import { login } from '../../store/slices/authSlice.js';
+import { PAGES } from '../../routes.js';
 import signupPic from '../../assets/pictures/sign-in-logo.jpg';
 
 const SignupPage = () => {
@@ -50,7 +51,7 @@ const SignupPage = () => {
         dispatch(cleanError());
         const userData = await signup(values).unwrap();
         dispatch(login(userData));
-        navigate('/');
+        navigate(PAGES.getChat());
       } catch (e) {
         if (e.code === 'ERR_NETWORK') {
           toast.error(t('notifications.connection'));
