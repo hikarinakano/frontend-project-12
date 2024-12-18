@@ -63,14 +63,11 @@ const ModalComponent = () => {
           const result = await addChannel({ name: cleanedName, username }).unwrap();
           dispatch(setCurrentChannel(result.id));
           resetForm();
-        } else if (type === 'renaming') {
+        } if (type === 'renaming') {
           const trimmedName = values.name.trim();
           const cleanedName = filter.clean(trimmedName);
           await editChannel({ id: channelId, name: cleanedName }).unwrap();
-        } else if (type === 'removing') {
-          if (currentChannelId === channelId) {
-            dispatch(setDefaultChannel());
-          }
+        } if (type === 'removing') {
           await deleteChannel(channelId).unwrap();
         }
         dispatch(closeModal());
