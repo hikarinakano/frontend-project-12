@@ -34,7 +34,6 @@ const LoginPage = () => {
         dispatch(cleanError());
         const userData = await loginUser(data).unwrap();
         dispatch(login(userData));
-        console.log(location.state)
         const { from } = location.state || { from: { pathname: PAGES.getChat() } };
         navigate(from);
       } catch (e) {

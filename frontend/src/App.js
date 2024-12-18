@@ -19,7 +19,7 @@ const App = () => (
         <Route path={PAGES.getLogin()} element={<LoginPage />} />
         <Route path={PAGES.getSignup()} element={<SignupPage />} />
         <Route element={<PrivateRoute />}>
-        <Route path={PAGES.getChat()} element={<ChatPage />} />
+          <Route path={PAGES.getChat()} element={<ChatPage />} />
         </Route>
         <Route path={PAGES.getNotFound()} element={<NotFoundPage />} />
       </Routes>

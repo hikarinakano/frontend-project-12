@@ -24,7 +24,7 @@ const PAGES = {
   },
   getNotFound() {
     return this.NOT_FOUND;
-  }
+  },
 };
 
 export { apiRoutes, PAGES };

@@ -97,7 +97,7 @@ const Chat = () => {
               variant="group-vertical"
               disabled={!messageText.trim()}
             >
-              <img src={SendIcon}></img>
+              <img src={SendIcon} alt="send message icon"/>
               <span className="visually-hidden">{t('chat.send')}</span>
             </Button>
           </InputGroup>

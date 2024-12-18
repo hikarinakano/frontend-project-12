@@ -9,7 +9,6 @@ import {
   closeModal,
   uiSelectors,
   setCurrentChannel,
-  setDefaultChannel,
 } from '../store/slices/uiSlice';
 import {
   useAddChannelMutation,
@@ -23,7 +22,6 @@ import getValidationSchema from '../modalLogic/validationSchema';
 const ModalComponent = () => {
   const dispatch = useDispatch();
   const { type, isOpen, extra: channelId } = useSelector(uiSelectors.selectModal);
-  const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
   const { username } = useSelector((state) => state.auth);
   const { data: channels = [] } = useGetChannelsQuery();
   const [addChannel] = useAddChannelMutation();

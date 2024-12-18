@@ -51,7 +51,7 @@ const initSocketListeners = (socket) => {
         if (index !== -1) {
           draft.splice(index, 1);
           const state = store.getState();
-          const currentChannelId = state.ui.channels.currentChannelId;
+          const { currentChannelId } = state.ui.channels;
           if (currentChannelId === payload.id) {
             store.dispatch(setDefaultChannel());
           }
