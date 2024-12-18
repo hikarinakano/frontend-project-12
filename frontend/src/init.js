@@ -9,6 +9,7 @@ import App from './App.js';
 import store from './store/index.js';
 import { channelsApi } from './store/api/channelsApi';
 import { messagesApi } from './store/api/messagesApi';
+import { setDefaultChannel } from './store/slices/uiSlice.js';
 
 const rollbarConfig = {
   accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
@@ -49,6 +50,11 @@ const initSocketListeners = (socket) => {
         const index = draft.findIndex((channel) => channel.id === payload.id);
         if (index !== -1) {
           draft.splice(index, 1);
+          const state = store.getState();
+          const currentChannelId = state.ui.channels.currentChannelId;
+          if (currentChannelId === payload.id) {
+            store.dispatch(setDefaultChannel());
+          }
         }
       }),
     );
