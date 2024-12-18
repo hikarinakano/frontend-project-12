@@ -29,7 +29,7 @@ const Channels = () => {
           className="p-0 text-primary"
           onClick={() => handleShowModal('adding')}
         >
-          <img src={AddIcon} className="icon-blue" alt="add icon"/>
+          <img src={AddIcon} className="icon-blue" alt="add icon" />
           <span className="visually-hidden">+</span>
         </Button>
       </div>
