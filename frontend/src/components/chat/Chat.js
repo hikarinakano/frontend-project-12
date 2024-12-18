@@ -6,7 +6,7 @@ import filter from 'leo-profanity';
 import { useGetMessagesQuery, useAddMessageMutation } from '../../store/api/messagesApi';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import { uiSelectors } from '../../store/slices/uiSlice';
-import { ReactComponent as ChatSendBtn } from '../../assets/svg/send-message-button.svg';
+import SendIcon from '../../assets/pictures/send-message-icon.svg';
 
 const Chat = () => {
   const { username } = useSelector((state) => state.auth);
@@ -97,7 +97,7 @@ const Chat = () => {
               variant="group-vertical"
               disabled={!messageText.trim()}
             >
-              <ChatSendBtn />
+              <img src={SendIcon}></img>
               <span className="visually-hidden">{t('chat.send')}</span>
             </Button>
           </InputGroup>

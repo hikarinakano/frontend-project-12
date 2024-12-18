@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import { setCurrentChannel, openModal, uiSelectors } from '../../store/slices/uiSlice';
 import Channel from './Channel';
-import { ReactComponent as AddChannelSquare } from '../../assets/svg/add-channel.svg';
+import AddIcon from '../../assets/pictures/add-icon.svg';
 
 const Channels = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const Channels = () => {
           className="p-0 text-primary"
           onClick={() => handleShowModal('adding')}
         >
-          <AddChannelSquare />
+          <img src={AddIcon} className='icon-blue'></img>
           <span className="visually-hidden">+</span>
         </Button>
       </div>
