@@ -44,7 +44,7 @@ const Channel = ({ channel, isCurrent }) => {
         </Dropdown.Menu>
       </Dropdown>
     )
-    : (
+      : (
         <Button
           type="button"
           variant={isCurrent ? 'secondary' : null}
