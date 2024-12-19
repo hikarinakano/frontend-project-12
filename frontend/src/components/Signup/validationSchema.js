@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const createValidationSchema = (t) => Yup.object({
+const createValidationSchema = (t) => Yup.object({
   username: Yup.string()
     .min(3, t('errors.length'))
     .max(20, t('errors.length'))
@@ -13,8 +13,4 @@ export const createValidationSchema = (t) => Yup.object({
     .required(t('errors.required')),
 });
 
-export const initialValues = {
-  username: '',
-  password: '',
-  confirmPassword: '',
-};
+export default createValidationSchema;
