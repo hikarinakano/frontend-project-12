@@ -15,11 +15,7 @@ const ChatPage = () => {
   const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
   const defaultChannelId = useSelector(uiSelectors.selectDefaultChannelId);
   const isLoading = isChannelsLoading || isMessagesLoading;
-
-  const currentChannel = channels?.length > 0 && currentChannelId
-    ? channels.find((channel) => channel.id === currentChannelId)
-    : null;
-
+  const currentChannel = channels.find((channel) => channel.id === currentChannelId);
   useEffect(() => {
     if (channels?.length > 0 && !currentChannelId) {
       dispatch(setCurrentChannel(defaultChannelId));
