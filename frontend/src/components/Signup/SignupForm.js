@@ -44,7 +44,6 @@ const SignupForm = ({ inputRef }) => {
   return (
     <Form onSubmit={formik.handleSubmit} className="w-50">
       <h1 className="text-center mb-4">{t('signup.signupHeader')}</h1>
-      
       <FormField
         name="username"
         label={t('signup.username')}
@@ -55,7 +54,6 @@ const SignupForm = ({ inputRef }) => {
         inputRef={inputRef}
         autoComplete="username"
       />
-
       <FormField
         name="password"
         type="password"
@@ -66,7 +64,6 @@ const SignupForm = ({ inputRef }) => {
         error={formik.errors.password}
         autoComplete="new-password"
       />
-
       <FormField
         name="confirmPassword"
         type="password"
@@ -77,7 +74,6 @@ const SignupForm = ({ inputRef }) => {
         error={isSignupError ? t('errors.usernameTaken') : formik.errors.confirmPassword}
         autoComplete="new-password"
       />
-
       <Button
         type="submit"
         variant="outline-primary"
