@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { createValidationSchema } from './validationSchema';
+import createValidationSchema from './validationSchema';
 import FormField from './FormField';
 import { useSignupMutation } from '../../store/api/authApi';
 import { setSignupError, cleanError, uiSelectors } from '../../store/slices/uiSlice';
