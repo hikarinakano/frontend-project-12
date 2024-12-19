@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next"
+import { useTranslation } from 'react-i18next';
 
-const Header = ({channelName, messagesCount}) => {
+const Header = ({ channelName, messagesCount }) => {
   const { t } = useTranslation();
   return (
     <div className="bg-light mb-4 p-3 shadow-sm small">
@@ -13,7 +13,7 @@ const Header = ({channelName, messagesCount}) => {
         {t('chat.messages', { count: messagesCount })}
       </span>
     </div>
-  )
+  );
 };
 
 export default Header;
