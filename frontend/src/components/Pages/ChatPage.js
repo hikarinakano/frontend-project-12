@@ -10,22 +10,21 @@ import ChannelsSkeleton from '../Chat/Skeletons/ChannelsSkeleton';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
-  const { data: channels, isLoading: isChannelsLoading } = useGetChannelsQuery();
-  const { data: messages, isLoading: isMessagesLoading } = useGetMessagesQuery();
+  const { data: channels = [], isLoading: isChannelsLoading } = useGetChannelsQuery();
+  const { data: messages = [], isLoading: isMessagesLoading } = useGetMessagesQuery();
   const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
   const defaultChannelId = useSelector(uiSelectors.selectDefaultChannelId);
+  const isLoading = isChannelsLoading || isMessagesLoading;
+
+  const currentChannel = channels?.length > 0 && currentChannelId
+    ? channels.find((channel) => channel.id === currentChannelId)
+    : null;
 
   useEffect(() => {
     if (channels?.length > 0 && !currentChannelId) {
-      const defaultChannel = channels.find((channel) => channel.id === defaultChannelId);
-      if (defaultChannel) {
-        dispatch(setCurrentChannel(defaultChannel.id));
-      }
+      dispatch(setCurrentChannel(defaultChannelId));
     }
   }, [channels, currentChannelId, defaultChannelId, dispatch]);
-
-  const currentChannel = channels?.find((channel) => channel.id === currentChannelId);
-  const isLoading = isChannelsLoading || isMessagesLoading;
 
   if (isLoading) {
     return (
@@ -46,17 +45,13 @@ const ChatPage = () => {
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
       <div className="row h-100 bg-white flex-md-row">
         <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
-          <Channels
-            currentChannel={currentChannel}
-            onChannelSelect={(channel) => dispatch(setCurrentChannel(channel.id))}
-            channels={channels}
-          />
+          <Channels channels={channels} currentChannel={currentChannel}/>
         </div>
         <div className="col p-0 h-100">
-          <Messages
-            currentChannel={currentChannel}
-            messages={messages}
-          />
+            <Messages
+              currentChannel={currentChannel}
+              messages={messages}
+            />
         </div>
       </div>
     </div>
