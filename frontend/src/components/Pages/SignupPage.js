@@ -12,6 +12,25 @@ import { login } from '../../store/slices/authSlice.js';
 import { PAGES } from '../../routes.js';
 import signupPic from '../../assets/pictures/sign-in-logo.jpg';
 
+const createValidationSchema = (t) => Yup.object({
+  username: Yup.string()
+    .min(3, t('errors.length'))
+    .max(20, t('errors.length'))
+    .required(t('errors.required')),
+  password: Yup.string()
+    .min(6, t('errors.passwordLength'))
+    .required(t('errors.required')),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], t('errors.passwordMatch'))
+    .required(t('errors.required')),
+});
+
+const initialValues = {
+  username: '',
+  password: '',
+  confirmPassword: '',
+};
+
 const SignupPage = () => {
   const dispatch = useDispatch();
   const [signup] = useSignupMutation();
@@ -24,26 +43,9 @@ const SignupPage = () => {
     inputRef.current.focus();
   }, []);
 
-  const validationSchema = Yup.object({
-    username: Yup.string()
-      .min(3, t('errors.length'))
-      .max(20, t('errors.length'))
-      .required(t('errors.required')),
-    password: Yup.string()
-      .min(6, t('errors.passwordLength'))
-      .required(t('errors.required')),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], t('errors.passwordMatch'))
-      .required(t('errors.required')),
-  });
-
   const formik = useFormik({
-    initialValues: {
-      username: '',
-      password: '',
-      confirmPassword: '',
-    },
-    validationSchema,
+    initialValues,
+    validationSchema: createValidationSchema(t),
     validateOnChange: true,
     onSubmit: async (values, { setErrors }) => {
       try {

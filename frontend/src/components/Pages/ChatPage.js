@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import { useGetMessagesQuery } from '../../store/api/messagesApi';
 import { setCurrentChannel, uiSelectors } from '../../store/slices/uiSlice';
-import Channels from '../chat/Channels';
-import Chat from '../chat/Chat';
-import ChatSkeleton from '../chat/skeletons/ChatSkeleton';
-import ChannelsSkeleton from '../chat/skeletons/ChannelsSkeleton';
+import Channels from '../Chat/Channels/Channels';
+import Chat from '../Chat/Messages/index';
+import ChatSkeleton from '../Chat/Skeletons/ChatSkeleton';
+import ChannelsSkeleton from '../Chat/Skeletons/ChannelsSkeleton';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
