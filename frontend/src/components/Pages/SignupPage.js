@@ -19,10 +19,10 @@ const SignupPage = () => {
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <div>
-                <img 
-                  src={signupPic} 
-                  className="rounded-circle" 
-                  alt={t('signup.signupHeader')} 
+                <img
+                  src={signupPic}
+                  className="rounded-circle"
+                  alt={t('signup.signupHeader')}
                 />
               </div>
               <SignupForm inputRef={inputRef} />
