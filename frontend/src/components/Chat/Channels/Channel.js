@@ -19,7 +19,7 @@ const Channel = ({ channel, isCurrent }) => {
       <Dropdown as={ButtonGroup} className="d-flex">
         <Button
           type="button"
-          variant={isCurrent ? "secondary" : null}
+          variant={isCurrent ? 'secondary' : null}
           className="w-100 rounded-0 text-start text-truncate"
           onClick={() => handleChannelSelect(id)}
         >
@@ -44,15 +44,17 @@ const Channel = ({ channel, isCurrent }) => {
         </Dropdown.Menu>
       </Dropdown>
     ) :
-      (<Button
-        type="button"
-        variant={isCurrent ? 'secondary' : null}
-        className="w-100 rounded-0 text-start text-truncate"
-        onClick={() => handleChannelSelect(id)}
-      >
-        <span className="me-1">#</span>
-        {name}
-      </Button>)
+      (
+        <Button
+          type="button"
+          variant={isCurrent ? 'secondary' : null}
+          className="w-100 rounded-0 text-start text-truncate"
+          onClick={() => handleChannelSelect(id)}
+        >
+          <span className="me-1">#</span>
+          {name}
+        </Button>
+      )
   );
 };
 
