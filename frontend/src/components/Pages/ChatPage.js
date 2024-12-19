@@ -3,22 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import { useGetMessagesQuery } from '../../store/api/messagesApi';
 import { setCurrentChannel, uiSelectors } from '../../store/slices/uiSlice';
-import Channels from '../Chat/Channels/Channels';
-import Chat from '../Chat/Messages/index';
+import Channels from '../Chat/Channels/index';
+import Messages from '../Chat/Messages/index';
 import ChatSkeleton from '../Chat/Skeletons/ChatSkeleton';
 import ChannelsSkeleton from '../Chat/Skeletons/ChannelsSkeleton';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
   const { data: channels, isLoading: isChannelsLoading } = useGetChannelsQuery();
-  const { isLoading: isMessagesLoading } = useGetMessagesQuery();
+  const { data: messages, isLoading: isMessagesLoading } = useGetMessagesQuery();
   const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
+  const defaultChannelId = useSelector(uiSelectors.selectDefaultChannelId);
 
   useEffect(() => {
     if (channels?.length > 0 && !currentChannelId) {
-      const generalChannel = channels.find((channel) => channel.name === 'general');
-      if (generalChannel) {
-        dispatch(setCurrentChannel(generalChannel.id));
+      const defaultChannel = channels.find((channel) => channel.id === defaultChannelId);
+      if (defaultChannel) {
+        dispatch(setCurrentChannel(defaultChannel.id));
       }
     }
   }, [channels, currentChannelId, dispatch]);
@@ -48,10 +49,14 @@ const ChatPage = () => {
           <Channels
             currentChannel={currentChannel}
             onChannelSelect={(channel) => dispatch(setCurrentChannel(channel.id))}
+            channels={channels}
           />
         </div>
         <div className="col p-0 h-100">
-          <Chat currentChannel={currentChannel} />
+          <Messages 
+            currentChannel={currentChannel} 
+            messages={messages}
+          />
         </div>
       </div>
     </div>
