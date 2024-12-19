@@ -1,19 +1,30 @@
 import { Dropdown, ButtonGroup, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { openModal, setCurrentChannel } from '../../../store/slices/uiSlice';
 
-const Channel = ({ channel, isCurrent, onChannelSelect, isRemovable, onShowModal }) => {
+const Channel = ({ channel, isCurrent }) => {
+  const dispatch = useDispatch();
+  const { id, name, removable } = channel;
   const { t } = useTranslation();
+  const handleShowModal = (type, extra = null) => {
+    dispatch(openModal({ type, extra }));
+  };
+
+  const handleChannelSelect = (channelId) => {
+    dispatch(setCurrentChannel(channelId));
+  };
   return (
-    isRemovable ? (
+    removable ? (
       <Dropdown as={ButtonGroup} className="d-flex">
         <Button
           type="button"
           variant={isCurrent ? "secondary" : null}
           className="w-100 rounded-0 text-start text-truncate"
-          onClick={() => onChannelSelect(channel.id)}
+          onClick={() => handleChannelSelect(id)}
         >
           <span className="me-1">#</span>
-          {channel.name}
+          {name}
         </Button>
         <Dropdown.Toggle
           split
@@ -24,10 +35,10 @@ const Channel = ({ channel, isCurrent, onChannelSelect, isRemovable, onShowModal
           <span className="visually-hidden">{t('chat.manageChannelLabel')}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item onClick={() => onShowModal('removing', channel.id)}>
+          <Dropdown.Item onClick={() => handleShowModal('removing', id)}>
             {t('chat.dropdownDelete')}
           </Dropdown.Item>
-          <Dropdown.Item onClick={() => onShowModal('renaming', channel.id)}>
+          <Dropdown.Item onClick={() => handleShowModal('renaming', id)}>
             {t('chat.dropdownEdit')}
           </Dropdown.Item>
         </Dropdown.Menu>
@@ -37,10 +48,10 @@ const Channel = ({ channel, isCurrent, onChannelSelect, isRemovable, onShowModal
         type="button"
         variant={isCurrent ? 'secondary' : null}
         className="w-100 rounded-0 text-start text-truncate"
-        onClick={() => onChannelSelect(channel.id)}
+        onClick={() => handleChannelSelect(id)}
       >
         <span className="me-1">#</span>
-        {channel.name}
+        {name}
       </Button>)
   );
 };
