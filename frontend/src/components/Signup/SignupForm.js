@@ -11,7 +11,6 @@ import { setSignupError, cleanError, uiSelectors } from '../../store/slices/uiSl
 import { login } from '../../store/slices/authSlice';
 import { PAGES } from '../../routes';
 
-
 const initialValues = {
   username: '',
   password: '',
