@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentChannel, openModal, uiSelectors } from '../../../store/slices/uiSlice';
-import Channel from './Channel';
+import ChannelList from './ChannelsList';
 import AddChannelButton from './AddChannelButton';
 
 const Channels = ({ channels }) => {
@@ -15,23 +15,15 @@ const Channels = ({ channels }) => {
     dispatch(setCurrentChannel(channelId));
   };
 
-  const channelList = channels.map((channel) => (
-    <Channel
-      key={channel.id}
-      channel={channel}
-      currentChannelId={currentChannelId}
-      onChannelSelect={handleChannelSelect}
-      onShowModal={handleShowModal}
-    />
-  ))
-
-
   return (
     <>
       <AddChannelButton handleShowModal={handleShowModal} />
-      <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
-        {channelList}
-      </ul>
+      <ChannelList
+        channels={channels}
+        currentChannelId={currentChannelId}
+        onShowModal={handleShowModal}
+        onChannelSelect={handleChannelSelect}
+      />
     </>
   );
 };
