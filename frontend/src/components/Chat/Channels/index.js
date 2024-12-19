@@ -1,10 +1,10 @@
-import ChannelList from './ChannelsList';
+import ChannelList from './ChannelList';
 import AddChannelButton from './AddChannelButton';
 
-const Channels = ({ channels, currentChannel }) => (
+const Channels = ({ channels, currentChannelId }) => (
     <>
       <AddChannelButton />
-      <ChannelList channels={channels} currentChannel={currentChannel}/>
+      <ChannelList channels={channels} currentChannelId={currentChannelId}/>
     </>
   );
 
