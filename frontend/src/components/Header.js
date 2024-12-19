@@ -1,5 +1,4 @@
-import { Navbar, Container } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
+import { Navbar, Container, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, selectors } from '../store/slices/authSlice';
