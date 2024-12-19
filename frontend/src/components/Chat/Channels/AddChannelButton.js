@@ -1,9 +1,15 @@
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../../store/slices/uiSlice';
 import AddIcon from '../../../assets/pictures/add-icon.svg';
 
-const AddChannelButton = ({ handleShowModal }) => {
+const AddChannelButton = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const handleShowModal = (type, extra = null) => {
+    dispatch(openModal({ type, extra }));
+  };
 
   return (
     <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
