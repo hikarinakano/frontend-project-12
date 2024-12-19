@@ -6,10 +6,10 @@ import { PAGES } from './routes.js';
 import PrivateRoute from './components/authorization/PrivateRoute.js';
 import Header from './components/Header.js';
 import AppWrapper from './components/AppWrapper.js';
-import LoginPage from './components/pages/LoginPage.js';
-import ChatPage from './components/pages/ChatPage.js';
-import SignupPage from './components/pages/SignupPage.js';
-import NotFoundPage from './components/pages/NotFoundPage.js';
+import LoginPage from './components/Pages/LoginPage.js';
+import ChatPage from './components/Pages/ChatPage.js';
+import SignupPage from './components/Pages/SignupPage.js';
+import NotFoundPage from './components/Pages/NotFoundPage.js';
 
 const App = () => (
   <AppWrapper>
