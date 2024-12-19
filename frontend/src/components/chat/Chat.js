@@ -14,10 +14,10 @@ const Chat = () => {
   const { data: channels = [] } = useGetChannelsQuery();
   const { data: messages = [] } = useGetMessagesQuery();
   const [addMessage] = useAddMessageMutation();
-  const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const { t } = useTranslation();
   const [messageText, setMessageText] = useState('');
+  const [isSending, setIsSending] = useState(false);
 
   const currentChannel = channels.find((channel) => channel.id === currentChannelId);
   const channelMessages = messages.filter(
@@ -25,7 +25,7 @@ const Chat = () => {
   );
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    inputRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [channelMessages]);
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const Chat = () => {
     if (!messageText.trim()) return;
 
     try {
+      setIsSending(true);
       const cleanedMessage = filter.clean(messageText);
       await addMessage({
         body: cleanedMessage,
@@ -47,6 +48,8 @@ const Chat = () => {
       inputRef.current?.focus();
     } catch (err) {
       console.error('Failed to send message:', err);
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -74,7 +77,6 @@ const Chat = () => {
             {message.body}
           </div>
         ))}
-        <div ref={messagesEndRef} />
       </div>
       <div className="mt-auto px-5 py-3">
         <Form
@@ -95,7 +97,7 @@ const Chat = () => {
             <Button
               type="submit"
               variant="group-vertical"
-              disabled={!messageText.trim()}
+              disabled={!messageText.trim() || isSending}
             >
               <img src={SendIcon} alt="send message icon" />
               <span className="visually-hidden">{t('chat.send')}</span>
