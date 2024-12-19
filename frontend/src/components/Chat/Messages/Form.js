@@ -5,9 +5,11 @@ import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import { useAddMessageMutation } from '../../../store/api/messagesApi';
 import SendIcon from '../../../assets/pictures/send-message-icon.svg';
+import { uiSelectors } from '../../../store/slices/uiSlice';
 
-const MessageForm = ({ currentChannelId }) => {
+const MessageForm = () => {
   const { username } = useSelector((state) => state.auth);
+  const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
   const [addMessage] = useAddMessageMutation();
   const inputRef = useRef(null);
   const { t } = useTranslation();
