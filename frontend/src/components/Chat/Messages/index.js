@@ -5,7 +5,7 @@ import MessageForm from './Form';
 import MessageList from './MessageList';
 
 const Messages = ({ currentChannel, messages = [] }) => {
-  const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
+  const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId); 
   const channelMessages = messages.filter(
     (message) => message.channelId === currentChannelId,
   );
