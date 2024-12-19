@@ -12,9 +12,9 @@ const Messages = ({ currentChannel, messages = [] }) => {
 
   return (
     <div className="d-flex flex-column h-100">
-      <Header 
-        channelName={currentChannel?.name} 
-        messagesCount={channelMessages.length} 
+      <Header
+        channelName={currentChannel?.name}
+        messagesCount={channelMessages.length}
       />
       <MessageList channelMessages={channelMessages} />
       <MessageForm currentChannelId={currentChannelId} />
