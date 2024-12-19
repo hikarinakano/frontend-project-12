@@ -22,7 +22,7 @@ const ChatPage = () => {
         dispatch(setCurrentChannel(defaultChannel.id));
       }
     }
-  }, [channels, currentChannelId, dispatch]);
+  }, [channels, currentChannelId, defaultChannelId, dispatch]);
 
   const currentChannel = channels?.find((channel) => channel.id === currentChannelId);
   const isLoading = isChannelsLoading || isMessagesLoading;
@@ -53,8 +53,8 @@ const ChatPage = () => {
           />
         </div>
         <div className="col p-0 h-100">
-          <Messages 
-            currentChannel={currentChannel} 
+          <Messages
+            currentChannel={currentChannel}
             messages={messages}
           />
         </div>
