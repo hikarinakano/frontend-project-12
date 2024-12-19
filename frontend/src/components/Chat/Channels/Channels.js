@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useGetChannelsQuery } from '../../store/api/channelsApi';
-import { setCurrentChannel, openModal, uiSelectors } from '../../store/slices/uiSlice';
+import { useGetChannelsQuery } from '../../../store/api/channelsApi';
+import { setCurrentChannel, openModal, uiSelectors } from '../../../store/slices/uiSlice';
 import Channel from './Channel';
-import AddIcon from '../../assets/pictures/add-icon.svg';
+import AddIcon from '../../../assets/pictures/add-icon.svg';
 
 const Channels = () => {
   const dispatch = useDispatch();
