@@ -31,11 +31,15 @@ const LoginForm = ({ inputRef }) => {
         dispatch(login(userData));
         const { from } = location.state || { from: { pathname: PAGES.getChat() } };
         navigate(from);
-      } catch (e) {
-        if (e.code === 'ERR_NETWORK') {
+      } catch (err) {
+        if (!err.status) {
           toast.error(t('notifications.connection'));
+        } else {
+          dispatch(setAuthError({ 
+            type: 'AuthError', 
+            code: err.status === 401 ? 'unauthorized' : 'unknown' 
+          }));
         }
-        dispatch(setAuthError({ type: 'AuthError', code: e.code }));
         inputRef.current.select();
       }
     },
