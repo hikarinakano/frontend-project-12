@@ -16,7 +16,9 @@ const initialState = {
   errors: {
     type: null,
     isAuthError: false,
-    status: null,
+    isSignupError: false,
+    isNetworkError: false,
+    code: null,
   },
 };
 
@@ -47,10 +49,16 @@ const uiSlice = createSlice({
       state.errors.code = code;
       state.errors.isSignupError = true;
     },
+    setNetworkError: (state) => {
+      state.errors.type = 'network';
+      state.errors.isNetworkError = true;
+      state.errors.code = 'ERR_NETWORK';
+    },
     cleanError: (state) => {
       state.errors.type = null;
       state.errors.isAuthError = false;
       state.errors.isSignupError = false;
+      state.errors.isNetworkError = false;
       state.errors.code = null;
     },
   },
@@ -61,6 +69,7 @@ export const {
   setDefaultChannel,
   setAuthError,
   setSignupError,
+  setNetworkError,
   cleanError,
   openModal,
   closeModal,
@@ -73,6 +82,7 @@ export const uiSelectors = {
   selectIsAuthError: (state) => state.ui.errors.isAuthError,
   selectAuthError: (state) => state.ui.errors.type,
   selectIsSignupError: (state) => state.ui.errors.isSignupError,
+  selectIsNetworkError: (state) => state.ui.errors.isNetworkError,
 };
 
 export default uiSlice.reducer;
