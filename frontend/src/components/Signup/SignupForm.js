@@ -11,12 +11,6 @@ import { setSignupError, cleanError, uiSelectors } from '../../store/slices/uiSl
 import { login } from '../../store/slices/authSlice';
 import { PAGES } from '../../routes';
 
-const initialValues = {
-  username: '',
-  password: '',
-  confirmPassword: '',
-};
-
 const SignupForm = ({ inputRef }) => {
   const dispatch = useDispatch();
   const [signup] = useSignupMutation();
@@ -25,7 +19,11 @@ const SignupForm = ({ inputRef }) => {
   const navigate = useNavigate();
 
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      username: '',
+      password: '',
+      confirmPassword: '',
+    },
     validationSchema: createValidationSchema(t),
     validateOnChange: true,
     onSubmit: async (values, { setErrors }) => {
