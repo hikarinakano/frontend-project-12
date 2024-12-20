@@ -3,13 +3,13 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PAGES } from './routes.js';
-import PrivateRoute from './components/authorization/PrivateRoute.js';
-import Header from './components/Header.js';
-import AppWrapper from './components/AppWrapper.js';
-import LoginPage from './components/Pages/LoginPage.js';
-import ChatPage from './components/Pages/ChatPage.js';
-import SignupPage from './components/Pages/SignupPage.js';
-import NotFoundPage from './components/Pages/NotFoundPage.js';
+import PrivateRoute from './components/authorization/PrivateRoute';
+import Header from './components/Header';
+import AppWrapper from './components/AppWrapper';
+import LoginPage from './components/Pages/LoginPage';
+import ChatPage from './components/Pages/ChatPage';
+import SignupPage from './components/Pages/SignupPage';
+import NotFoundPage from './components/Pages/NotFoundPage';
 
 const App = () => (
   <AppWrapper>
