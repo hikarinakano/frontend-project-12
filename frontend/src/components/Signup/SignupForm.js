@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import createValidationSchema from './validationSchema';
 import FormField from './FormField';
 import { useSignupMutation } from '../../store/api/authApi';
-import { setSignupError, cleanError, uiSelectors } from '../../store/slices/uiSlice';
+import { setSignupError, cleanError, uiSelectors, setNetworkError } from '../../store/slices/uiSlice';
 import { login } from '../../store/slices/authSlice';
 import { PAGES } from '../../routes';
 
@@ -33,11 +33,21 @@ const SignupForm = ({ inputRef }) => {
         const userData = await signup(values).unwrap();
         dispatch(login(userData));
         navigate(PAGES.getChat());
-      } catch (e) {
-        if (e.code === 'ERR_NETWORK') {
+      } catch (err) {
+        if (!err.status) {
+          dispatch(setNetworkError());
           toast.error(t('notifications.connection'));
+        } else if (err.status === 409) {
+          dispatch(setSignupError({ 
+            type: 'SignupError', 
+            code: 'usernameTaken' 
+          }));
+        } else {
+          dispatch(setSignupError({ 
+            type: 'SignupError', 
+            code: 'unknown' 
+          }));
         }
-        dispatch(setSignupError({ type: 'SignupError', code: 'usernameTaken' }));
         inputRef.current.select();
       }
     },
