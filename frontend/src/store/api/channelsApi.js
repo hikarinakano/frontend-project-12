@@ -3,7 +3,6 @@ import { apiRoutes } from '../../routes';
 
 export const channelsApi = createApi({
   reducerPath: 'channels',
-  tagTypes: ['Channels'],
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
     prepareHeaders: (headers, { getState }) => {
@@ -22,14 +21,12 @@ export const channelsApi = createApi({
         method: 'POST',
         body: data,
       }),
-
     }),
     deleteChannel: builder.mutation({
       query: (id) => ({
         url: `${apiRoutes.channelsPath()}/${id}`,
         method: 'DELETE',
       }),
-
     }),
     editChannel: builder.mutation({
       query: ({ id, name }) => ({
@@ -37,7 +34,6 @@ export const channelsApi = createApi({
         method: 'PATCH',
         body: { name },
       }),
-
     }),
   }),
 });
