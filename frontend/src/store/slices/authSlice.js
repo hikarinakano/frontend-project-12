@@ -6,12 +6,23 @@ const getInitialState = () => {
   if (stored) {
     try {
       const { username, token } = JSON.parse(stored);
-      return { username, token, loggedIn: true };
+      return {
+        username,
+        token,
+        isLoggedIn: true,
+        isLoading: false
+      };
     } catch (e) {
       console.error('Failed to parse auth data:', e);
+      localStorage.removeItem('userId');
     }
   }
-  return { username: null, token: null, loggedIn: false };
+  return {
+    username: null,
+    token: null,
+    isLoggedIn: false,
+    isLoading: false
+  };
 };
 
 const authSlice = createSlice({
@@ -22,29 +33,40 @@ const authSlice = createSlice({
       const { username, token } = action.payload;
       state.username = username;
       state.token = token;
-      state.loggedIn = true;
+      state.isLoggedIn = true;
+      state.isLoading = false;
       localStorage.setItem('userId', JSON.stringify({ username, token }));
     },
     logout: (state) => {
       state.username = null;
       state.token = null;
-      state.loggedIn = false;
+      state.isLoggedIn = false;
+      state.isLoading = false;
       localStorage.removeItem('userId');
+    },
+    setAuthLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
   },
 });
 
 const selectAuthState = (state) => state.auth;
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, setAuthLoading } = authSlice.actions;
+
 export const selectors = {
   selectIsLoggedIn: createSelector(
     [selectAuthState],
-    (auth) => auth.loggedIn,
+    (auth) => auth.isLoggedIn,
   ),
   selectUsername: createSelector(
     [selectAuthState],
     (auth) => auth.username,
   ),
+  selectIsAuthLoading: createSelector(
+    [selectAuthState],
+    (auth) => auth.isLoading,
+  ),
 };
+
 export default authSlice.reducer;
