@@ -7,13 +7,19 @@ export const messagesApi = createApi({
     baseUrl: '/',
     prepareHeaders: (headers, { getState }) => {
       const { token } = getState().auth;
-      headers.set('Authorization', `Bearer ${token}`);
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
       return headers;
     },
   }),
   endpoints: (builder) => ({
     getMessages: builder.query({
       query: () => apiRoutes.messagesPath(),
+      skip: (arg, { getState }) => {
+        const { loggedIn } = getState().auth;
+        return !loggedIn;
+      },
     }),
     addMessage: builder.mutation({
       query: (messageData) => ({
