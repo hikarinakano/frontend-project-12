@@ -1,10 +1,6 @@
-import { useSelector } from 'react-redux';
-import { uiSelectors } from '../store/slices/uiSlice';
 import ModalComponent from './Modal';
 
 const AppWrapper = ({ children }) => {
-  const modalInfo = useSelector(uiSelectors.selectModal);
-  const { isOpen } = modalInfo;
 
   return (
     <div className="h-100">
@@ -13,7 +9,7 @@ const AppWrapper = ({ children }) => {
           {children}
         </div>
       </div>
-      {isOpen && <ModalComponent />}
+      <ModalComponent />
     </div>
   );
 };
