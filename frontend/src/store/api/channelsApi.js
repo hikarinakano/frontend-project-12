@@ -7,19 +7,29 @@ export const channelsApi = createApi({
     baseUrl: '/',
     prepareHeaders: (headers, { getState }) => {
       const { token } = getState().auth;
-      if (!token) {
-        throw new Error('No auth token available');
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
       }
-      headers.set('Authorization', `Bearer ${token}`);
       return headers;
     },
   }),
   endpoints: (builder) => ({
     getChannels: builder.query({
-      query: () => apiRoutes.channelsPath(),
-      transformErrorResponse: (response) => {
-        console.error('Channels API Error:', response);
-        return response;
+      queryFn: async (arg, api, extraOptions, baseQuery) => {
+        const { auth } = api.getState();
+        if (!auth.token) {
+          return { data: [] };
+        }
+        try {
+          const result = await baseQuery({
+            url: apiRoutes.channelsPath(),
+            method: 'GET',
+          });
+          
+          return { data: result.data ?? [] };
+        } catch (error) {
+          return { data: [] };
+        }
       },
     }),
     addChannel: builder.mutation({
