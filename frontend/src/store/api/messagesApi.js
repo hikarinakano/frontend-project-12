@@ -16,10 +16,6 @@ export const messagesApi = createApi({
   endpoints: (builder) => ({
     getMessages: builder.query({
       query: () => apiRoutes.messagesPath(),
-      skip: (arg, { getState }) => {
-        const { loggedIn } = getState().auth;
-        return !loggedIn;
-      },
     }),
     addMessage: builder.mutation({
       query: (messageData) => ({
