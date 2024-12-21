@@ -7,6 +7,7 @@ const FormField = ({
   value,
   onChange,
   isInvalid,
+  error,
   inputRef,
   autoComplete,
 }) => (
@@ -24,6 +25,7 @@ const FormField = ({
       ref={inputRef}
     />
     <label htmlFor={name}>{label}</label>
+    {isInvalid && <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>}
   </Form.Group>
 );
 
