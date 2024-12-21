@@ -14,7 +14,7 @@ const Header = () => {
     <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
       <Container>
         <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
-        {loggedIn ? (
+        {isLoggedIn ? (
           <Button variant="primary" onClick={handleLogout}>
             {t('logOutBtn')}
           </Button>
