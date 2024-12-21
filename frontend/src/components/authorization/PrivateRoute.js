@@ -5,8 +5,7 @@ import { PAGES } from '../../routes';
 
 const PrivateRoute = () => {
   const location = useLocation();
-  const isLoggedIn = useSelector(selectors.isLoggedIn);
-
+  const isLoggedIn = useSelector(selectors.selectIsLoggedIn);
   if (!isLoggedIn) {
     return <Navigate to={PAGES.getLogin()} state={{ from: location }} replace />;
   }
