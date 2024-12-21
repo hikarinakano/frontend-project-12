@@ -6,7 +6,7 @@ import { logout, selectors } from '../store/slices/authSlice';
 const Header = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const loggedIn = useSelector(selectors.selectIsLoggedIn);
+  const isLoggedIn = useSelector(selectors.selectIsLoggedIn);
   const handleLogout = () => {
     dispatch(logout());
   };
