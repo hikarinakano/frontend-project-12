@@ -1,49 +1,34 @@
-import { Modal } from 'react-bootstrap';
-import { useRef, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { useEditChannelMutation, useGetChannelsQuery } from '../store/api/channelsApi';
-import useModalForm from '../hooks/useModalForm';
-import ModalForm from './ChannelForm';
+import { useDeleteChannelMutation } from '../store/api/channelsApi';
+import BaseModal from './BaseModal';
+import FormButtons from './FormButtons';
 
-const RenameModal = ({ onClose, channelId, t }) => {
-  const inputRef = useRef(null);
-  const [editChannel] = useEditChannelMutation();
-  const { data: channels = [] } = useGetChannelsQuery();
-  const currentChannel = channels.find((channel) => channel.id === channelId);
+const DeleteModal = ({ onClose, channelId, t }) => {
+  const [deleteChannel] = useDeleteChannelMutation();
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.select();
-      inputRef.current.focus();
+  const handleDelete = async () => {
+    try {
+      await deleteChannel(channelId).unwrap();
+      onClose();
+      toast.success(t('notifications.channelDeleted'));
+    } catch (err) {
+      toast.error(t('errors.networkError'));
+      onClose();
     }
-  }, [currentChannel]);
-
-  const formik = useModalForm({
-    onClose,
-    t,
-    initialValues: { name: currentChannel?.name || '' },
-    onSubmit: async (cleanedName) => {
-      await editChannel({ id: channelId, name: cleanedName }).unwrap();
-      toast.success(t('notifications.channelRenamed'));
-    },
-  });
+  };
 
   return (
-    <>
-      <Modal.Header closeButton>
-        <Modal.Title>{t('modals.edit.title')}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <ModalForm
-          inputRef={inputRef}
-          formik={formik}
-          t={t}
-          onClose={onClose}
-          type="edit"
-        />
-      </Modal.Body>
-    </>
+    <BaseModal title={t('modals.delete.title')} onClose={onClose}>
+      <p className="lead">{t('modals.delete.confirm')}</p>
+      <FormButtons
+        onClose={onClose}
+        cancelText={t('modals.delete.cancel')}
+        submitText={t('modals.delete.submit')}
+        handleAction={handleDelete}
+        secondBtn="danger"
+      />
+    </BaseModal>
   );
 };
 
-export default RenameModal;
+export default DeleteModal;
