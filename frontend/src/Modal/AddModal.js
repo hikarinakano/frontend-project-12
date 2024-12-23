@@ -1,37 +1,26 @@
 import { Modal, Form, Button } from 'react-bootstrap';
-import { useFormik } from 'formik';
 import { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAddChannelMutation } from '../store/api/channelsApi';
 import { toast } from 'react-toastify';
-import filter from 'leo-profanity';
-import getValidationSchema from './validationSchema';
+import useModalForm from '../hooks/useModalForm';
 
-const AddModal = ({ isOpen, onClose, t }) => {
+const AddModal = ({ onClose, t }) => {
   const inputRef = useRef(null);
   const [addChannel] = useAddChannelMutation();
-  const channels = useSelector((state) => state.channels.entities) || [];
   const { username } = useSelector((state) => state.auth);
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  const formik = useFormik({
+  const formik = useModalForm({
+    onClose,
+    t,
     initialValues: { name: '' },
-    validationSchema: getValidationSchema(t, channels),
-    validateOnChange: false,
-    onSubmit: async (values) => {
-      try {
-        const trimmedName = values.name.trim();
-        const cleanedName = filter.clean(trimmedName);
-        await addChannel({ name: cleanedName, username }).unwrap();
-        onClose();
-        toast.success(t('notifications.channelCreated'));
-      } catch (err) {
-        toast.error(t('errors.networkError'));
-        onClose();
-      }
+    onSubmit: async (cleanedName) => {
+      await addChannel({ name: cleanedName, username }).unwrap();
+      toast.success(t('notifications.channelCreated'));
     },
   });
 
