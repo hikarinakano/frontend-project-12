@@ -11,4 +11,4 @@ const BaseModal = ({ title, onClose, children }) => (
   </>
 );
 
-export default BaseModal; 
+export default BaseModal;

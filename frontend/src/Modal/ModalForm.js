@@ -1,12 +1,12 @@
 import { Form } from 'react-bootstrap';
 import FormButtons from './FormButtons';
 
-const ModalForm = ({ 
-  inputRef, 
-  formik, 
-  t, 
-  onClose, 
-  type
+const ModalForm = ({
+  inputRef,
+  formik,
+  t,
+  onClose,
+  type,
 }) => (
   <Form onSubmit={formik.handleSubmit}>
     <Form.Group>
@@ -27,7 +27,7 @@ const ModalForm = ({
         {formik.errors.name}
       </Form.Control.Feedback>
     </Form.Group>
-    <FormButtons 
+    <FormButtons
       onClose={onClose}
       cancelText={t(`modals.${type}.cancel`)}
       submitText={t(`modals.${type}.submit`)}
