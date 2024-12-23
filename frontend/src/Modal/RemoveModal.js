@@ -3,7 +3,7 @@ import { useDeleteChannelMutation } from '../store/api/channelsApi';
 import BaseModal from './BaseModal';
 import FormButtons from './FormButtons';
 
-const DeleteModal = ({ onClose, channelId, t }) => {
+const RemoveModal = ({ onClose, channelId, t }) => {
   const [deleteChannel] = useDeleteChannelMutation();
 
   const handleDelete = async () => {
@@ -31,4 +31,4 @@ const DeleteModal = ({ onClose, channelId, t }) => {
   );
 };
 
-export default DeleteModal;
+export default RemoveModal;
