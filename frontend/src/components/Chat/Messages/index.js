@@ -9,7 +9,7 @@ const Messages = ({ currentChannel, messages = [] }) => {
   return (
     <div className="d-flex flex-column h-100">
       <Header
-        channelName={currentChannel.name}
+        channelName={currentChannel?.name}
         messagesCount={channelMessages.length}
       />
       <MessageList channelMessages={channelMessages} />
