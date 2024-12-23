@@ -10,7 +10,7 @@ const Footer = () => {
     <Card.Footer className="p-4">
       <div className="text-center">
         <span>
-          {t('login.noAccount')}
+          {`${('login.noAccount')} `}
         </span>
         <Link to={PAGES.getSignup()}>
           {t('login.signup')}
