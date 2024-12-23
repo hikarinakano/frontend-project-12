@@ -9,17 +9,9 @@ import ChatSkeleton from '../Chat/Skeletons/ChatSkeleton';
 import ChannelsSkeleton from '../Chat/Skeletons/ChannelsSkeleton';
 
 const ChatPage = () => {
-  const dispatch = useDispatch();
-  const { data: channels = [], isLoading: isChannelsLoading } = useGetChannelsQuery();
-  const { data: messages = [], isLoading: isMessagesLoading } = useGetMessagesQuery();
+  const { data: channels, isLoading: isChannelsLoading } = useGetChannelsQuery();
+  const { data: messages, isLoading: isMessagesLoading } = useGetMessagesQuery();
   const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
-
-  useEffect(() => {
-    if (channels?.length > 0 && !currentChannelId) {
-      dispatch(setDefaultChannel());
-    }
-  }, [channels, currentChannelId, dispatch]);
-
   const currentChannel = channels?.find((channel) => channel.id === currentChannelId);
   const isLoading = isChannelsLoading || isMessagesLoading;
 
