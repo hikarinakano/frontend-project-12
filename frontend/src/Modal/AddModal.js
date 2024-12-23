@@ -1,10 +1,9 @@
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { useAddChannelMutation } from '../store/api/channelsApi';
 import { setCurrentChannel } from '../store/slices/uiSlice';
-import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
 import useModalForm from '../hooks/useModalForm';
 
 const AddModal = ({ onClose, t }) => {
