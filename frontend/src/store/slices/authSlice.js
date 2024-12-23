@@ -10,7 +10,7 @@ const getInitialState = () => {
         username,
         token,
         isLoggedIn: true,
-        isLoading: false
+        isLoading: false,
       };
     } catch (e) {
       console.error('Failed to parse auth data:', e);
@@ -21,7 +21,7 @@ const getInitialState = () => {
     username: null,
     token: null,
     isLoggedIn: false,
-    isLoading: false
+    isLoading: false,
   };
 };
 
