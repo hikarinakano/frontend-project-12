@@ -26,9 +26,16 @@ export const channelsApi = createApi({
             method: 'GET',
           });
           
+          if (result.error) {
+            console.error('Channels API error:', result.error);
+            return { error: result.error };
+          }
+          
+          console.log('Channels API response:', result.data);
           return { data: result.data ?? [] };
         } catch (error) {
-          return { data: [] };
+          console.error('Channels API catch error:', error);
+          return { error };
         }
       },
     }),
