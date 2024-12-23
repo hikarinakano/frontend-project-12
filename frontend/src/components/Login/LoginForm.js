@@ -51,20 +51,26 @@ const LoginForm = ({ inputRef }) => {
         value={formik.values.username}
         onChange={formik.handleChange}
         isInvalid={formik.errors.username}
-        error={formik.errors.username}
         inputRef={inputRef}
         autoComplete="username"
       />
-      <FormField
-        name="password"
-        type="password"
-        label={t('login.password')}
-        value={formik.values.password}
-        onChange={formik.handleChange}
-        isInvalid={formik.errors.password}
-        error={formik.errors.password}
-        autoComplete="current-password"
-      />
+      <Form.Floating className="mb-4">
+        <Form.Control
+          name="password"
+          type="password"
+          id="password"
+          placeholder={t('login.password')}
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          isInvalid={formik.errors.password}
+          autoComplete="current-password"
+          required
+        />
+        <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
+        <Form.Control.Feedback type="invalid" tooltip>
+          {formik.errors.password}
+        </Form.Control.Feedback>
+      </Form.Floating>
       <Button
         type="submit"
         variant="outline-primary"
