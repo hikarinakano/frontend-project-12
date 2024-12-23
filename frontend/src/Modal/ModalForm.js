@@ -10,7 +10,7 @@ const ModalForm = ({
 }) => (
   <Form onSubmit={formik.handleSubmit}>
     <Form.Group>
-      <Form.Label htmlFor="name">
+      <Form.Label className="visually-hidden" htmlFor="name">
         {t(`modals.${type}.formLabel`)}
       </Form.Label>
       <Form.Control
