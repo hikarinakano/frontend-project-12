@@ -27,7 +27,7 @@ const ChatPage = () => {
     : null;
   const isLoading = isChannelsLoading || isMessagesLoading;
 
-  if (isLoading) {
+  if (isLoading && !currentChannel) {
     return (
       <div className="container h-100 my-4 overflow-hidden rounded shadow">
         <div className="row h-100 bg-white flex-md-row">
@@ -60,14 +60,10 @@ const ChatPage = () => {
           )}
         </div>
         <div className="col p-0 h-100">
-          {currentChannel ? (
             <Messages
               currentChannel={currentChannel}
               messages={messages}
             />
-          ) : (
-            <ChatSkeleton />
-          )}
         </div>
       </div>
     </div>
