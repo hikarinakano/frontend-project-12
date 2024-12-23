@@ -1,13 +1,12 @@
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import createValidationSchema from './validationSchema';
 import FormField from './FormField';
 import { useSignupMutation } from '../../store/api/authApi';
-import { setSignupError, cleanError, uiSelectors, setNetworkError } from '../../store/slices/uiSlice';
 import { login } from '../../store/slices/authSlice';
 import { PAGES } from '../../routes';
 
@@ -15,7 +14,6 @@ const SignupForm = ({ inputRef }) => {
   const dispatch = useDispatch();
   const [signup] = useSignupMutation();
   const { t } = useTranslation();
-  const isSignupError = useSelector(uiSelectors.selectIsSignupError);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -29,24 +27,16 @@ const SignupForm = ({ inputRef }) => {
     onSubmit: async (values, { setErrors }) => {
       try {
         setErrors({});
-        dispatch(cleanError());
         const userData = await signup(values).unwrap();
         dispatch(login(userData));
         navigate(PAGES.getChat());
       } catch (err) {
-        if (!err.status) {
-          dispatch(setNetworkError());
+        if (err.status === 'NETWORK_ERROR' || err.status === 'FETCH_ERROR') {
           toast.error(t('notifications.connection'));
         } else if (err.status === 409) {
-          dispatch(setSignupError({ 
-            type: 'SignupError', 
-            code: 'usernameTaken' 
-          }));
-        } else {
-          dispatch(setSignupError({ 
-            type: 'SignupError', 
-            code: 'unknown' 
-          }));
+          setErrors({
+            username: t('errors.usernameTaken'),
+          });
         }
         inputRef.current.select();
       }
@@ -63,7 +53,7 @@ const SignupForm = ({ inputRef }) => {
         label={t('signup.username')}
         value={formik.values.username}
         onChange={formik.handleChange}
-        isInvalid={(formik.touched.username && formik.errors.username) || isSignupError}
+        isInvalid={formik.touched.username && (formik.errors.username)}
         error={formik.errors.username}
         inputRef={inputRef}
         autoComplete="username"
@@ -74,7 +64,7 @@ const SignupForm = ({ inputRef }) => {
         label={t('signup.password')}
         value={formik.values.password}
         onChange={formik.handleChange}
-        isInvalid={(formik.touched.password && formik.errors.password) || isSignupError}
+        isInvalid={formik.touched.password && formik.errors.password}
         error={formik.errors.password}
         autoComplete="new-password"
       />
@@ -84,8 +74,8 @@ const SignupForm = ({ inputRef }) => {
         label={t('signup.confirmPassword')}
         value={formik.values.confirmPassword}
         onChange={formik.handleChange}
-        isInvalid={isPasswordConfirmed || isSignupError}
-        error={isSignupError ? t('errors.usernameTaken') : formik.errors.confirmPassword}
+        isInvalid={isPasswordConfirmed}
+        error={formik.errors.confirmPassword}
         autoComplete="new-password"
       />
       <Button
