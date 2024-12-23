@@ -1,6 +1,7 @@
-import { Modal, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useDeleteChannelMutation } from '../store/api/channelsApi';
+import BaseModal from './BaseModal';
+import FormButtons from './FormButtons';
 
 const DeleteModal = ({ onClose, channelId, t }) => {
   const [deleteChannel] = useDeleteChannelMutation();
@@ -17,22 +18,16 @@ const DeleteModal = ({ onClose, channelId, t }) => {
   };
 
   return (
-    <>
-      <Modal.Header closeButton>
-        <Modal.Title>{t('modals.delete.title')}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <p className="lead">{t('modals.delete.confirm')}</p>
-        <div className="d-flex justify-content-end">
-          <Button variant="secondary" className="me-2" onClick={onClose}>
-            {t('modals.delete.cancel')}
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            {t('modals.delete.submit')}
-          </Button>
-        </div>
-      </Modal.Body>
-    </>
+    <BaseModal title={t('modals.delete.title')} onClose={onClose}>
+      <p className="lead">{t('modals.delete.confirm')}</p>
+      <FormButtons
+        onClose={onClose}
+        cancelText={t('modals.delete.cancel')}
+        submitText={t('modals.delete.submit')}
+        handleAction={handleDelete}
+        secondBtn="danger"
+      />
+    </BaseModal>
   );
 };
 
