@@ -2,7 +2,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { useDeleteChannelMutation } from '../store/api/channelsApi';
 import { toast } from 'react-toastify';
 
-const DeleteModal = ({ isOpen, onClose, channelId, t }) => {
+const DeleteModal = ({ onClose, channelId, t }) => {
   const [deleteChannel] = useDeleteChannelMutation();
 
   const handleDelete = async () => {
