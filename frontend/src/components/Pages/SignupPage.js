@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import Signup from '../Signup';
+import Signup from '../Signup/index';
 
 const SignupPage = () => {
   const inputRef = useRef();
