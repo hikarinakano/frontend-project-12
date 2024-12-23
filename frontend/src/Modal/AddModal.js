@@ -1,10 +1,11 @@
-import { Modal, Form, Button } from 'react-bootstrap';
 import { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useAddChannelMutation } from '../store/api/channelsApi';
 import { setCurrentChannel } from '../store/slices/uiSlice';
 import useModalForm from '../hooks/useModalForm';
+import BaseModal from './BaseModal';
+import ModalForm from './ModalForm';
 
 const AddModal = ({ onClose, t }) => {
   const inputRef = useRef(null);
@@ -28,41 +29,15 @@ const AddModal = ({ onClose, t }) => {
   });
 
   return (
-    <>
-      <Modal.Header closeButton>
-        <Modal.Title>{t('modals.add.title')}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={formik.handleSubmit}>
-          <Form.Group>
-            <Form.Label className="visually-hidden" htmlFor="name">
-              {t('modals.add.formLabel')}
-            </Form.Label>
-            <Form.Control
-              ref={inputRef}
-              required
-              name="name"
-              id="name"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              isInvalid={formik.touched.name && formik.errors.name}
-              disabled={formik.isSubmitting}
-            />
-            <Form.Control.Feedback type="invalid">
-              {formik.errors.name}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <div className="d-flex justify-content-end gap-2 mt-3">
-            <Button variant="secondary" onClick={onClose}>
-              {t('modals.add.cancel')}
-            </Button>
-            <Button variant="primary" type="submit">
-              {t('modals.add.submit')}
-            </Button>
-          </div>
-        </Form>
-      </Modal.Body>
-    </>
+    <BaseModal title={t('modals.add.title')} onClose={onClose}>
+      <ModalForm
+        type="add"
+        inputRef={inputRef}
+        formik={formik}
+        t={t}
+        onClose={onClose}
+      />
+    </BaseModal>
   );
 };
 
