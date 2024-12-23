@@ -39,7 +39,7 @@ const LoginForm = ({ inputRef }) => {
         }
         inputRef.current.select();
       }
-    }
+    },
   });
 
   return (
@@ -83,4 +83,4 @@ const LoginForm = ({ inputRef }) => {
   );
 };
 
-export default LoginForm; 
+export default LoginForm;
