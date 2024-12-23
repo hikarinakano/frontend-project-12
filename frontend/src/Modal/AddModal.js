@@ -2,11 +2,14 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAddChannelMutation } from '../store/api/channelsApi';
+import { setCurrentChannel } from '../store/slices/uiSlice';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 import useModalForm from '../hooks/useModalForm';
 
 const AddModal = ({ onClose, t }) => {
   const inputRef = useRef(null);
+  const dispatch = useDispatch();
   const [addChannel] = useAddChannelMutation();
   const { username } = useSelector((state) => state.auth);
 
@@ -19,7 +22,8 @@ const AddModal = ({ onClose, t }) => {
     t,
     initialValues: { name: '' },
     onSubmit: async (cleanedName) => {
-      await addChannel({ name: cleanedName, username }).unwrap();
+      const response = await addChannel({ name: cleanedName, username }).unwrap();
+      dispatch(setCurrentChannel(response.id));
       toast.success(t('notifications.channelCreated'));
     },
   });
