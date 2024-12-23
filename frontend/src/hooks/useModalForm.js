@@ -10,7 +10,7 @@ const useModalForm = (
     t,
     initialValues,
     onSubmit,
-  }
+  },
 ) => {
   const { data: channels = [] } = useGetChannelsQuery();
   const formik = useFormik({

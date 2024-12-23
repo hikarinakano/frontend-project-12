@@ -1,4 +1,4 @@
-import ModalComponent from "../Modal";
+import ModalComponent from '../Modal';
 
 const AppWrapper = ({ children }) => (
   <div className="h-100">

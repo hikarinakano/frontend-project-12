@@ -2,8 +2,8 @@ import { Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { closeModal, uiSelectors } from '../store/slices/uiSlice';
-import AddModal from '../Modal/AddModal';
-import RenameModal from '../Modal/RenameModal';
+import AddModal from './AddModal';
+import RenameModal from './RenameModal';
 import RemoveModal from './RemoveModal';
 
 const modalComponents = {
