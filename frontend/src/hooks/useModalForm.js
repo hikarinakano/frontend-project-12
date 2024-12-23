@@ -1,16 +1,15 @@
 import { useFormik } from 'formik';
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 import getValidationSchema from '../Modal/validationSchema';
+import { useGetChannelsQuery } from '../store/api/channelsApi';
 
 const useModalForm = ({ onClose, t, initialValues, onSubmit }) => {
-  const channels = useSelector((state) => state.channels.entities) || [];
-
+  const { data: channels = [] } = useGetChannelsQuery();
   const formik = useFormik({
     initialValues,
     validationSchema: getValidationSchema(t, channels),
-    validateOnChange: false,
+    validateOnChange: true,
     enableReinitialize: true,
     onSubmit: async (values) => {
       try {
@@ -28,4 +27,4 @@ const useModalForm = ({ onClose, t, initialValues, onSubmit }) => {
   return formik;
 };
 
-export default useModalForm; 
+export default useModalForm;
