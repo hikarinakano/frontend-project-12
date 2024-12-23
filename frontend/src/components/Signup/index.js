@@ -22,4 +22,4 @@ const Signup = ({ inputRef }) => {
   );
 };
 
-export default Signup; 
+export default Signup;
