@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetChannelsQuery } from '../../store/api/channelsApi';
 import { useGetMessagesQuery } from '../../store/api/messagesApi';
-import { setCurrentChannel, uiSelectors } from '../../store/slices/uiSlice';
+import { setDefaultChannel, uiSelectors } from '../../store/slices/uiSlice';
 import Channels from '../Chat/Channels/index';
 import Messages from '../Chat/Messages/index';
 import ChatSkeleton from '../Chat/Skeletons/ChatSkeleton';
@@ -13,14 +13,19 @@ const ChatPage = () => {
   const { data: channels = [], isLoading: isChannelsLoading } = useGetChannelsQuery();
   const { data: messages = [], isLoading: isMessagesLoading } = useGetMessagesQuery();
   const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
-  const defaultChannelId = useSelector(uiSelectors.selectDefaultChannelId);
-  const isLoading = isChannelsLoading || isMessagesLoading;
-  const currentChannel = channels.find((channel) => channel.id === currentChannelId);
   useEffect(() => {
-    if (channels?.length > 0 && !currentChannelId) {
-      dispatch(setCurrentChannel(defaultChannelId));
+    if (channels?.length > 0) {
+      const currentChannel = channels.find((channel) => channel.id === currentChannelId);
+      if (!currentChannel) {
+        dispatch(setDefaultChannel());
+      }
     }
-  }, [channels, currentChannelId, defaultChannelId, dispatch]);
+  }, [channels, currentChannelId, dispatch]);
+
+  const currentChannel = channels?.length > 0 
+    ? channels.find((channel) => channel.id === currentChannelId)
+    : null;
+  const isLoading = isChannelsLoading || isMessagesLoading;
 
   if (isLoading) {
     return (
@@ -37,17 +42,32 @@ const ChatPage = () => {
     );
   }
 
+  // Show loading or error state if no current channel is found
+  if (!currentChannel && channels?.length > 0) {
+    console.log('No current channel found:', {
+      channels,
+      currentChannelId,
+      currentChannel
+    });
+  }
+
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
       <div className="row h-100 bg-white flex-md-row">
         <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
-          <Channels channels={channels} currentChannelId={currentChannelId} />
+          {channels?.length > 0 && (
+            <Channels channels={channels} currentChannelId={currentChannelId} />
+          )}
         </div>
         <div className="col p-0 h-100">
-          <Messages
-            currentChannel={currentChannel}
-            messages={messages}
-          />
+          {currentChannel ? (
+            <Messages
+              currentChannel={currentChannel}
+              messages={messages}
+            />
+          ) : (
+            <ChatSkeleton />
+          )}
         </div>
       </div>
     </div>
