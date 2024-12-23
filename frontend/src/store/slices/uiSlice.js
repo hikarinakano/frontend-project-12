@@ -16,6 +16,8 @@ const initialState = {
   errors: {
     type: null,
     isAuthError: false,
+    isSignupError: false,
+    isNetworkError: false,
     status: null,
   },
 };
@@ -47,10 +49,16 @@ const uiSlice = createSlice({
       state.errors.status = code;
       state.errors.isSignupError = true;
     },
+    setNetworkError: (state, {payload: {type, code }}) => {
+      state.errors.type = type;
+      state.errors.status = code;
+      state.errors.isNetworkError = true;
+    },
     cleanError: (state) => {
       state.errors.type = null;
       state.errors.isAuthError = false;
       state.errors.isSignupError = false;
+      state.errors.isNetworkError = false;
       state.errors.status = null;
     },
   },
@@ -61,6 +69,7 @@ export const {
   setDefaultChannel,
   setAuthError,
   setSignupError,
+  setNetworkError,
   cleanError,
   openModal,
   closeModal,
