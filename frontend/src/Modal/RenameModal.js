@@ -1,7 +1,7 @@
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useRef, useEffect } from 'react';
-import { useEditChannelMutation, useGetChannelsQuery } from '../store/api/channelsApi';
 import { toast } from 'react-toastify';
+import { useEditChannelMutation, useGetChannelsQuery } from '../store/api/channelsApi';
 import useModalForm from '../hooks/useModalForm';
 
 const RenameModal = ({ onClose, channelId, t }) => {
@@ -9,7 +9,6 @@ const RenameModal = ({ onClose, channelId, t }) => {
   const [editChannel] = useEditChannelMutation();
   const { data: channels = [] } = useGetChannelsQuery();
   const currentChannel = channels.find((channel) => channel.id === channelId);
-  console.log(currentChannel)
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.select();

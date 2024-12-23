@@ -4,7 +4,14 @@ import filter from 'leo-profanity';
 import getValidationSchema from '../Modal/validationSchema';
 import { useGetChannelsQuery } from '../store/api/channelsApi';
 
-const useModalForm = ({ onClose, t, initialValues, onSubmit }) => {
+const useModalForm = (
+  {
+    onClose,
+    t,
+    initialValues,
+    onSubmit,
+  }
+) => {
   const { data: channels = [] } = useGetChannelsQuery();
   const formik = useFormik({
     initialValues,
