@@ -49,7 +49,7 @@ const uiSlice = createSlice({
       state.errors.status = code;
       state.errors.isSignupError = true;
     },
-    setNetworkError: (state, {payload: {type, code }}) => {
+    setNetworkError: (state, { payload: { type, code } }) => {
       state.errors.type = type;
       state.errors.status = code;
       state.errors.isNetworkError = true;
