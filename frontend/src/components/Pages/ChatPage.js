@@ -13,6 +13,7 @@ const ChatPage = () => {
   const { data: channels = [], isLoading: isChannelsLoading } = useGetChannelsQuery();
   const { data: messages = [], isLoading: isMessagesLoading } = useGetMessagesQuery();
   const currentChannelId = useSelector(uiSelectors.selectCurrentChannelId);
+
   useEffect(() => {
     if (channels?.length > 0) {
       const currentChannel = channels.find((channel) => channel.id === currentChannelId);
@@ -22,12 +23,10 @@ const ChatPage = () => {
     }
   }, [channels, currentChannelId, dispatch]);
 
-  const currentChannel = channels?.length > 0 
-    ? channels.find((channel) => channel.id === currentChannelId)
-    : null;
+  const currentChannel = channels?.find((channel) => channel.id === currentChannelId);
   const isLoading = isChannelsLoading || isMessagesLoading;
 
-  if (isLoading && !currentChannel) {
+  if (isLoading) {
     return (
       <div className="container h-100 my-4 overflow-hidden rounded shadow">
         <div className="row h-100 bg-white flex-md-row">
@@ -42,15 +41,6 @@ const ChatPage = () => {
     );
   }
 
-  // Show loading or error state if no current channel is found
-  if (!currentChannel && channels?.length > 0) {
-    console.log('No current channel found:', {
-      channels,
-      currentChannelId,
-      currentChannel
-    });
-  }
-
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
       <div className="row h-100 bg-white flex-md-row">
@@ -60,10 +50,12 @@ const ChatPage = () => {
           )}
         </div>
         <div className="col p-0 h-100">
+          {currentChannel && (
             <Messages
               currentChannel={currentChannel}
               messages={messages}
             />
+          )}
         </div>
       </div>
     </div>
