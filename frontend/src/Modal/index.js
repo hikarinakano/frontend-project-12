@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { closeModal, uiSelectors } from '../store/slices/uiSlice';
 import AddModal from '../Modal/AddModal';
 import RenameModal from '../Modal/RenameModal';
-import DeleteModal from './RemoveModal';
+import RemoveModal from './RemoveModal';
 
 const modalComponents = {
   adding: AddModal,
   renaming: RenameModal,
-  removing: DeleteModal,
+  removing: RemoveModal,
 };
 
 const ModalComponent = () => {
