@@ -10,7 +10,9 @@ const Footer = () => {
     <Card.Footer className="p-4">
       <div className="text-center">
         <span>{t('login.noAccount')} </span>
-        <Link to={PAGES.getSignup()}>{t('login.signup')}</Link>
+        <Link to={PAGES.getSignup()}>
+          {t('login.signup')}
+        </Link>
       </div>
     </Card.Footer>
   );
