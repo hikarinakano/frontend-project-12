@@ -7,7 +7,7 @@ const Channel = ({ channel, isCurrent }) => {
   const dispatch = useDispatch();
   const { id, name, removable } = channel;
   const { t } = useTranslation();
-  
+
   const handleShowModal = (type, extra = null) => {
     dispatch(openModal({ type, extra }));
   };
