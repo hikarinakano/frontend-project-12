@@ -11,24 +11,21 @@ import ChatPage from './components/Pages/ChatPage';
 import SignupPage from './components/Pages/SignupPage';
 import NotFoundPage from './components/Pages/NotFoundPage';
 
-const App = () => {
-  return (
-    <Router>
-      <AppWrapper>
-        <Header />
-        <Routes>
-          <Route path={PAGES.getLogin()} element={<LoginPage />} />
-          <Route path={PAGES.getSignup()} element={<SignupPage />} />
-          <Route element={<PrivateRoute />}>
-            <Route path={PAGES.getChat()} element={<ChatPage />} />
-          </Route>
-          <Route path={PAGES.getNotFound()} element={<NotFoundPage />} />
-        </Routes>
-        <ToastContainer />
-      </AppWrapper>
-    </Router>
-  );
-};
-
+const App = () => (
+  <Router>
+    <AppWrapper>
+      <Header />
+      <Routes>
+        <Route path={PAGES.getLogin()} element={<LoginPage />} />
+        <Route path={PAGES.getSignup()} element={<SignupPage />} />
+        <Route element={<PrivateRoute />}>
+          <Route path={PAGES.getChat()} element={<ChatPage />} />
+        </Route>
+        <Route path={PAGES.getNotFound()} element={<NotFoundPage />} />
+      </Routes>
+      <ToastContainer />
+    </AppWrapper>
+  </Router>
+);
 
 export default App;
