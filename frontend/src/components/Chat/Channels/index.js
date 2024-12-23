@@ -17,11 +17,15 @@ const ChannelList = ({
   </ul>
 );
 
-const Channels = ({ channels, currentChannelId }) => (
+const Channels = ({ channels, currentChannelId }) => {
+  if(!channels?.length) {
+    return null;
+  }
+  return (
   <>
     <AddChannelButton />
     <ChannelList channels={channels} currentChannelId={currentChannelId} />
   </>
-);
+)};
 
 export default Channels;
