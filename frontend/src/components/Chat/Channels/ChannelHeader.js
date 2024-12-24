@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { openModal } from '../../../store/slices/uiSlice';
 import AddIcon from '../../../assets/pictures/add-icon.svg';
 
-const AddChannelButton = () => {
+const ChannelHeader = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const handleShowModal = (type, extra = null) => {
@@ -26,4 +26,4 @@ const AddChannelButton = () => {
   );
 };
 
-export default AddChannelButton;
+export default ChannelHeader;
