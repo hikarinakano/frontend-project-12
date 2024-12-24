@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 import { useDeleteChannelMutation } from '../../store/api/channelsApi';
 import BaseModal from '../BaseModal';
 import FormButtons from '../FormButtons';
-import { useState } from 'react';
 
 const RemoveChannelModal = ({ onClose, channelId, t }) => {
   const [deleteChannel] = useDeleteChannelMutation();

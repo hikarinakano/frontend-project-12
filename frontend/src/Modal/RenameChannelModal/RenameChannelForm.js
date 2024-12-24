@@ -65,4 +65,4 @@ const RenameChannelForm = ({
   );
 };
 
-export default RenameChannelForm; 
+export default RenameChannelForm;

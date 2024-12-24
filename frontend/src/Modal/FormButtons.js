@@ -12,10 +12,10 @@ const FormButtons = ({
     <Button variant="secondary" onClick={onClose} disabled={disabled}>
       {cancelText}
     </Button>
-    <Button 
-      variant={secondBtn || 'primary'} 
-      type="submit" 
-      onClick={handleAction} 
+    <Button
+      variant={secondBtn || 'primary'}
+      type="submit"
+      onClick={handleAction}
       disabled={disabled}
     >
       {submitText}

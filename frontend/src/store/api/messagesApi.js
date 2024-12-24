@@ -6,7 +6,7 @@ export const messagesApi = createApi({
   reducerPath: 'messages',
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
-    prepareHeaders
+    prepareHeaders,
   }),
   endpoints: (builder) => ({
     getMessages: builder.query({

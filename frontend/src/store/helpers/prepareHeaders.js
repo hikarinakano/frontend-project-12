@@ -1,4 +1,4 @@
-const prepareHeaders =  (headers, { getState }) => {
+const prepareHeaders = (headers, { getState }) => {
   const { token } = getState().auth;
   if (token) {
     headers.set('Authorization', `Bearer ${token}`);

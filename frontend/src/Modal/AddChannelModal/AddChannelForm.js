@@ -66,4 +66,4 @@ const AddChannelForm = ({
   );
 };
 
-export default AddChannelForm; 
+export default AddChannelForm;
