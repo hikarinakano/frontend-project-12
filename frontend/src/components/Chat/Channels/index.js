@@ -1,5 +1,5 @@
 import Channel from './Channel';
-import AddChannelButton from './AddChannelButton';
+import ChannelHeader from './ChannelHeader';
 
 const ChannelList = ({
   channels,
@@ -19,7 +19,7 @@ const ChannelList = ({
 
 const Channels = ({ channels, currentChannelId }) => (
   <>
-    <AddChannelButton />
+    <ChannelHeader />
     <ChannelList channels={channels} currentChannelId={currentChannelId} />
   </>
 );
