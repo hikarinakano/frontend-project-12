@@ -2,8 +2,8 @@ import { Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
-import FormButtons from './FormButtons';
-import getValidationSchema from './validationSchema';
+import FormButtons from '../FormButtons';
+import getValidationSchema from '../validationSchema';
 import { useEditChannelMutation, useGetChannelsQuery } from '../store/api/channelsApi';
 
 const RenameChannelForm = ({
