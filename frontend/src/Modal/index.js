@@ -2,9 +2,9 @@ import { Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { closeModal, uiSelectors } from '../store/slices/uiSlice';
-import AddModal from './AddModal';
-import RenameModal from './RenameModal';
-import RemoveModal from './RemoveModal';
+import AddModal from './AddChannelModal';
+import RenameModal from './RenameChannelModal';
+import RemoveModal from './RemoveChannelModal';
 
 const modalComponents = {
   adding: AddModal,
@@ -21,10 +21,10 @@ const ModalComponent = () => {
     dispatch(closeModal());
   };
   if (!type) return null;
-  const SpecificModal = modalComponents[type];
+  const ChannelModal = modalComponents[type];
   return (
     <Modal show={isOpen} onHide={handleClose}>
-      <SpecificModal
+      <ChannelModal
         onClose={handleClose}
         channelId={extra}
         t={t}
