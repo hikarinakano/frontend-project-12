@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { apiRoutes } from '../../routes';
-import prepareHeaders from './helpers/prepareHeaders';
+import prepareHeaders from '../helpers/prepareHeaders';
 
 export const messagesApi = createApi({
   reducerPath: 'messages',
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
-    prepareHeaders: prepareHeaders(headers, { getState }),
+    prepareHeaders
   }),
   endpoints: (builder) => ({
     getMessages: builder.query({

@@ -6,7 +6,7 @@ export const channelsApi = createApi({
   reducerPath: 'channels',
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
-    prepareHeaders: prepareHeaders(headers, { getState }),
+    prepareHeaders,
   }),
   endpoints: (builder) => ({
     getChannels: builder.query({
