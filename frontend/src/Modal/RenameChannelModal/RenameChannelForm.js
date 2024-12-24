@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 import FormButtons from '../FormButtons';
 import getValidationSchema from '../validationSchema';
-import { useEditChannelMutation, useGetChannelsQuery } from '../store/api/channelsApi';
+import { useEditChannelMutation, useGetChannelsQuery } from '../../store/api/channelsApi';
 
 const RenameChannelForm = ({
   inputRef,
