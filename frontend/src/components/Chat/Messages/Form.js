@@ -18,7 +18,7 @@ const MessageForm = () => {
 
   useEffect(() => {
     inputRef.current?.focus();
-  }, [currentChannelId]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,11 +33,13 @@ const MessageForm = () => {
         username,
       });
       setMessageText('');
-      inputRef.current?.focus();
     } catch (err) {
       console.error('Failed to send message:', err);
     } finally {
       setIsSending(false);
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 0);
     }
   };
 
@@ -57,16 +59,14 @@ const MessageForm = () => {
             ref={inputRef}
             value={messageText}
             onChange={(e) => setMessageText(e.target.value)}
+            disabled={isSending}
           />
           <Button
             type="submit"
             variant="group-vertical"
             disabled={!messageText.trim() || isSending}
           >
-            <img src={SendIcon} alt={isSending ? t('chat.sending') : t('chat.send')} />
-            <span className="visually-hidden">
-              {isSending ? t('chat.sending') : t('chat.send')}
-            </span>
+            <img src={SendIcon} alt="send a message button" />
           </Button>
         </InputGroup>
       </Form>
